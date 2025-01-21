@@ -24,6 +24,9 @@
 	<script>
 		window.addEventListener('DOMContentLoaded', ()=>{
 			const d_id_signin=[...document.querySelectorAll('.d_id_signin')];
+			d_id_signin_elm=document.createElement('p');
+			d_id_signin_elm.innerText=e.dataset.text;
+			d_id_signin_elm.style.paddingLeft='100px';
 			d_id_signin.map((e)=>{
 				console.debug(e);
 				e.style.height='64px';
