@@ -22,7 +22,8 @@
 		init_setHeaderText();
 	</script>
 	<script>
-		Array.from( document.querySelectorAll('.d_id_signin') ).map((e)=>{
+		const d_id_signin=[...document.querySelectorAll('.d_id_signin')];
+		d_id_signin.map((e)=>{
 			console.debug(e);
 			e.style.height='64px';
 			e.style.backgroundImage='url(discord-icon.png)';
