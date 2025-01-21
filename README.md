@@ -19,6 +19,8 @@
 ## Refs
 
 - [Discord公式リファレンス](https://discord.com/developers/docs/topics/oauth2)
+- [Developer Console](https://discord.com/developers/applications)
+- [「DiscordのIDでログイン」を実装する(Oauth2)](https://qiita.com/masayoshi4649/items/46fdb744cb8255f5eb98)
 
 ## Setup(memo)
 
