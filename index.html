@@ -21,6 +21,14 @@
 		init_setFavicon();
 		init_setHeaderText();
 	</script>
+	<script>
+		Array.from( document.querySelectorAll('.d_id_signin') ).map((e)=>{
+			console.debug(e);
+			e.style.height='64px';
+			e.style.backgroundImage='url(discord-icon.png)';
+			e.style.backgroundRepeat='no-repeat';
+		});
+	</script>
 </head>
 <body>
 	<div class="d_id_signin" data-theme="dark" data-text="signin_with_discord" data-size="large" data-logo_alignment="left"></div>
