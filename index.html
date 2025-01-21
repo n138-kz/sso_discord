@@ -32,7 +32,7 @@
 			d_id_signin_elm.innerText=document.querySelector('#d_id_onload').dataset.text;
 			d_id_signin_elm.style.paddingLeft='100px';
 			d_id_signin_elm.style.cursor='pointer';
-			d_id_signin_elm.setattribute('onclick', 'location.href="https://discord.com/oauth2/authorize?client_id='+d_id_signin_attr.client_id+'&response_type=code&redirect_uri='+d_id_signin_attr.login_uri+'&scope=identify+email"');
+			d_id_signin_elm.setAttribute('onclick', 'location.href="https://discord.com/oauth2/authorize?client_id='+d_id_signin_attr.client_id+'&response_type=code&redirect_uri='+d_id_signin_attr.login_uri+'&scope=identify+email"');
 			d_id_signin.map((e)=>{
 				console.debug(e);
 				e.style.height='64px';
