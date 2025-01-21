@@ -42,7 +42,7 @@
 			localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.'+'googleauthn', JSON.stringify(discodeUser) );
 			sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + '.'+'googleauthn', JSON.stringify(discodeUser) );
 
-			const url_apiserver = 'https://api.n138.jp/sso_google/server/';
+			const url_apiserver = 'https://api.n138.jp/sso_discord/server/';
 			const myHeaders = new Headers();
 			myHeaders.append('X-TOKEN', discodeUser.credential);
 			try {
