@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>SSO-Google</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="referrer" content="no-referer" />
+	<link rel="stylesheet" href="https://n138-kz.github.io/lib/master.css?t=0">
+	<style>
+		/* Basic theme */
+		body {
+			margin: 0 auto;
+			width: 90%;
+			padding-bottom: 100px;
+		}
+	</style>
+	<script src="initjs.js"></script>
+	<script>
+		init_setTopMaker();
+		init_setFavicon();
+		init_setHeaderText();
+	</script>
+</head>
+<body>
+	<div class="d_id_signin" data-theme="dark" data-text="signin_with_discord" data-size="large" data-logo_alignment="left"></div>
+	<div id="d_id_onload" data-callback="onlogin"></div>
+	<div>
+		token: <input readonly type="text" id="result01" class="set-mosaic" onclick="this.select();navigator.clipboard.writeText(this.value).then((e)=>{console.debug('clipboard successfully set',e);}, (e)=>{console.error('Failed the copy text.',e);});" style="max-width: 500px;width: 95%;">
+	</div>
+	<script>
+		document.querySelector('#d_id_onload').dataset.login_uri = location.href;
+		document.querySelector('#d_id_onload').dataset.client_id = '784669840257-i0a06p3o6g8k0k1tk26jj09li1q2acud.apps.googleusercontent.com';
+	</script>
+	<script>
+		async function onlogin(googleUser) {
+			googleUser['recv_time']=Math.trunc(new Date().getTime()/10**3);
+			console.log(googleUser);
+			document.querySelector('#result01').value=googleUser.credential;
+			localStorage.setItem( '_' + '.'+'googleauthn', JSON.stringify(googleUser) );
+			localStorage.setItem( '_' + '.'+'authn', JSON.stringify(googleUser) );
+			localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.'+'googleauthn', JSON.stringify(googleUser) );
+			sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + '.'+'googleauthn', JSON.stringify(googleUser) );
+
+			const url_apiserver = 'https://api.n138.jp/sso_google/server/';
+			const myHeaders = new Headers();
+			myHeaders.append('X-TOKEN', googleUser.credential);
+			try {
+				const response = await fetch(url_apiserver, {
+					headers: myHeaders,
+					mode: 'cors',
+				});
+				if (!response.ok) {
+					throw new Error(`レスポンスステータス: ${response.status}`);
+				}
+				const json = await response.json();
+				console.log(json);
+			} catch (error) {
+				console.error(error.message);
+				console.trace(error);
+			}
+		}
+	</script>
+</body>
