@@ -1,0 +1,19 @@
+# Backup files
+Backup/
+backup/
+*.bak*
+
+# Temporary files
+*.tmp
+*.dat
+
+# Shortcut link files
+*.lnk
+*.url
+
+# Builded files
+Build/
+build/
+*.exe
+*.msi
+*.jar
