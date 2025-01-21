@@ -51,7 +51,7 @@
 		token: <input readonly type="text" id="result01" class="set-mosaic" onclick="this.select();navigator.clipboard.writeText(this.value).then((e)=>{console.debug('clipboard successfully set',e);}, (e)=>{console.error('Failed the copy text.',e);});" style="max-width: 500px;width: 95%;">
 	</div>
 	<script>
-		document.querySelector('#d_id_onload').dataset.login_uri = location.href;
+		document.querySelector('#d_id_onload').dataset.login_uri = location.origin + location.pathname;
 		document.querySelector('#d_id_onload').dataset.client_id = '1331215597119340585';
 	</script>
 	<script>
