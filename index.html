@@ -43,6 +43,16 @@
 				e.appendChild(d_id_signin_elm);
 			});
 		});
+		window.addEventListener('DOMContentLoaded', ()=>{
+			const query=(decodeURI(location.search)+'&').replace(/^\?/,'').split('&');
+			let queries=[];
+			for (let i=0; i<query.length; i++) {
+				if(query[i].length>0){
+					queries=query.slice(i,1);
+					console.log(i);
+				}
+			}
+		});
 	</script>
 </head>
 <body>
