@@ -65,6 +65,10 @@
 		});
 		window.addEventListener('DOMContentLoaded', ()=>{
 			console.log(get_GETarray((decodeURI(location.search)+'&').replace(/^\?/,'')));
+			let query=get_GETarray((decodeURI(location.search)+'&').replace(/^\?/,''));
+			if(query !== undefined){
+				document.querySelector('#result01').value=get_GETarray((decodeURI(location.search)+'&').replace(/^\?/,'')).code;
+			}
 		});
 	</script>
 </head>
