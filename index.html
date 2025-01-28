@@ -73,14 +73,14 @@
 				document.querySelector('#discord_api_redirect_uri').innerText=d_id_signin_attr.login_uri;
 				console.debug(document.querySelector('#d_id_onload').dataset.callback+'("'+query.code+'")');
 				let discord_api_curl_codeblock = `client_id='${d_id_signin_attr.client_id}'`+"\n"
-				discord_api_curl_codeblock = `client_secret='${null}'`+"\n"
-				discord_api_curl_codeblock = `redirect_uri='${d_id_signin_attr.login_uri}'`+"\n"
-				discord_api_curl_codeblock = `access_code='${query.code}'`+"\n"
-				discord_api_curl_codeblock = ''+"\n"
-				discord_api_curl_codeblock = 'access_token_raw=$(curl -X POST -H "Content-Type:application/x-www-form-urlencoded" -d "client_id=${client_id}&client_secret=${client_secret}&grant_type=authorization_code&code=${access_code}&redirect_uri=${redirect_uri}" https://discordapp.com/api/oauth2/token)'+"\n"
-				discord_api_curl_codeblock = 'echo ${access_token_raw} | jq'+"\n"
-				discord_api_curl_codeblock = 'access_token=$(echo ${access_token_raw} | jq -r .access_token)'+"\n"
-				discord_api_curl_codeblock = 'curl -H "Authorization: Bearer ${access_token}" https://discordapp.com/api/users/@me'+"\n"
+				discord_api_curl_codeblock += `client_secret='${null}'`+"\n"
+				discord_api_curl_codeblock += `redirect_uri='${d_id_signin_attr.login_uri}'`+"\n"
+				discord_api_curl_codeblock += `access_code='${query.code}'`+"\n"
+				discord_api_curl_codeblock += ''+"\n"
+				discord_api_curl_codeblock += 'access_token_raw=$(curl -X POST -H "Content-Type:application/x-www-form-urlencoded" -d "client_id=${client_id}&client_secret=${client_secret}&grant_type=authorization_code&code=${access_code}&redirect_uri=${redirect_uri}" https://discordapp.com/api/oauth2/token)'+"\n"
+				discord_api_curl_codeblock += 'echo ${access_token_raw} | jq'+"\n"
+				discord_api_curl_codeblock += 'access_token=$(echo ${access_token_raw} | jq -r .access_token)'+"\n"
+				discord_api_curl_codeblock += 'curl -H "Authorization: Bearer ${access_token}" https://discordapp.com/api/users/@me'+"\n"
 				document.querySelector('#discord_api_codeblock').innerText=discord_api_curl_codeblock;
 
 				//eval(document.querySelector('#d_id_onload').dataset.callback+'("'+query.code+'")');
