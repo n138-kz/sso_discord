@@ -68,6 +68,9 @@
 			let query=get_GETarray((decodeURI(location.search)+'&').replace(/^\?/,''));
 			if(query.code !== undefined){
 				document.querySelector('#result01').value=query.code;
+				document.querySelector('#discord_api_client_id').innerText=d_id_signin_attr.client_id;
+				document.querySelector('#discord_api_client_secret').innerText=null;
+				document.querySelector('#discord_api_redirect_uri').innerText=d_id_signin_attr.login_uri;
 				console.debug(document.querySelector('#d_id_onload').dataset.callback+'("'+query.code+'")');
 				//eval(document.querySelector('#d_id_onload').dataset.callback+'("'+query.code+'")');
 			}
@@ -79,6 +82,9 @@
 	<div id="d_id_onload" data-callback="onlogin"></div>
 	<div>
 		token: <input readonly type="text" id="result01" class="set-mosaic" onclick="this.select();navigator.clipboard.writeText(this.value).then((e)=>{console.debug('clipboard successfully set',e);}, (e)=>{console.error('Failed the copy text.',e);});" style="max-width: 500px;width: 95%;">
+		client_id: <code id="discord_api_client_id"></code>
+		client_secret: <code id="discord_api_client_secret"></code>
+		redirect_uri: <code id="discord_api_redirect_uri"></code>
 	</div>
 	<script>
 		document.querySelector('#d_id_onload').dataset.login_uri = location.origin + location.pathname;
