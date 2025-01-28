@@ -48,10 +48,13 @@
 			let queries=[];
 			for (let i=0; i<URL_QUERY.length; i++) {
 				if(URL_QUERY[i].length>0){
-					queries.push(URL_QUERY[i]);
+					if(URL_QUERY[i].indexOf('=')>0){
+						queries.push(URL_QUERY[i].split('='));
+					} else {
+						queries.push([URL_QUERY[i],null]);
+					}
 				}
 			}
-
 		});
 	</script>
 </head>
