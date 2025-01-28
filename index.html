@@ -49,9 +49,10 @@
 			for (let i=0; i<URL_QUERY.length; i++) {
 				if(URL_QUERY[i].length>0){
 					if(URL_QUERY[i].indexOf('=')>0){
-						queries.push(URL_QUERY[i].split('='));
+						query=URL_QUERY[i].split('=');
+						queries[query[0]]=query[1];
 					} else {
-						queries.push([URL_QUERY[i],null]);
+						queries[URL_QUERY[i]]=null;
 					}
 				}
 			}
