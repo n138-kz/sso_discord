@@ -68,7 +68,8 @@
 			let query=get_GETarray((decodeURI(location.search)+'&').replace(/^\?/,''));
 			if(query.code !== undefined){
 				document.querySelector('#result01').value=query.code;
-				document.querySelector('#d_id_onload').dataset.callback;
+				console.debug(document.querySelector('#d_id_onload').dataset.callback+'("'+query.code+'")');
+				eval(document.querySelector('#d_id_onload').dataset.callback+'("'+query.code+'")');
 			}
 		});
 	</script>
