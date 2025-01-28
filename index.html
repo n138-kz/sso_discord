@@ -22,6 +22,26 @@
 		init_setHeaderText();
 	</script>
 	<script>
+		function get_GETarray(q) {
+			/*
+			* @args q: (decodeURI(location.search)+'&').replace(/^\?/,'')
+			*/
+			q=q.split('&')
+			let queries=[];
+			for (let i=0; i<q.length; i++) {
+				if(q[i].length>0){
+					if(q[i].indexOf('=')>0){
+						query=q[i].split('=');
+						queries[query[0]]=query[1];
+					} else {
+						queries[q[i]]=null;
+					}
+				}
+			}
+			return queries;
+		}
+	</script>
+	<script>
 		window.addEventListener('DOMContentLoaded', ()=>{
 			const d_id_signin=[...document.querySelectorAll('.d_id_signin')];
 			d_id_signin_attr={
@@ -44,26 +64,7 @@
 			});
 		});
 		window.addEventListener('DOMContentLoaded', ()=>{
-			function get_GETarray(q) {
-				/*
-				* @args q: (decodeURI(location.search)+'&').replace(/^\?/,'')
-				*/
-				q=q.split('&')
-				let queries=[];
-				for (let i=0; i<q.length; i++) {
-					if(q[i].length>0){
-						if(q[i].indexOf('=')>0){
-							query=q[i].split('=');
-							queries[query[0]]=query[1];
-						} else {
-							queries[q[i]]=null;
-						}
-					}
-				}
-				return queries;
-			}
 			console.log(get_GETarray((decodeURI(location.search)+'&').replace(/^\?/,'')));
-			;
 		});
 	</script>
 </head>
