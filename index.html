@@ -44,13 +44,14 @@
 			});
 		});
 		window.addEventListener('DOMContentLoaded', ()=>{
-			const query=(decodeURI(location.search)+'&').replace(/^\?/,'').split('&');
+			const URL_QUERY=(decodeURI(location.search)+'&').replace(/^\?/,'').split('&');
 			let queries=[];
-			for (let i=0; i<query.length; i++) {
-				if(query[i].length>0){
-					queries.push(query[i]);
+			for (let i=0; i<URL_QUERY.length; i++) {
+				if(URL_QUERY[i].length>0){
+					queries.push(URL_QUERY[i]);
 				}
 			}
+
 		});
 	</script>
 </head>
