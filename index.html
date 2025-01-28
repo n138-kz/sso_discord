@@ -66,7 +66,7 @@
 		window.addEventListener('DOMContentLoaded', ()=>{
 			console.log(get_GETarray((decodeURI(location.search)+'&').replace(/^\?/,'')));
 			let query=get_GETarray((decodeURI(location.search)+'&').replace(/^\?/,''));
-			if(query !== undefined){
+			if(query.code !== undefined){
 				document.querySelector('#result01').value=query.code;
 			}
 		});
