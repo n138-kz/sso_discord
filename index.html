@@ -48,8 +48,7 @@
 			let queries=[];
 			for (let i=0; i<query.length; i++) {
 				if(query[i].length>0){
-					queries=query.slice(i,1);
-					console.log(i);
+					queries.push(query[i]);
 				}
 			}
 		});
