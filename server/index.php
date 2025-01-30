@@ -21,6 +21,7 @@ $config = [
 			'client_id' => 0,
 			'client_secret' => 'Follow the https://discord.com/developers/applications, then set appropriate value.',
 			'redirect_uri' => 'https://example.org/',
+			'admin_users' => [],
 		],
 	],
 ];
@@ -56,6 +57,9 @@ if(!isset($config['external']['discord']['redirect_uri'])){
 	http_response_code(500);
 	error_log('Config load failed: No such item: /external/discord/redirect_uri');
 	exit(1);
+}
+if(!isset($config['external']['discord']['admin_users'])){
+	$config['external']['discord']['admin_users']=[];
 }
 define('CLIENT_ID', $config['external']['discord']['client_id']);
 define('CLIENT_SECRET', $config['external']['discord']['client_secret']);
@@ -120,4 +124,7 @@ $curl_res=curl_exec($curl_req);
 $curl_res=json_decode($curl_res, TRUE);
 $result['result'][] = $curl_res;
 
-echo json_encode($result);
+if (array_search($curl_res['id'], $config['external']['discord']['admin_users'])) {
+	echo json_encode($result);
+}
+echo json_encode($result['result']);
