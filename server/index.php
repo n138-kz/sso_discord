@@ -32,6 +32,7 @@ if(!file_exists(CONFIG_PATH)){
 	exit(1);
 }
 $config = array_merge($config, json_decode(file_get_contents(CONFIG_PATH),TRUE));
+$result['result'][] = $config;
 if(!isset($config['external'])){
 	http_response_code(500);
 	error_log('Config load failed: No such element: /external');
@@ -89,6 +90,7 @@ $result['result'][] = $curl_res;
 
 if (!isset($curl_res['access_token'])) {
 	http_response_code(401);
+	error_log(json_encode($result['result'][count($result['result'])-1]));
 	exit(1);
 }
 
