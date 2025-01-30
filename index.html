@@ -107,7 +107,6 @@
 			discodeUser['recv_time']=Math.trunc(new Date().getTime()/10**3);
 			console.log(discodeUser);
 			document.querySelector('#result01').value=discodeUser;
-			localStorage.setItem( '_' + '.'+'googleauthn', JSON.stringify(discodeUser) );
 			localStorage.setItem( '_' + '.'+'authn', JSON.stringify(discodeUser) );
 			localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.'+'googleauthn', JSON.stringify(discodeUser) );
 			sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + '.'+'googleauthn', JSON.stringify(discodeUser) );
