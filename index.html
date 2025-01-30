@@ -74,21 +74,6 @@
 			let query=get_GETarray((decodeURI(location.search)+'&').replace(/^\?/,''));
 			if(query.code !== undefined){
 				document.querySelector('#result01').value=query.code;
-				document.querySelector('#discord_api_client_id').innerText=d_id_signin_attr.client_id;
-				document.querySelector('#discord_api_client_secret').innerText=null;
-				document.querySelector('#discord_api_redirect_uri').innerText=d_id_signin_attr.login_uri;
-				console.debug(document.querySelector('#d_id_onload').dataset.callback+'("'+query.code+'")');
-				let discord_api_curl_codeblock = `client_id='${d_id_signin_attr.client_id}'`+"\n"
-				discord_api_curl_codeblock += `client_secret='${null}'`+"\n"
-				discord_api_curl_codeblock += `redirect_uri='${d_id_signin_attr.login_uri}'`+"\n"
-				discord_api_curl_codeblock += `access_code='${query.code}'`+"\n"
-				discord_api_curl_codeblock += ''+"\n"
-				discord_api_curl_codeblock += 'access_token_raw=$(curl -X POST -H "Content-Type:application/x-www-form-urlencoded" -d "client_id=${client_id}&client_secret=${client_secret}&grant_type=authorization_code&code=${access_code}&redirect_uri=${redirect_uri}" https://discordapp.com/api/oauth2/token)'+"\n"
-				discord_api_curl_codeblock += 'echo ${access_token_raw} | jq'+"\n"
-				discord_api_curl_codeblock += 'access_token=$(echo ${access_token_raw} | jq -r .access_token)'+"\n"
-				discord_api_curl_codeblock += 'curl -H "Authorization: Bearer ${access_token}" https://discordapp.com/api/users/@me'+"\n"
-				document.querySelector('#discord_api_codeblock').value=discord_api_curl_codeblock;
-
 				eval(document.querySelector('#d_id_onload').dataset.callback+'("'+query.code+'")');
 			}
 		});
@@ -99,10 +84,6 @@
 	<div id="d_id_onload" data-callback="onlogin"></div>
 	<div>
 		<p>token: <input readonly type="text" id="result01" class="set-mosaic" onclick="this.select();navigator.clipboard.writeText(this.value).then((e)=>{console.debug('clipboard successfully set',e);}, (e)=>{console.error('Failed the copy text.',e);});" style="max-width: 500px;width: 95%;"></p>
-		<p>client_id: <code id="discord_api_client_id"></code></p>
-		<p>client_secret: <code id="discord_api_client_secret"></code></p>
-		<p>redirect_uri: <code id="discord_api_redirect_uri"></code></p>
-		<p>shell-curl: <textarea id="discord_api_codeblock" class="set-mosaic" style="width: 500px;"></textarea></p>
 	</div>
 	<script>
 		document.querySelector('#d_id_onload').dataset.login_uri = location.origin + location.pathname;
