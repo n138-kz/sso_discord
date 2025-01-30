@@ -10,4 +10,9 @@ header('Access-Control-Expose-Headers: *');
 header('Server: Hidden');
 header('X-Powered-By: Hidden');
 
-echo json_encode($_REQUEST);
+$result=[
+	'_request'=>$_REQUEST,
+	'_server'=> $_SERVER,
+];
+
+echo json_encode($result);
