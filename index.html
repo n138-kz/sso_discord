@@ -115,6 +115,7 @@
 					access_token: json.access_token,
 					id: json.id,
 					issued_at: Math.trunc(new Date().getTime()/10**3),
+					issued_by: 'https://discordapp.com/api/oauth2/token',
 				})
 				localStorage.setItem( '_' + '.'+'discordauthn', storeCredential );
 				localStorage.setItem( '_' + '.'+'authn', storeCredential );
