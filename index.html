@@ -116,6 +116,7 @@
 			const myHeaders = new Headers();
 			myHeaders.append('X-TOKEN', discodeUser);
 			myHeaders.append('Access-Control-Allow-Origin', 'X-TOKEN');
+			myHeaders.append('Origin', location.origin);
 			try {
 				const response = await fetch(url_apiserver, {
 					headers: myHeaders,
