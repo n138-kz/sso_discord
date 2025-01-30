@@ -107,7 +107,7 @@
 					mode: 'cors',
 				});
 				if (!response.ok) {
-					throw new Error(`レスポンスステータス: ${response.status}`);
+					throw new Error(`Error: [${response.status}] ${response.statusText}`);
 				}
 				const json = await response.json();
 				console.debug(json);
