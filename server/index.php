@@ -23,5 +23,6 @@ $config = [
 		],
 	],
 ];
+define('CONFIG_PATH', realpath(__DIR__.'/../.secret/config.json'));
 
 echo json_encode($result);
