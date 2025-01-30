@@ -78,4 +78,6 @@ curl_setopt($curl_req,CURLOPT_POSTFIELDS, $api['payload']);
 $curl_res=curl_exec($curl_req);
 $curl_res=json_decode($curl_res, TRUE);
 
+define('ACCESS_TOKEN', $curl_res['access_token']);
+
 echo json_encode($result);
