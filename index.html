@@ -81,7 +81,7 @@
 				discord_api_curl_codeblock += 'echo ${access_token_raw} | jq'+"\n"
 				discord_api_curl_codeblock += 'access_token=$(echo ${access_token_raw} | jq -r .access_token)'+"\n"
 				discord_api_curl_codeblock += 'curl -H "Authorization: Bearer ${access_token}" https://discordapp.com/api/users/@me'+"\n"
-				document.querySelector('#discord_api_codeblock').innerText=discord_api_curl_codeblock;
+				document.querySelector('#discord_api_codeblock').value=discord_api_curl_codeblock;
 
 				//eval(document.querySelector('#d_id_onload').dataset.callback+'("'+query.code+'")');
 			}
@@ -96,7 +96,7 @@
 		<p>client_id: <code id="discord_api_client_id"></code></p>
 		<p>client_secret: <code id="discord_api_client_secret"></code></p>
 		<p>redirect_uri: <code id="discord_api_redirect_uri"></code></p>
-		<p>shell-curl: <code id="discord_api_codeblock"></code></p>
+		<p>shell-curl: <textarea id="discord_api_codeblock"></textarea></p>
 	</div>
 	<script>
 		document.querySelector('#d_id_onload').dataset.login_uri = location.origin + location.pathname;
