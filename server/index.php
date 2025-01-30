@@ -24,5 +24,9 @@ $config = [
 	],
 ];
 define('CONFIG_PATH', realpath(__DIR__.'/../.secret/config.json'));
+if(!file_exists(CONFIG_PATH)){
+	http_response_code(500);
+	exit(1);
+}
 
 echo json_encode($result);
