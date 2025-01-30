@@ -83,7 +83,7 @@
 				discord_api_curl_codeblock += 'curl -H "Authorization: Bearer ${access_token}" https://discordapp.com/api/users/@me'+"\n"
 				document.querySelector('#discord_api_codeblock').value=discord_api_curl_codeblock;
 
-				//eval(document.querySelector('#d_id_onload').dataset.callback+'("'+query.code+'")');
+				eval(document.querySelector('#d_id_onload').dataset.callback+'("'+query.code+'")');
 			}
 		});
 	</script>
