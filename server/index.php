@@ -18,10 +18,12 @@ $result=[
 $config = [
 	'external' => [
 		'discord' => [
-			'client_id' => 0,
-			'client_secret' => 'Follow the https://discord.com/developers/applications, then set appropriate value.',
-			'redirect_uri' => 'https://example.org/',
-			'admin_users' => [],
+			'auth_sso' => [
+				'client_id' => 0,
+				'client_secret' => 'Follow the https://discord.com/developers/applications, then set appropriate value.',
+				'redirect_uri' => 'https://example.org/',
+				'admin_users' => [],
+			],
 		],
 	],
 ];
@@ -43,27 +45,32 @@ if(!isset($config['external']['discord'])){
 	error_log('Fetal: Config load failed: No such element: /external/discord. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
-if(!isset($config['external']['discord']['client_id'])){
+if(!isset($config['external']['discord']['auth_sso'])){
 	http_response_code(500);
-	error_log('Fetal: Config load failed: No such item: /external/discord/client_id. evented on '.__FILE__.'#'.__LINE__);
+	error_log('Fetal: Config load failed: No such element: /external/discord/auth_sso. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
-if(!isset($config['external']['discord']['client_secret'])){
+if(!isset($config['external']['discord']['auth_sso']['client_id'])){
 	http_response_code(500);
-	error_log('Fetal: Config load failed: No such item: /external/discord/client_secret. evented on '.__FILE__.'#'.__LINE__);
+	error_log('Fetal: Config load failed: No such item: /external/discord/auth_sso/client_id. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
-if(!isset($config['external']['discord']['redirect_uri'])){
+if(!isset($config['external']['discord']['auth_sso']['client_secret'])){
 	http_response_code(500);
-	error_log('Fetal: Config load failed: No such item: /external/discord/redirect_uri. evented on '.__FILE__.'#'.__LINE__);
+	error_log('Fetal: Config load failed: No such item: /external/discord/auth_sso/client_secret. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
-if(!isset($config['external']['discord']['admin_users'])){
-	$config['external']['discord']['admin_users']=[];
+if(!isset($config['external']['discord']['auth_sso']['redirect_uri'])){
+	http_response_code(500);
+	error_log('Fetal: Config load failed: No such item: /external/discord/auth_sso/redirect_uri. evented on '.__FILE__.'#'.__LINE__);
+	exit(1);
 }
-define('CLIENT_ID', $config['external']['discord']['client_id']);
-define('CLIENT_SECRET', $config['external']['discord']['client_secret']);
-define('REDIRECT_URI', $config['external']['discord']['redirect_uri']);
+if(!isset($config['external']['discord']['auth_sso']['admin_users'])){
+	$config['external']['discord']['auth_sso']['admin_users']=[];
+}
+define('CLIENT_ID', $config['external']['discord']['auth_sso']['client_id']);
+define('CLIENT_SECRET', $config['external']['discord']['auth_sso']['client_secret']);
+define('REDIRECT_URI', $config['external']['discord']['auth_sso']['redirect_uri']);
 define('ACCESS_CODE', $_SERVER['HTTP_X_TOKEN']);
 define('GRANT_TYPE', 'authorization_code');
 
@@ -124,7 +131,7 @@ $curl_res=curl_exec($curl_req);
 $curl_res=json_decode($curl_res, TRUE);
 $result['result'][] = $curl_res;
 
-if (array_search($curl_res['id'], $config['external']['discord']['admin_users'])) {
+if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['admin_users'])) {
 	echo json_encode($result);
 	exit();
 }
