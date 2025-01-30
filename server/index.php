@@ -69,5 +69,13 @@ $api = [
 		'redirect_uri' => REDIRECT_URI,
 	]),
 ];
+$curl_req = curl_init($api['base_url']);
+curl_setopt($curl_req,CURLOPT_CUSTOMREQUEST, mb_strtoupper($api['http_method']));
+curl_setopt($curl_req,CURLOPT_RETURNTRANSFER, TRUE);
+curl_setopt($curl_req,CURLOPT_FOLLOWLOCATION, TRUE);
+curl_setopt($curl_req,CURLOPT_HTTPHEADER, $api['headers']);
+curl_setopt($curl_req,CURLOPT_POSTFIELDS, $api['payload']);
+$curl_res=curl_exec($curl_req);
+$curl_res=json_decode($curl_res, TRUE);
 
 echo json_encode($result);
