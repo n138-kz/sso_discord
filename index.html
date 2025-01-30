@@ -142,12 +142,12 @@
 
 				const reloadAt = (new Date().getTime()/10**3)+10;
 				const reloadTimer=document.createElement('span');
-				reloadTimer.innerText='10s';
+				reloadTimer.innerText='Reload at: 10s';
 				reloadTimer.id='reloadTimer';
 				document.querySelector('body').appendChild(reloadTimer);
 				setInterval(()=>{
 					i=Math.round(reloadAt-(new Date().getTime()/10**3));
-					document.querySelector('#reloadTimer').innerText=i+'s';
+					document.querySelector('#reloadTimer').innerText='Reload at: '+i+'s';
 					if(i<=0){
 						location.replace(location.origin + location.pathname);
 					}
