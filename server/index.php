@@ -37,5 +37,17 @@ if(!isset($config['external']['discord'])){
 	http_response_code(500);
 	exit(1);
 }
+if(!isset($config['external']['discord']['client_id'])){
+	http_response_code(500);
+	exit(1);
+}
+if(!isset($config['external']['discord']['client_secret'])){
+	http_response_code(500);
+	exit(1);
+}
+if(!isset($config['external']['discord']['redirect_uri'])){
+	http_response_code(500);
+	exit(1);
+}
 
 echo json_encode($result);
