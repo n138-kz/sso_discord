@@ -84,7 +84,7 @@
 	<div class="d_id_signin" data-theme="dark" data-text="signin_with_discord" data-size="large" data-logo_alignment="left"></div>
 	<div id="d_id_onload" data-callback="onlogin"></div>
 	<div>
-		<p>token: <input readonly type="text" id="d_onetime_token" onclick="this.select();navigator.clipboard.writeText(this.value).then((e)=>{console.debug('clipboard successfully set',e);}, (e)=>{console.error('Failed the copy text.',e);});" style="max-width: 500px;width: 95%;"></p>
+		<p>token: <input readonly type="text" id="d_onetime_token" style="max-width: 500px;width: 95%;" onclick="this.select();navigator.clipboard.writeText(this.value).then((e)=>{console.debug('clipboard successfully set',e);}, (e)=>{console.error('Failed the copy text.',e);});"></p>
 	</div>
 	<script>
 		document.querySelector('#d_id_onload').dataset.login_uri = location.origin + location.pathname;
