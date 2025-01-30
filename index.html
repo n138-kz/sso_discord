@@ -96,8 +96,8 @@
 			document.querySelector('#result01').value=discodeUser;
 			localStorage.setItem( '_' + '.'+'discordauthn', JSON.stringify(discodeUser) );
 			localStorage.setItem( '_' + '.'+'authn', JSON.stringify(discodeUser) );
-			localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.'+'googleauthn', JSON.stringify(discodeUser) );
-			sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + '.'+'googleauthn', JSON.stringify(discodeUser) );
+			localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.'+'discordauthn', JSON.stringify(discodeUser) );
+			sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + '.'+'discordauthn', JSON.stringify(discodeUser) );
 
 			const url_apiserver = 'https://api.n138.jp/sso_discord/server/';
 			const myHeaders = new Headers();
