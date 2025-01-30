@@ -80,4 +80,20 @@ $curl_res=json_decode($curl_res, TRUE);
 
 define('ACCESS_TOKEN', $curl_res['access_token']);
 
+$api = [
+	'base_url' => 'https://discordapp.com/api/users/@me',
+	'http_method' => 'GET',
+	'headers' => [
+		'Content-Type: application/x-www-form-urlencoded',
+		'Authorization: Bearer '.ACCESS_TOKEN,
+	],
+	'payload' => http_build_query([
+		'grant_type' => GRANT_TYPE,
+		'client_id' => CLIENT_ID,
+		'client_secret' => CLIENT_SECRET,
+		'code' => ACCESS_CODE,
+		'redirect_uri' => REDIRECT_URI,
+	]),
+];
+
 echo json_encode($result);
