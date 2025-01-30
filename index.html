@@ -89,6 +89,10 @@
 				<td>token:</td>
 				<td><input readonly type="text" id="d_onetime_token" style="max-width: 500px;width: 95%;" onclick="this.select();navigator.clipboard.writeText(this.value).then((e)=>{console.debug('clipboard successfully set',e);}, (e)=>{console.error('Failed the copy text.',e);});"></td>
 			</tr>
+			<tr>
+				<td>access-code:</td>
+				<td><input readonly type="text" id="d_accesscode" style="max-width: 500px;width: 95%;" onclick="this.select();navigator.clipboard.writeText(this.value).then((e)=>{console.debug('clipboard successfully set',e);}, (e)=>{console.error('Failed the copy text.',e);});"></td>
+			</tr>
 		</table>
 	</div>
 	<script>
@@ -116,6 +120,9 @@
 				}
 				const json = await response.json();
 				console.debug(json);
+
+				document.querySelector('#d_accesscode').value=json.access_token;
+				document.querySelector('#d_accesscode').classList.add('set-mosaic');
 
 				let storeCredential = JSON.stringify({
 					access_token: json.access_token,
