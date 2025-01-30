@@ -125,6 +125,12 @@
 
 				const except=document.createElement('textarea');
 				except.classList.add('set-mosaic');
+				except.id='d_accesscode';
+				except.style.width='95%';
+				except.style.maxWidth='500px';
+				except.style.height='5em';
+				except.style.maxHeight='5em';
+				except.setAttribute('onclick', 'this.select();navigator.clipboard.writeText(this.value).then((e)=>{console.debug("clipboard successfully set",e);}, (e)=>{console.error("Failed the copy text.",e);});');
 				except.value=JSON.stringify(json);
 				document.querySelector('body').appendChild(except);
 			} catch (error) {
