@@ -132,6 +132,9 @@
 				const except=document.createElement('p');
 				except.innerText=error.message;
 				document.querySelector('body').appendChild(except);
+				setTimeout(()=>{
+					location.replace(location.origin + location.pathname);
+				}, 10*1000);
 			}
 		}
 	</script>
