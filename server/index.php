@@ -27,27 +27,33 @@ $config = [
 define('CONFIG_PATH', realpath(__DIR__.'/../.secret/config.json'));
 if(!file_exists(CONFIG_PATH)){
 	http_response_code(500);
+	error_log('Config not found: No such file or directory: '.CONFIG_PATH);
 	exit(1);
 }
 $config = array_merge($config, json_decode(file_get_contents(CONFIG_PATH),TRUE));
 if(!isset($config['external'])){
 	http_response_code(500);
+	error_log('Config load failed: No such element: /external');
 	exit(1);
 }
 if(!isset($config['external']['discord'])){
 	http_response_code(500);
+	error_log('Config load failed: No such element: /external/discord');
 	exit(1);
 }
 if(!isset($config['external']['discord']['client_id'])){
 	http_response_code(500);
+	error_log('Config load failed: No such item: /external/discord/client_id');
 	exit(1);
 }
 if(!isset($config['external']['discord']['client_secret'])){
 	http_response_code(500);
+	error_log('Config load failed: No such item: /external/discord/client_secret');
 	exit(1);
 }
 if(!isset($config['external']['discord']['redirect_uri'])){
 	http_response_code(500);
+	error_log('Config load failed: No such item: /external/discord/redirect_uri');
 	exit(1);
 }
 define('CLIENT_ID', $config['external']['discord']['client_id']);
