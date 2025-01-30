@@ -28,34 +28,34 @@ $config = [
 define('CONFIG_PATH', realpath(__DIR__.'/../.secret/config.json'));
 if(!file_exists(CONFIG_PATH)){
 	http_response_code(500);
-	error_log('Config not found: No such file or directory: '.CONFIG_PATH);
-	error_log('Hint: Make the config: `'.json_encode($config).'`');
+	error_log('Fetal: Config not found: No such file or directory: `'.CONFIG_PATH.'`. evented on '.__FILE__);
+	error_log('Hint: Make the config: `'.json_encode($config).'`. evented on '.__FILE__);
 	exit(1);
 }
 $config = array_merge($config, json_decode(file_get_contents(CONFIG_PATH),TRUE));
 if(!isset($config['external'])){
 	http_response_code(500);
-	error_log('Config load failed: No such element: /external');
+	error_log('Fetal: Config load failed: No such element: /external. evented on '.__FILE__);
 	exit(1);
 }
 if(!isset($config['external']['discord'])){
 	http_response_code(500);
-	error_log('Config load failed: No such element: /external/discord');
+	error_log('Fetal: Config load failed: No such element: /external/discord. evented on '.__FILE__);
 	exit(1);
 }
 if(!isset($config['external']['discord']['client_id'])){
 	http_response_code(500);
-	error_log('Config load failed: No such item: /external/discord/client_id');
+	error_log('Fetal: Config load failed: No such item: /external/discord/client_id. evented on '.__FILE__);
 	exit(1);
 }
 if(!isset($config['external']['discord']['client_secret'])){
 	http_response_code(500);
-	error_log('Config load failed: No such item: /external/discord/client_secret');
+	error_log('Fetal: Config load failed: No such item: /external/discord/client_secret. evented on '.__FILE__);
 	exit(1);
 }
 if(!isset($config['external']['discord']['redirect_uri'])){
 	http_response_code(500);
-	error_log('Config load failed: No such item: /external/discord/redirect_uri');
+	error_log('Fetal: Config load failed: No such item: /external/discord/redirect_uri. evented on '.__FILE__);
 	exit(1);
 }
 if(!isset($config['external']['discord']['admin_users'])){
@@ -93,7 +93,7 @@ $result['result'][] = $curl_res;
 
 if (!isset($curl_res['access_token'])) {
 	http_response_code(401);
-	error_log(json_encode($result['result'][count($result['result'])-1]));
+	error_log('Fetal: `'.json_encode($result['result'][count($result['result'])-1]).'` evented on '.__FILE__);
 	exit(1);
 }
 
