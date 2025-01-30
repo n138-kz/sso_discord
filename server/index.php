@@ -52,7 +52,7 @@ if(!isset($config['external']['discord']['redirect_uri'])){
 define('CLIENT_ID', $config['external']['discord']['client_id']);
 define('CLIENT_SECRET', $config['external']['discord']['client_secret']);
 define('REDIRECT_URI', $config['external']['discord']['redirect_uri']);
-define('access_code', $_SERVER['HTTP_X_TOKEN']);
+define('ACCESS_CODE', $_SERVER['HTTP_X_TOKEN']);
 
 
 echo json_encode($result);
