@@ -132,12 +132,12 @@ $curl_res=json_decode($curl_res, TRUE);
 $result['result'][] = $curl_res;
 
 if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['admin_users'])===FALSE){
-	echo json_encode($result['result']);
+	echo json_encode($result['result'][count($result['result'])-1]);
 	exit();
 } else if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['admin_users'])>=0) {
 	echo json_encode($result);
 	exit();
 }
-echo json_encode($result['result']);
+echo json_encode($result['result'][count($result['result'])-1]);
 exit();
 
