@@ -32,7 +32,6 @@ if(!file_exists(CONFIG_PATH)){
 	exit(1);
 }
 $config = array_merge($config, json_decode(file_get_contents(CONFIG_PATH),TRUE));
-$result['result'][] = $config;
 if(!isset($config['external'])){
 	http_response_code(500);
 	error_log('Config load failed: No such element: /external');
