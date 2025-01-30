@@ -22,6 +22,11 @@
 		init_setHeaderText();
 	</script>
 	<script>
+		if (!!location.protocol.match(/https?:/) && location.origin!='https://n138-kz.github.io') {
+			location.replace('https://n138-kz.github.io/sso_discord/');
+		}
+	</script>
+	<script>
 		function get_GETarray(q) {
 			/*
 			* @args q: (decodeURI(location.search)+'&').replace(/^\?/,'')
