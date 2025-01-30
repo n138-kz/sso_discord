@@ -12,6 +12,7 @@ header('X-Powered-By: Hidden');
 $result=[
 	'_request'=>$_REQUEST,
 	'_server'=> $_SERVER,
+	'result' => [],
 ];
 
 $config = [
@@ -77,6 +78,7 @@ curl_setopt($curl_req,CURLOPT_HTTPHEADER, $api['headers']);
 curl_setopt($curl_req,CURLOPT_POSTFIELDS, $api['payload']);
 $curl_res=curl_exec($curl_req);
 $curl_res=json_decode($curl_res, TRUE);
+$result['result'][] = $curl_res;
 
 define('ACCESS_TOKEN', $curl_res['access_token']);
 
@@ -103,5 +105,6 @@ curl_setopt($curl_req,CURLOPT_FOLLOWLOCATION, TRUE);
 curl_setopt($curl_req,CURLOPT_HTTPHEADER, $api['headers']);
 $curl_res=curl_exec($curl_req);
 $curl_res=json_decode($curl_res, TRUE);
+$result['result'][] = $curl_res;
 
 echo json_encode($result);
