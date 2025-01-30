@@ -53,6 +53,7 @@ define('CLIENT_ID', $config['external']['discord']['client_id']);
 define('CLIENT_SECRET', $config['external']['discord']['client_secret']);
 define('REDIRECT_URI', $config['external']['discord']['redirect_uri']);
 define('ACCESS_CODE', $_SERVER['HTTP_X_TOKEN']);
+define('GRANT_TYPE', 'authorization_code');
 
 
 echo json_encode($result);
