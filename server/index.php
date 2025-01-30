@@ -49,5 +49,10 @@ if(!isset($config['external']['discord']['redirect_uri'])){
 	http_response_code(500);
 	exit(1);
 }
+define('CLIENT_ID', $config['external']['discord']['client_id']);
+define('CLIENT_SECRET', $config['external']['discord']['client_secret']);
+define('REDIRECT_URI', $config['external']['discord']['redirect_uri']);
+define('access_code', $_SERVER['HTTP_X_TOKEN']);
+
 
 echo json_encode($result);
