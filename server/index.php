@@ -126,5 +126,6 @@ $result['result'][] = $curl_res;
 
 if (array_search($curl_res['id'], $config['external']['discord']['admin_users'])) {
 	echo json_encode($result);
+	exit();
 }
 echo json_encode($result['result']);
