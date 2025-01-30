@@ -110,11 +110,16 @@
 				}
 				const json = await response.json();
 				console.log(json);
-				
-				localStorage.setItem( '_' + '.'+'discordauthn', JSON.stringify(discodeUser) );
-				localStorage.setItem( '_' + '.'+'authn', JSON.stringify(discodeUser) );
-				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.'+'discordauthn', JSON.stringify(discodeUser) );
-				sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + '.'+'discordauthn', JSON.stringify(discodeUser) );
+
+				let storeCredential = JSON.stringify({
+					access_token: json.access_token,
+					id: json.id,
+					issued_at: Math.trunc(new Date().getTime()/10**3)
+				})
+				localStorage.setItem( '_' + '.'+'discordauthn', storeCredential );
+				localStorage.setItem( '_' + '.'+'authn', storeCredential );
+				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.'+'discordauthn', storeCredential );
+				sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + '.'+'discordauthn', storeCredential );
 
 				const except=document.createElement('textarea');
 				except.classList.add('set-mosaic');
