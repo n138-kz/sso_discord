@@ -28,6 +28,7 @@ define('CONFIG_PATH', realpath(__DIR__.'/../.secret/config.json'));
 if(!file_exists(CONFIG_PATH)){
 	http_response_code(500);
 	error_log('Config not found: No such file or directory: '.CONFIG_PATH);
+	error_log('Hint: Make the config: `'.json_encode($config).'`');
 	exit(1);
 }
 $config = array_merge($config, json_decode(file_get_contents(CONFIG_PATH),TRUE));
