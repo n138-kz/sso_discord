@@ -14,4 +14,14 @@ $result=[
 	'_server'=> $_SERVER,
 ];
 
+$config = [
+	'external' => [
+		'discord' => [
+			'client_id' => 0,
+			'client_secret' => 'Follow the https://discord.com/developers/applications, then set appropriate value.',
+			'redirect_uri' => 'https://example.org/',
+		],
+	],
+];
+
 echo json_encode($result);
