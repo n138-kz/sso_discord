@@ -28,5 +28,14 @@ if(!file_exists(CONFIG_PATH)){
 	http_response_code(500);
 	exit(1);
 }
+$config = array_merge($config, json_decode(file_get_contents(CONFIG_PATH),TRUE));
+if(!isset($config['external'])){
+	http_response_code(500);
+	exit(1);
+}
+if(!isset($config['external']['discord'])){
+	http_response_code(500);
+	exit(1);
+}
 
 echo json_encode($result);
