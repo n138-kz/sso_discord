@@ -114,7 +114,7 @@
 				let storeCredential = JSON.stringify({
 					access_token: json.access_token,
 					id: json.id,
-					issued_at: Math.trunc(new Date().getTime()/10**3)
+					issued_at: Math.trunc(new Date().getTime()/10**3),
 				})
 				localStorage.setItem( '_' + '.'+'discordauthn', storeCredential );
 				localStorage.setItem( '_' + '.'+'authn', storeCredential );
