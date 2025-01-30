@@ -38,3 +38,49 @@
     ```composer
     ```
 1. Fix the `CLIENT_ID` in `server/index.php`
+
+### Shell
+
+|Name|Value|
+|-|-|
+|Client ID|`1331215597119340585`|
+|Client Secret|``|
+|Oauth URL|[OAuth2](https://discord.com/oauth2/authorize?client_id=1331215597119340585&response_type=code&redirect_uri=https%3A%2F%2Fn138-kz.github.io%2Fsso_discord%2F&scope=identify+email)|
+
+```sh
+client_id='1331215597119340585' # Follow the developer console, into bot info
+client_secret='' # Follow the developer console, into bot info
+redirect_uri='https://n138-kz.github.io/sso_discord/' # Follow the developer console, into bot info
+access_code='' # Generate by discord api server after Click OAuth link then auth
+
+access_token_raw=$(curl -X POST -H "Content-Type:application/x-www-form-urlencoded" -d "client_id=${client_id}&client_secret=${client_secret}&grant_type=authorization_code&code=${access_code}&redirect_uri=${redirect_uri}" https://discordapp.com/api/oauth2/token)
+echo ${access_token_raw} | jq
+access_token=$(echo ${access_token_raw} | jq -r .access_token)
+curl -H "Authorization: Bearer ${access_token}" https://discordapp.com/api/users/@me
+```
+
+#### sample output
+
+```json
+{
+  "id": "0000000000000000",
+  "username": "Your_name",
+  "avatar": "00000000000000000000000000000000",
+  "discriminator": "0",
+  "public_flags": 0,
+  "flags": 0,
+  "banner": null,
+  "accent_color": 0000000,
+  "global_name": null,
+  "avatar_decoration_data": null,
+  "banner_color": "#000000",
+  "clan": null,
+  "primary_guild": null,
+  "mfa_enabled": true,
+  "locale": "ja",
+  "premium_type": 0,
+  "email": "your@example.org",
+  "verified": true
+}
+
+```
