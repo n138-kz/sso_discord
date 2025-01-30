@@ -70,7 +70,7 @@
 			});
 		});
 		window.addEventListener('DOMContentLoaded', ()=>{
-			console.log(get_GETarray((decodeURI(location.search)+'&').replace(/^\?/,'')));
+			console.debug(get_GETarray((decodeURI(location.search)+'&').replace(/^\?/,'')));
 			let query=get_GETarray((decodeURI(location.search)+'&').replace(/^\?/,''));
 			if(query.code !== undefined){
 				document.querySelector('#result01').value=query.code;
@@ -92,7 +92,7 @@
 	<script>
 		async function onlogin(discodeUser) {
 			discodeUser['recv_time']=Math.trunc(new Date().getTime()/10**3);
-			console.log(discodeUser);
+			console.debug(discodeUser);
 			document.querySelector('#result01').value=discodeUser;
 
 			const url_apiserver = 'https://api.n138.jp/sso_discord/server/';
@@ -109,7 +109,7 @@
 					throw new Error(`レスポンスステータス: ${response.status}`);
 				}
 				const json = await response.json();
-				console.log(json);
+				console.debug(json);
 
 				let storeCredential = JSON.stringify({
 					access_token: json.access_token,
