@@ -131,8 +131,13 @@ $curl_res=curl_exec($curl_req);
 $curl_res=json_decode($curl_res, TRUE);
 $result['result'][] = $curl_res;
 
-if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['admin_users'])) {
+if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['admin_users'])===FALSE){
+	echo json_encode($result['result']);
+	exit();
+} else if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['admin_users'])>=0) {
 	echo json_encode($result);
 	exit();
 }
 echo json_encode($result['result']);
+exit();
+
