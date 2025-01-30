@@ -55,5 +55,19 @@ define('REDIRECT_URI', $config['external']['discord']['redirect_uri']);
 define('ACCESS_CODE', $_SERVER['HTTP_X_TOKEN']);
 define('GRANT_TYPE', 'authorization_code');
 
+$api = [
+	'base_url' => 'https://discordapp.com/api/oauth2/token',
+	'http_method' => 'POST',
+	'headers' => [
+		'Content-Type: application/x-www-form-urlencoded',
+	],
+	'payload' => http_build_query([
+		'grant_type' => GRANT_TYPE,
+		'client_id' => CLIENT_ID,
+		'client_secret' => CLIENT_SECRET,
+		'code' => ACCESS_CODE,
+		'redirect_uri' => REDIRECT_URI,
+	]),
+];
 
 echo json_encode($result);
