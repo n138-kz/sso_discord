@@ -87,6 +87,11 @@ $curl_res=curl_exec($curl_req);
 $curl_res=json_decode($curl_res, TRUE);
 $result['result'][] = $curl_res;
 
+if (!isset($curl_res['access_token'])) {
+	http_response_code(401);
+	exit(1);
+}
+
 define('ACCESS_TOKEN', $curl_res['access_token']);
 
 $api = [
