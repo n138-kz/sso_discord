@@ -146,7 +146,7 @@
 				reloadTimer.id='reloadTimer';
 				document.querySelector('body').appendChild(reloadTimer);
 				setInterval(()=>{
-					i=reloadAt-(new Date().getTime()/10**3);
+					i=Math.round(reloadAt-(new Date().getTime()/10**3));
 					document.querySelector('#reloadTimer').innerText=i+'s';
 					if(i<=0){
 						location.replace(location.origin + location.pathname);
