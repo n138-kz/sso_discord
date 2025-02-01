@@ -126,7 +126,7 @@ $api = [
 		'Authorization: Bearer '.ACCESS_TOKEN,
 	],
 	'payload' => http_build_query([
-		'grant_type' => GRANT_TYPE,
+		'grant_type' => 'authorization_code',
 		'client_id' => CLIENT_ID,
 		'client_secret' => CLIENT_SECRET,
 		'code' => ACCESS_CODE,
