@@ -177,6 +177,23 @@ $result['result']['token_authorization'][] = $curl_res;
 $result['result']['d_user']['access_token'] = $curl_res['access_token'];
 
 /* End **/
+if($config['external']['discord']['webhook']['notice']['active']){
+	try{
+		require_once('discord-webhook.php');
+		if(!isset($config['external']['discord']['webhook']['notice']['endpoint'])){throw new Exception('Undefined key(/external/discord/webhook/notice/endpoint)');}
+		$webhook=new discord();
+		$webhook->set_endpoint($config['external']['discord']['webhook']['notice']['endpoint']);
+		$webhook->set_value('username', 'Bot-WebHook_'.$result['result']['d_user']['username']);
+		$webhook->set_value('avatar_url', $result['result']['d_user']['avatar_url']);
+		$webhook->set_value('content', '```json'.PHP_EOL.json_encode($result['result']).PHP_EOL.'```');
+		$webhook=$webhook->exec_curl();
+		if($webhook[0]!==null||$webhook[1]!==null){ error_log(json_encode($webhook)); }
+	}catch(\Throwable $e){
+		error_log('Fetal: discord-webhook error: This was caught: '.$e->getMessage());
+	}catch(\Exception $e){
+		error_log('Fetal: discord-webhook error: '.$e->getMessage());
+	}
+}
 echo json_encode($result['result']['d_user']);
 exit();
 
