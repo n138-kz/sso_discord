@@ -50,7 +50,6 @@
 			});
 		});
 		window.addEventListener('DOMContentLoaded', ()=>{
-			console.debug(get_GETarray((decodeURI(location.search)+'&').replace(/^\?/,'')));
 			let query=get_GETarray((decodeURI(location.search)+'&').replace(/^\?/,''));
 			if(query.code !== undefined){
 				document.querySelector('#d_onetime_token').classList.add('set-mosaic');
