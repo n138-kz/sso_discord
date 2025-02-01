@@ -150,5 +150,7 @@ if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['ad
 	/* Admin only item(s) **/
 }
 $result['result'][count($result['result'])-1]['token_credential'] = $result['result'][count($result['result'])-2];
+
+echo json_encode($result['result'][count($result['result'])-1]);
 exit();
 
