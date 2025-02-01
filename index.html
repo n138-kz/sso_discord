@@ -120,7 +120,7 @@
 				except.style.height='5em';
 				except.style.maxHeight='20em';
 				except.setAttribute('onclick', 'this.select();navigator.clipboard.writeText(this.value).then((e)=>{console.debug("clipboard successfully set",e);}, (e)=>{console.error("Failed the copy text.",e);});');
-				except.setAttribute('oncontextmenu','this.classList.toggle("set-mosaic");this.value=JSON.stringify(JSON.parse(this.value),null,"  ");this.style.maxHeight=[...contentdata.matchAll("\n")].length');
+				except.setAttribute('oncontextmenu','this.classList.toggle("set-mosaic");this.value=JSON.stringify(JSON.parse(this.value),null,"  ");this.style.maxHeight=[...contentdata.matchAll("\\n")].length');
 				except.value=JSON.stringify(json);
 				document.querySelector('body').appendChild(except);
 			} catch (error) {
