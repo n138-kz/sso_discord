@@ -147,8 +147,8 @@ $result['result'][count($result['result'])-1]['access_token'] = $result['result'
 
 if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['admin_users'])===FALSE){
 } else if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['admin_users'])>=0) {
-	$result['result'][count($result['result'])-1]['token_credential'] = $result['result'][count($result['result'])-2];
+	/* Admin only item(s) **/
 }
-echo json_encode($result['result'][count($result['result'])-1]);
+$result['result'][count($result['result'])-1]['token_credential'] = $result['result'][count($result['result'])-2];
 exit();
 
