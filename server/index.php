@@ -142,7 +142,6 @@ curl_setopt($curl_req,CURLOPT_HTTPHEADER, $api['headers']);
 $curl_res=curl_exec($curl_req);
 $curl_res=json_decode($curl_res, TRUE);
 $result['result']['d_user'] = $curl_res;
-$result['result']['d_user']['access_token'] = $result['result']['token_authorization']['access_token'];
 
 if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['admin_users'])===FALSE){
 } else if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['admin_users'])>=0) {
