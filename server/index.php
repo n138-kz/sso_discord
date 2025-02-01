@@ -150,6 +150,6 @@ if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['ad
 }
 
 /* End **/
-echo json_encode($result['result'][count($result['result'])-1]);
+echo json_encode($result['result']['d_user']);
 exit();
 
