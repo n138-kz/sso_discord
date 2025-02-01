@@ -25,7 +25,13 @@
 ## Flow
 
 1. [OAuth2](https://discord.com/oauth2/authorize?client_id=1331215597119340585&response_type=code&redirect_uri=https%3A%2F%2Fn138-kz.github.io%2Fsso_discord%2F&scope=identify+email)を突いてもらい、Discord側の認証する
-1. `redirect_url`先のページのURLに付いている`code`を送ってもらう
+2. `redirect_url`先のページのURLに付いている`code`を送ってもらう
+3. `code`を[Discord](#)に送り、`access_code`をもらう
+4. `access_code`を使用してユーザの情報を拾う
+
+> ::information
+> `code`はアクセスコードを貰うためだけのトークン
+> ユーザ情報とかは`access_code`を使用する
 
 ## Setup(memo)
 
