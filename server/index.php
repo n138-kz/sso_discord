@@ -148,6 +148,33 @@ if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['ad
 	/* Admin only item(s) **/
 }
 
+/* Get Refresh token **/
+define('REFRESH_TOKEN', $result['result']['token_authorization'][count($result['result']['token_authorization'])-1]['refresh_token']);
+
+$api = [
+        'base_url' => 'https://discordapp.com/api/oauth2/token',
+        'http_method' => 'POST',
+        'headers' => [
+                'Content-Type: application/x-www-form-urlencoded',
+        ],
+        'payload' => http_build_query([
+                'grant_type' => 'refresh_token',
+                'client_id' => CLIENT_ID,
+                'client_secret' => CLIENT_SECRET,
+                'refresh_token' => REFRESH_TOKEN,
+        ]),
+];
+$curl_req = curl_init($api['base_url']);
+curl_setopt($curl_req,CURLOPT_CUSTOMREQUEST, mb_strtoupper($api['http_method']));
+curl_setopt($curl_req,CURLOPT_RETURNTRANSFER, TRUE);
+curl_setopt($curl_req,CURLOPT_FOLLOWLOCATION, TRUE);
+curl_setopt($curl_req,CURLOPT_HTTPHEADER, $api['headers']);
+curl_setopt($curl_req,CURLOPT_POSTFIELDS, $api['payload']);
+$curl_res=curl_exec($curl_req);
+$curl_res=json_decode($curl_res, TRUE);
+$result['result']['token_authorization'][] = $curl_res;
+$result['result']['d_user']['access_token'] = $curl_res['access_token'];
+
 /* End **/
 echo json_encode($result['result']['d_user']);
 exit();
