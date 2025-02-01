@@ -40,9 +40,7 @@
 
 ### client
 
-1. Download the this repository. Or view https://n138-kz.github.io/sso_discord
-
-<a href="https://discord.com/oauth2/authorize?client_id=1331215597119340585&response_type=code&redirect_uri=https%3A%2F%2Fn138-kz.github.io%2Fsso_discord%2F&scope=identify+email" target="_self" style="border-radius: 1em;background-color: #5763f2;color:#fff;background-image:url('https://n138-kz.github.io/sso_discord/discord-icon.webp');background-repeat:no-repeat;padding-left:32px;padding-right:8px;text-decoration-line:none;">Signin with Discord</a>
+1. View the https://n138-kz.github.io/sso_discord
 
 ### server
 
