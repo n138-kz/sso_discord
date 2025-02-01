@@ -68,6 +68,10 @@ if(!isset($config['external']['discord']['auth_sso']['redirect_uri'])){
 if(!isset($config['external']['discord']['auth_sso']['admin_users'])){
 	$config['external']['discord']['auth_sso']['admin_users']=[];
 }
+if(!isset($_SERVER['HTTP_X_TOKEN'])){
+	http_response_code(400);
+	exit(1);
+}
 define('CLIENT_ID', $config['external']['discord']['auth_sso']['client_id']);
 define('CLIENT_SECRET', $config['external']['discord']['auth_sso']['client_secret']);
 define('REDIRECT_URI', $config['external']['discord']['auth_sso']['redirect_uri']);
