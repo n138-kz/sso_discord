@@ -117,7 +117,7 @@
 				assets.style.height='16px';
 				assets.src=json.avatar_url;
 				assets.alt=`${json.username}(${json.id}/${json.avatar})`;
-				document.querySelector('d_userinfo').after(assets);
+				document.querySelector('#d_userinfo').after(assets);
 			} catch (error) {
 				console.error(error.message);
 				console.trace(error);
