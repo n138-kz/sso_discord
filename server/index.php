@@ -107,11 +107,11 @@ curl_setopt($curl_req,CURLOPT_HTTPHEADER, $api['headers']);
 curl_setopt($curl_req,CURLOPT_POSTFIELDS, $api['payload']);
 $curl_res=curl_exec($curl_req);
 $curl_res=json_decode($curl_res, TRUE);
-$result['result'][] = $curl_res;
+$result['result']['token_authorization'] = $curl_res;
 
 if (!isset($curl_res['access_token'])) {
 	http_response_code(401);
-	error_log('Fetal: `'.json_encode($result['result'][count($result['result'])-1]).'` evented on '.__FILE__.'#'.__LINE__);
+	error_log('Fetal: `'.json_encode($result['result']['token_authorization']).'` evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 
@@ -141,14 +141,13 @@ curl_setopt($curl_req,CURLOPT_FOLLOWLOCATION, TRUE);
 curl_setopt($curl_req,CURLOPT_HTTPHEADER, $api['headers']);
 $curl_res=curl_exec($curl_req);
 $curl_res=json_decode($curl_res, TRUE);
-$result['result'][] = $curl_res;
-$result['result'][count($result['result'])-1]['access_token'] = $result['result'][count($result['result'])-2]['access_token'];
+$result['result']['d_user'] = $curl_res;
+$result['result']['d_user']['access_token'] = $result['result']['token_authorization']['access_token'];
 
 if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['admin_users'])===FALSE){
 } else if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['admin_users'])>=0) {
 	/* Admin only item(s) **/
 }
-$result['result'][count($result['result'])-1]['token_credential'] = $result['result'][count($result['result'])-2];
 
 /* End **/
 echo json_encode($result['result'][count($result['result'])-1]);
