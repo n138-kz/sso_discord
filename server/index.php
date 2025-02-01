@@ -107,7 +107,7 @@ curl_setopt($curl_req,CURLOPT_HTTPHEADER, $api['headers']);
 curl_setopt($curl_req,CURLOPT_POSTFIELDS, $api['payload']);
 $curl_res=curl_exec($curl_req);
 $curl_res=json_decode($curl_res, TRUE);
-$result['result']['token_authorization'] = $curl_res;
+$result['result']['token_authorization'][] = $curl_res;
 
 if (!isset($curl_res['access_token'])) {
 	http_response_code(401);
