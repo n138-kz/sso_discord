@@ -29,7 +29,7 @@
 3. `code`を[Discord](#)に送り、`access_code`をもらう
 4. `access_code`を使用してユーザの情報を拾う
 
-> ::information
+> [!TIP]
 > `code`はアクセスコードを貰うためだけのトークン
 > ユーザ情報とかは`access_code`を使用する
 
