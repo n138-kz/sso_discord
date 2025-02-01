@@ -22,6 +22,11 @@
 - [Developer Console](https://discord.com/developers/applications)
 - [「DiscordのIDでログイン」を実装する(Oauth2)](https://qiita.com/masayoshi4649/items/46fdb744cb8255f5eb98)
 
+## Flow
+
+1. [OAuth2](https://discord.com/oauth2/authorize?client_id=1331215597119340585&response_type=code&redirect_uri=https%3A%2F%2Fn138-kz.github.io%2Fsso_discord%2F&scope=identify+email)を突いてもらい、Discord側の認証する
+1. `redirect_url`先のページのURLに付いている`code`を送ってもらう
+
 ## Setup(memo)
 
 - [client](#client)
@@ -34,10 +39,7 @@
 ### server
 
 1. Download the this repository.
-1. Run php-compose install
-    ```composer
-    ```
-1. Fix the `CLIENT_ID` in `server/index.php`
+1. Fix the `CLIENT_ID`, `CLIENT_SECRET`, `REDIRECT_URL` in `./.secret/config.json` 
 
 ### Shell
 
