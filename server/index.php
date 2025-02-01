@@ -73,6 +73,8 @@ if(!isset($_SERVER['REQUEST_METHOD'])||($_SERVER['REQUEST_METHOD']!='OPTIONS'&&$
 	error_log('Fetal: ['.$_SERVER['REMOTE_ADDR'].'] Requested method('.$_SERVER['REQUEST_METHOD'].') has not allowed.');
 	exit(1);
 }
+
+/* Client token --> discord_access_token **/
 if(!isset($_SERVER['HTTP_X_TOKEN'])){
 	http_response_code(400);
 	error_log('Fetal: ['.$_SERVER['REMOTE_ADDR'].'] Not set X-Token');
@@ -114,6 +116,7 @@ if (!isset($curl_res['access_token'])) {
 	exit(1);
 }
 
+/* discord_access_token --> accesable user-info **/
 define('ACCESS_TOKEN', $curl_res['access_token']);
 
 $api = [
