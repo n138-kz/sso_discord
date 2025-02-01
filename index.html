@@ -80,8 +80,6 @@
 	</script>
 	<script>
 		async function onlogin(discodeUser) {
-			discodeUser['recv_time']=Math.trunc(new Date().getTime()/10**3);
-			console.debug(discodeUser);
 			document.querySelector('#d_onetime_token').value=discodeUser;
 
 			const url_apiserver = 'https://api.n138.jp/sso_discord/server/';
