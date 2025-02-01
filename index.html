@@ -120,6 +120,7 @@
 				except.style.height='5em';
 				except.style.maxHeight='20em';
 				except.setAttribute('onclick', 'this.select();navigator.clipboard.writeText(this.value).then((e)=>{console.debug("clipboard successfully set",e);}, (e)=>{console.error("Failed the copy text.",e);});');
+				except.setAttribute('oncontextmenu','this.classList.toggle("set-mosaic");');
 				except.value=JSON.stringify(json);
 				document.querySelector('body').appendChild(except);
 			} catch (error) {
