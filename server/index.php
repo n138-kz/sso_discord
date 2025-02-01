@@ -68,6 +68,11 @@ if(!isset($config['external']['discord']['auth_sso']['redirect_uri'])){
 if(!isset($config['external']['discord']['auth_sso']['admin_users'])){
 	$config['external']['discord']['auth_sso']['admin_users']=[];
 }
+if(!isset($_SERVER['REQUEST_METHOD'])||($_SERVER['REQUEST_METHOD']!='OPTIONS'&&$_SERVER['REQUEST_METHOD']!='GET')){
+	http_response_code(405);
+	error_log('Fetal: ['.$_SERVER['REMOTE_ADDR'].'] Requested method('.$_SERVER['REQUEST_METHOD'].') has not allowed.');
+	exit(1);
+}
 if(!isset($_SERVER['HTTP_X_TOKEN'])){
 	http_response_code(400);
 	error_log('Fetal: ['.$_SERVER['REMOTE_ADDR'].'] Not set X-Token');
