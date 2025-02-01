@@ -2,6 +2,7 @@
 class discord{
 	public $endpoint;
 	public $postdata;
+	public $postfile;
 	function __construct() {
 		$this->endpoint = 'https://discord.com/api/webhooks/';
 		$this->postdata['content'] = '';
@@ -20,9 +21,19 @@ class discord{
 
 		$this->postdata[$key] = $val;
 	}
+	function set_file($file){
+		$this->postfile=true;
+		$this->set_value('file', $file);
+	}
 	function exec_curl(){
 		$curl_req = curl_init($this->endpoint);
 		curl_setopt($curl_req,CURLOPT_POST,           TRUE);
+		if($this->postfile){
+			$headers=[
+				'Content-Type: multipart/form-data',
+			];
+			curl_setopt($curl_req,CURLOPT_HTTPHEADER, $headers);
+		}
 		curl_setopt($curl_req,CURLOPT_POSTFIELDS,     http_build_query($this->postdata));
 		curl_setopt($curl_req,CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($curl_req,CURLOPT_FOLLOWLOCATION, TRUE); // Locationヘッダを追跡
