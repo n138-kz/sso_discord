@@ -60,8 +60,8 @@
 	</script>
 </head>
 <body>
-	<div id="d_id_onload" data-callback="onlogin"></div>
 	<div class="d_id_signin" data-theme="dark" data-text="Signin with Discord" data-size="large" data-logo_alignment="left"></div>
+	<div id="d_id_onload" data-callback="d_onlogin"></div>
 	<div>
 		<table>
 			<tr>
@@ -79,7 +79,7 @@
 		document.querySelector('#d_id_onload').dataset.client_id = '1331215597119340585';
 	</script>
 	<script>
-		async function onlogin(discodeUser) {
+		async function d_onlogin(discodeUser) {
 			document.querySelector('#d_onetime_token').value=discodeUser;
 
 			const url_apiserver = 'https://api.n138.jp/sso_discord/server/';
