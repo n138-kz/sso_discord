@@ -100,18 +100,18 @@
 				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.'+'discordauthn', storeCredential );
 				sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + '.'+'discordauthn', storeCredential );
 
-				const except=document.createElement('textarea');
-				except.classList.add('set-mosaic');
-				except.id='d_userinfo';
-				except.style.width='95%';
-				except.style.maxWidth='100%';
-				except.style.height='5em';
-				except.style.maxHeight='20em';
-				except.setAttribute('onclick', 'this.select();navigator.clipboard.writeText(this.value).then((e)=>{console.debug("clipboard successfully set",e);}, (e)=>{console.error("Failed the copy text.",e);});');
-				except.setAttribute('oncontextmenu','this.value=JSON.stringify(JSON.parse(this.value),null,"  ");this.style.maxHeight=([...this.value.matchAll("\\n")].length+15)+"em";this.style.height=([...this.value.matchAll("\\n")].length+5)+"em";');
-				except.setAttribute('ondblclick','this.classList.toggle("set-mosaic");');
-				except.value=JSON.stringify(json);
-				document.querySelector('body').appendChild(except);
+				const d_userinfo=document.createElement('textarea');
+				d_userinfo.classList.add('set-mosaic');
+				d_userinfo.id='d_userinfo';
+				d_userinfo.style.width='95%';
+				d_userinfo.style.maxWidth='100%';
+				d_userinfo.style.height='5em';
+				d_userinfo.style.maxHeight='20em';
+				d_userinfo.setAttribute('onclick', 'this.select();navigator.clipboard.writeText(this.value).then((e)=>{console.debug("clipboard successfully set",e);}, (e)=>{console.error("Failed the copy text.",e);});');
+				d_userinfo.setAttribute('oncontextmenu','this.value=JSON.stringify(JSON.parse(this.value),null,"  ");this.style.maxHeight=([...this.value.matchAll("\\n")].length+15)+"em";this.style.height=([...this.value.matchAll("\\n")].length+5)+"em";');
+				d_userinfo.setAttribute('ondblclick','this.classList.toggle("set-mosaic");');
+				d_userinfo.value=JSON.stringify(json);
+				document.querySelector('body').appendChild(d_userinfo);
 			} catch (error) {
 				console.error(error.message);
 				console.trace(error);
