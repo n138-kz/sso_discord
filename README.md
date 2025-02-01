@@ -52,7 +52,7 @@
 |Name|Value|
 |-|-|
 |Client ID|`1331215597119340585`|
-|Client Secret|``|
+|Client Secret|` `|
 |Oauth URL|[OAuth2](https://discord.com/oauth2/authorize?client_id=1331215597119340585&response_type=code&redirect_uri=https%3A%2F%2Fn138-kz.github.io%2Fsso_discord%2F&scope=identify+email)|
 
 ```sh
@@ -78,7 +78,7 @@ curl -H "Authorization: Bearer ${access_token}" https://discordapp.com/api/users
   "public_flags": 0,
   "flags": 0,
   "banner": null,
-  "accent_color": 0000000,
+  "accent_color": null,
   "global_name": null,
   "avatar_decoration_data": null,
   "banner_color": "#000000",
