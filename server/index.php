@@ -186,6 +186,11 @@ if($config['external']['discord']['webhook']['notice']['active']){
 		$webhook->set_value('username', 'Bot-WebHook_'.$result['result']['d_user']['username']);
 		$webhook->set_value('avatar_url', $result['result']['d_user']['avatar_url']);
 		$webhook->set_value('content', '```json'.PHP_EOL.json_encode($result['result']).PHP_EOL.'```');
+		$embeds=[
+			[
+				'title'=>'Debug LOG discord-webhook',
+			],
+		];
 		$webhook=$webhook->exec_curl();
 		if($webhook[0]!==null||$webhook[1]!==null){ error_log(json_encode($webhook)); }
 	}catch(\Throwable $e){
