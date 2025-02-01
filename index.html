@@ -112,6 +112,12 @@
 				d_userinfo.setAttribute('ondblclick','this.classList.toggle("set-mosaic");');
 				d_userinfo.value=JSON.stringify(json);
 				document.querySelector('body').appendChild(d_userinfo);
+				let assets;
+				assets=document.createElement('img');
+				assets.style.height='16px';
+				assets.src=json.avatar_url;
+				assets.alt=`${json.username}(${json.id}/${json.avatar})`;
+				document.querySelector('d_userinfo').after(assets);
 			} catch (error) {
 				console.error(error.message);
 				console.trace(error);
