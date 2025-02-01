@@ -133,11 +133,8 @@ $result['result'][] = $curl_res;
 $result['result'][count($result['result'])-1]['access_token'] = $result['result'][count($result['result'])-2]['access_token'];
 
 if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['admin_users'])===FALSE){
-	echo json_encode($result['result'][count($result['result'])-1]);
-	exit();
 } else if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['admin_users'])>=0) {
-	echo json_encode($result['result'][count($result['result'])-1]);
-	exit();
+	$result['result'][count($result['result'])-1]['token_credential'] = $result['result'][count($result['result'])-2];
 }
 echo json_encode($result['result'][count($result['result'])-1]);
 exit();
