@@ -111,7 +111,7 @@ $result['result']['token_authorization'] = $curl_res;
 
 if (!isset($curl_res['access_token'])) {
 	http_response_code(401);
-	error_log('Fetal: `'.json_encode($result['result']['token_authorization']).'` evented on '.__FILE__.'#'.__LINE__);
+	error_log('Fetal: `'.json_encode($curl_res).'` evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 
