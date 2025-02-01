@@ -34,18 +34,19 @@
 				login_uri:document.querySelector('#d_id_onload').dataset.login_uri,
 				client_id:document.querySelector('#d_id_onload').dataset.client_id,
 			}
-			d_id_signin_elm=document.createElement('p');
-			d_id_signin_elm.style.height='64px';
-			d_id_signin_elm.style.paddingLeft='100px';
-			d_id_signin_elm.style.cursor='pointer';
+			d_id_signin_elm=document.createElement('a');
+			d_id_signin_elm.style.borderRadius='1em';
 			d_id_signin_elm.style.backgroundColor='var(--color-discord-color-fg)';
-			d_id_signin_elm.setAttribute('onclick', 'location.href="https://discord.com/oauth2/authorize?client_id='+d_id_signin_attr.client_id+'&response_type=code&redirect_uri='+d_id_signin_attr.login_uri+'&scope=identify+email"');
+			d_id_signin_elm.style.color='var(--color-discord-color-bg)';
+			d_id_signin_elm.style.backgroundImage='url("discord-icon.png")';
+			d_id_signin_elm.style.backgroundRepeat='no-repeat';
+			d_id_signin_elm.style.paddingLeft='32px';
+			d_id_signin_elm.style.paddingRight='8px';
+			d_id_signin_elm.style.textDecorationLine='none';
 			d_id_signin.map((e)=>{
-				console.debug(e);
 				d_id_signin_elm.innerText=e.dataset.text;
-				e.style.height='64px';
-				e.style.backgroundImage='url(discord-icon.png)';
-				e.style.backgroundRepeat='no-repeat';
+				d_id_signin_elm.target='_self';
+				d_id_signin_elm.href='https://discord.com/oauth2/authorize?client_id='+d_id_signin_attr.client_id+'&response_type=code&redirect_uri='+d_id_signin_attr.login_uri+'&scope=identify+email';
 				e.appendChild(d_id_signin_elm);
 			});
 		});
