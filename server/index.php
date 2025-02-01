@@ -136,7 +136,7 @@ if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['ad
 	echo json_encode($result['result'][count($result['result'])-1]);
 	exit();
 } else if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['admin_users'])>=0) {
-	echo json_encode($result);
+	echo json_encode($result['result'][count($result['result'])-1]);
 	exit();
 }
 echo json_encode($result['result'][count($result['result'])-1]);
