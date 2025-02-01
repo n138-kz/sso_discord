@@ -151,6 +151,7 @@ if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['ad
 }
 $result['result'][count($result['result'])-1]['token_credential'] = $result['result'][count($result['result'])-2];
 
+/* End **/
 echo json_encode($result['result'][count($result['result'])-1]);
 exit();
 
