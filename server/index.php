@@ -84,7 +84,6 @@ define('CLIENT_ID', $config['external']['discord']['auth_sso']['client_id']);
 define('CLIENT_SECRET', $config['external']['discord']['auth_sso']['client_secret']);
 define('REDIRECT_URI', $config['external']['discord']['auth_sso']['redirect_uri']);
 define('ACCESS_CODE', $_SERVER['HTTP_X_TOKEN']);
-define('GRANT_TYPE', 'authorization_code');
 
 $api = [
 	'base_url' => 'https://discordapp.com/api/oauth2/token',
@@ -93,7 +92,7 @@ $api = [
 		'Content-Type: application/x-www-form-urlencoded',
 	],
 	'payload' => http_build_query([
-		'grant_type' => GRANT_TYPE,
+		'grant_type' => 'authorization_code',
 		'client_id' => CLIENT_ID,
 		'client_secret' => CLIENT_SECRET,
 		'code' => ACCESS_CODE,
