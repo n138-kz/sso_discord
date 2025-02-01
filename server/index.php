@@ -70,6 +70,7 @@ if(!isset($config['external']['discord']['auth_sso']['admin_users'])){
 }
 if(!isset($_SERVER['HTTP_X_TOKEN'])){
 	http_response_code(400);
+	error_log('Fetal: ['.$_SERVER['REMOTE_ADDR'].'] Not set X-Token');
 	exit(1);
 }
 define('CLIENT_ID', $config['external']['discord']['auth_sso']['client_id']);
