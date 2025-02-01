@@ -7,6 +7,7 @@ class discord{
 		$this->postdata['content'] = '';
 		$this->postdata['username'] = '';
 		$this->postdata['title'] = '';
+		$this->postdata['avater_url'] = '';
 	}
 	function set_endpoint($endpoint){
 		$this->endpoint=$endpoint;
