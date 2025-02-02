@@ -193,6 +193,23 @@ if($config['external']['discord']['webhook']['notice']['active']){
 		];
 		$webhook=$webhook->exec_curl();
 		if($webhook[0]!==null||$webhook[1]!==null){ error_log(json_encode($webhook)); }
+
+$postdata = [
+	'file' => $tmp,
+	'content' => '```json'.PHP_EOL.json_encode($result['result']).PHP_EOL.'```',
+];
+$curl_req = curl_init();
+curl_setopt($curl_req, CURLOPT_URL, $config['external']['discord']['webhook']['notice']['endpoint']);
+curl_setopt($curl_req, CURLOPT_RETURNTRANSFER,TRUE);
+curl_setopt($curl_req, CURLOPT_HTTPHEADER, ['Content-Type: multipart/form-data',]);
+curl_setopt($curl_req, CURLOPT_POST, TRUE);
+curl_setopt($curl_req, CURLOPT_POSTFIELDS, $postdata);
+$curl_res=curl_exec($curl_req);
+$curl_res=json_decode($curl_res, TRUE);
+$curl_err=curl_error($curl_req);
+$curl_res=($curl_res=='')?null:$curl_res;
+$curl_err=($curl_err=='')?null:$curl_err;
+
 	}catch(\Throwable $e){
 		error_log('Fetal: discord-webhook error: This was caught: '.$e->getMessage());
 	}catch(\Exception $e){
