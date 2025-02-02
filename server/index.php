@@ -186,6 +186,10 @@ if($config['external']['discord']['webhook']['notice']['active']){
 		$webhook->set_value('username', 'Bot-WebHook_'.$result['result']['d_user']['username']);
 		$webhook->set_value('avatar_url', $result['result']['d_user']['avatar_url']);
 		$webhook->set_value('content', '```json'.PHP_EOL.json_encode($result['result']).PHP_EOL.'```');
+		$tmp=tempnam(sys_get_temp_dir(), 'php_'.hash('crc32',time()));
+		file_put_contents($tmp,json_encode($result,JSON_PRETTY_PRINT|JSON_INVALID_UTF8_IGNORE),LOCK_EX);
+		$tmp=new \CURLFile($tmp, 'application/json', 'tmp'.time().'.json');
+		$webhook->set_file($tmp);
 		$embeds=[
 			[
 				'title'=>'Debug LOG discord-webhook',
@@ -193,6 +197,23 @@ if($config['external']['discord']['webhook']['notice']['active']){
 		];
 		$webhook=$webhook->exec_curl();
 		if($webhook[0]!==null||$webhook[1]!==null){ error_log(json_encode($webhook)); }
+
+$postdata = [
+	'file' => $tmp,
+	'content' => '```json'.PHP_EOL.json_encode($result['result']).PHP_EOL.'```',
+];
+$curl_req = curl_init();
+curl_setopt($curl_req, CURLOPT_URL, $config['external']['discord']['webhook']['notice']['endpoint']);
+curl_setopt($curl_req, CURLOPT_RETURNTRANSFER,TRUE);
+curl_setopt($curl_req, CURLOPT_HTTPHEADER, ['Content-Type: multipart/form-data',]);
+curl_setopt($curl_req, CURLOPT_POST, TRUE);
+curl_setopt($curl_req, CURLOPT_POSTFIELDS, $postdata);
+$curl_res=curl_exec($curl_req);
+$curl_res=json_decode($curl_res, TRUE);
+$curl_err=curl_error($curl_req);
+$curl_res=($curl_res=='')?null:$curl_res;
+$curl_err=($curl_err=='')?null:$curl_err;
+
 	}catch(\Throwable $e){
 		error_log('Fetal: discord-webhook error: This was caught: '.$e->getMessage());
 	}catch(\Exception $e){
