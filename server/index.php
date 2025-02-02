@@ -144,10 +144,12 @@ $curl_res=curl_exec($curl_req);
 $curl_res=json_decode($curl_res, TRUE);
 $result['result']['d_user'] = $curl_res;
 $result['result']['d_user']['avatar_url'] = 'https://cdn.discordapp.com/avatars/'.$curl_res['id'].'/'.$curl_res['avatar'];
+$result['result']['d_user']['is_local_admin'] = FALSE;
 
 if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['admin_users'])===FALSE){
 } else if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['admin_users'])>=0) {
 	/* Admin only item(s) **/
+	$result['result']['d_user']['is_local_admin']=TRUE;
 }
 
 /* Get Refresh token **/
