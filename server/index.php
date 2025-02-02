@@ -177,6 +177,7 @@ $result['result']['token_authorization'][] = $curl_res;
 $result['result']['d_user']['access_token'] = $curl_res['access_token'];
 
 /* End **/
+unset($i,$j,$k,$v);
 if($config['external']['discord']['webhook']['notice']['active']){
 	try{
 		require_once('discord-webhook.php');
