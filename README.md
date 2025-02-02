@@ -21,6 +21,38 @@
 - [Discord公式リファレンス](https://discord.com/developers/docs/topics/oauth2)
 - [Developer Console](https://discord.com/developers/applications)
 - [「DiscordのIDでログイン」を実装する(Oauth2)](https://qiita.com/masayoshi4649/items/46fdb744cb8255f5eb98)
+- [PHP、CURLFileでファイルをアップロードする。(multipart/form-data、POST)](https://qiita.com/Pell/items/4ed98c906fd6a580a33f)
+
+<details>
+
+	<summary>PHP、CURLFileでファイルをアップロードする。(multipart/form-data、POST)</summary>
+
+	```php
+	$curl_file = new \CURLFile($_FILES['uploadfile']["tmp_name"], $_FILES['uploadfile']["type"], $_FILES['uploadfile']["name"]);
+	$option = [
+	    'aaa' => 'AAA',
+	    'bbb' => 'BBB',
+	];
+	$option_encode = json_encode($option);
+	$param = [
+	    // $curl_fileと、その他に必要なパラメータがあればここに追加。
+	    'file' => $curl_file,
+	    'pass' => "abcdef",
+	    'option' => $option_encode,
+	];
+	$postdata = $param;
+
+	$ch = curl_init();
+	curl_setopt($ch, CURLOPT_URL, "https://xxx.jp/yyy/zzz.php");
+	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: multipart/form-data"));
+	curl_setopt($ch, CURLOPT_POST, true);
+	curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
+	$result = curl_exec($ch);
+	$result_decode = json_decode($result, true);
+	```
+
+</details>
 
 ## Flow
 

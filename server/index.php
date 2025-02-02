@@ -153,17 +153,17 @@ if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['ad
 define('REFRESH_TOKEN', $result['result']['token_authorization'][count($result['result']['token_authorization'])-1]['refresh_token']);
 
 $api = [
-        'base_url' => 'https://discordapp.com/api/oauth2/token',
-        'http_method' => 'POST',
-        'headers' => [
-                'Content-Type: application/x-www-form-urlencoded',
-        ],
-        'payload' => http_build_query([
-                'grant_type' => 'refresh_token',
-                'client_id' => CLIENT_ID,
-                'client_secret' => CLIENT_SECRET,
-                'refresh_token' => REFRESH_TOKEN,
-        ]),
+	'base_url' => 'https://discordapp.com/api/oauth2/token',
+	'http_method' => 'POST',
+	'headers' => [
+		'Content-Type: application/x-www-form-urlencoded',
+	],
+	'payload' => http_build_query([
+		'grant_type' => 'refresh_token',
+		'client_id' => CLIENT_ID,
+		'client_secret' => CLIENT_SECRET,
+		'refresh_token' => REFRESH_TOKEN,
+	]),
 ];
 $curl_req = curl_init($api['base_url']);
 curl_setopt($curl_req,CURLOPT_CUSTOMREQUEST, mb_strtoupper($api['http_method']));
@@ -186,6 +186,10 @@ if($config['external']['discord']['webhook']['notice']['active']){
 		$webhook->set_value('username', 'Bot-WebHook_'.$result['result']['d_user']['username']);
 		$webhook->set_value('avatar_url', $result['result']['d_user']['avatar_url']);
 		$webhook->set_value('content', '```json'.PHP_EOL.json_encode($result['result']).PHP_EOL.'```');
+		$tmp=tempnam(sys_get_temp_dir(), 'php_'.hash('crc32',time()));
+		file_put_contents($tmp,json_encode($result,JSON_PRETTY_PRINT|JSON_INVALID_UTF8_IGNORE),LOCK_EX);
+		$tmp=new \CURLFile($tmp, 'application/json', 'tmp'.time().'.json');
+		$webhook->set_file($tmp);
 		$embeds=[
 			[
 				'title'=>'Debug LOG discord-webhook',
@@ -193,6 +197,7 @@ if($config['external']['discord']['webhook']['notice']['active']){
 		];
 		$webhook=$webhook->exec_curl();
 		if($webhook[0]!==null||$webhook[1]!==null){ error_log(json_encode($webhook)); }
+
 	}catch(\Throwable $e){
 		error_log('Fetal: discord-webhook error: This was caught: '.$e->getMessage());
 	}catch(\Exception $e){
