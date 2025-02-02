@@ -13,6 +13,7 @@ $result=[
 	'_request'=>$_REQUEST,
 	'_server'=> $_SERVER,
 	'result' => [],
+	'config' => [],
 ];
 
 $config = [
@@ -34,7 +35,7 @@ if(!file_exists(CONFIG_PATH)){
 	error_log('Hint: Make the config: `'.json_encode($config).'`. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
-$config = array_merge($config, json_decode(file_get_contents(CONFIG_PATH),TRUE));
+$result['config'] = $config = array_merge($config, json_decode(file_get_contents(CONFIG_PATH),TRUE));
 if(!isset($config['external'])){
 	http_response_code(500);
 	error_log('Fetal: Config load failed: No such element: /external. evented on '.__FILE__.'#'.__LINE__);
