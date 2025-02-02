@@ -153,17 +153,17 @@ if (array_search($curl_res['id'], $config['external']['discord']['auth_sso']['ad
 define('REFRESH_TOKEN', $result['result']['token_authorization'][count($result['result']['token_authorization'])-1]['refresh_token']);
 
 $api = [
-        'base_url' => 'https://discordapp.com/api/oauth2/token',
-        'http_method' => 'POST',
-        'headers' => [
-                'Content-Type: application/x-www-form-urlencoded',
-        ],
-        'payload' => http_build_query([
-                'grant_type' => 'refresh_token',
-                'client_id' => CLIENT_ID,
-                'client_secret' => CLIENT_SECRET,
-                'refresh_token' => REFRESH_TOKEN,
-        ]),
+	'base_url' => 'https://discordapp.com/api/oauth2/token',
+	'http_method' => 'POST',
+	'headers' => [
+		'Content-Type: application/x-www-form-urlencoded',
+	],
+	'payload' => http_build_query([
+		'grant_type' => 'refresh_token',
+		'client_id' => CLIENT_ID,
+		'client_secret' => CLIENT_SECRET,
+		'refresh_token' => REFRESH_TOKEN,
+	]),
 ];
 $curl_req = curl_init($api['base_url']);
 curl_setopt($curl_req,CURLOPT_CUSTOMREQUEST, mb_strtoupper($api['http_method']));
