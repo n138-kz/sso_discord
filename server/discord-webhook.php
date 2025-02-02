@@ -45,11 +45,12 @@ class discord{
 		$curl_res=curl_exec($curl_req);
 		$curl_res=json_decode($curl_res, TRUE);
 		$curl_err=curl_error($curl_req);
+		$curl_hdr=curl_getinfo($curl_req);
 
 		$curl_res=($curl_res=='')?null:$curl_res;
 		$curl_err=($curl_err=='')?null:$curl_err;
 
-		return [$curl_res,$curl_err];
+		return ['result'=>$curl_res,'errors'=>['code'=>curl_errno($curl_req),'details'=>$curl_err],'response_header'=>$curl_hdr];
 	}
 }
 

@@ -206,7 +206,19 @@ if($config['external']['discord']['webhook']['notice']['active']){
 		];
 		/* $webhook->set_value('embeds', $embeds); **/
 		$webhook=$webhook->exec_curl();
-		if($webhook[0]!==null||$webhook[1]!==null){ error_log(json_encode($webhook)); }
+		if($webhook['errors']['code']!==0){
+			error_log(json_encode($webhook));
+			$webhook=new discord();
+			$webhook->set_endpoint($config['external']['discord']['webhook']['notice']['endpoint']);
+			$webhook->set_value('username', 'Bot-WebHook_'.$result['result']['d_user']['username']);
+			$webhook->set_value('avatar_url', $result['result']['d_user']['avatar_url']);
+			$webhook->set_value('content', 'DEBUG Export:'.PHP_EOL.$webhook['errors']['details']);
+			$tmp=tempnam(sys_get_temp_dir(), 'php_'.hash('crc32',time()));
+			file_put_contents($tmp,json_encode($webhook,JSON_PRETTY_PRINT|JSON_INVALID_UTF8_IGNORE),LOCK_EX);
+			$tmp=new \CURLFile($tmp, 'application/json', 'tmp'.time().'.json');
+			$webhook->set_file($tmp);
+			$webhook=$webhook->exec_curl();
+		}
 
 		if(isset($i)&&is_array($i)){
 			foreach($i as $k => $v){
