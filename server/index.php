@@ -194,8 +194,17 @@ if($config['external']['discord']['webhook']['notice']['active']){
 		$embeds=[
 			[
 				'title'=>'Debug LOG discord-webhook',
+				'color'=>$config['external']['discord']['webhook']['notice']['color'],
+				'fields'=>[
+					[
+						'inline'=>FALSE,
+						'name'=>'',
+						'value'=>'',
+					],
+				],
 			],
 		];
+		/* $webhook->set_value('embeds', $embeds); **/
 		$webhook=$webhook->exec_curl();
 		if($webhook[0]!==null||$webhook[1]!==null){ error_log(json_encode($webhook)); }
 
