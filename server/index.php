@@ -209,6 +209,17 @@ if($config['external']['discord']['webhook']['notice']['active']){
 		];
 		/* $webhook->set_value('embeds', $embeds); **/
 		$webhook=$webhook->exec_curl();
+		$discord_returnmesg=array_search('Must be 2000 or fewer in length.', $webhook['result']['result']['content']);
+		if(isset($webhook['result']['content'])&&is_array($webhook['result']['content'])&&$discord_returnmesg!==FALSE&&$discord_returnmesg>=0){
+			error_log('Discord webhook has response message: '. $webhook['result']['result']['content'][$discord_returnmesg]);
+			$webhook=new discord();
+			$webhook->set_endpoint($config['external']['discord']['webhook']['notice']['endpoint']);
+			$webhook->set_value('username', 'Bot-WebHook');
+			$webhook->set_value('avatar_url', $result['result']['d_user']['avatar_url']);
+			$webhook->set_value('content', $webhook['result']['result']['content'][$discord_returnmesg]);
+			$webhook=$webhook->exec_curl();
+		}
+
 		if($webhook['errors']['code']!==0){
 			error_log(json_encode($webhook));
 			$webhook=new discord();
