@@ -187,7 +187,7 @@ if($config['external']['discord']['webhook']['notice']['active']){
 		if(!isset($config['external']['discord']['webhook']['notice']['endpoint'])){throw new Exception('Undefined key(/external/discord/webhook/notice/endpoint)');}
 		$webhook=new discord();
 		$webhook->set_endpoint($config['external']['discord']['webhook']['notice']['endpoint']);
-		$webhook->set_value('username', 'Bot-WebHook_'.$result['result']['d_user']['username']);
+		$webhook->set_value('username', 'Bot-WebHook');
 		$webhook->set_value('avatar_url', $result['result']['d_user']['avatar_url']);
 		$webhook->set_value('content', '```json'.PHP_EOL.json_encode($result['result']['d_user']).PHP_EOL.'```');
 		$tmp=tempnam(sys_get_temp_dir(), 'php_'.hash('crc32',time()));
@@ -213,7 +213,7 @@ if($config['external']['discord']['webhook']['notice']['active']){
 			error_log(json_encode($webhook));
 			$webhook=new discord();
 			$webhook->set_endpoint($config['external']['discord']['webhook']['notice']['endpoint']);
-			$webhook->set_value('username', 'Bot-WebHook_'.$result['result']['d_user']['username']);
+			$webhook->set_value('username', 'Bot-WebHook');
 			$webhook->set_value('avatar_url', $result['result']['d_user']['avatar_url']);
 			$webhook->set_value('content', 'DEBUG Export:'.PHP_EOL.$webhook['errors']['details']);
 			$tmp=tempnam(sys_get_temp_dir(), 'php_'.hash('crc32',time()));
@@ -227,7 +227,7 @@ if($config['external']['discord']['webhook']['notice']['active']){
 			foreach($i as $k => $v){
 				$webhook=new discord();
 				$webhook->set_endpoint($config['external']['discord']['webhook']['notice']['endpoint']);
-				$webhook->set_value('username', 'Bot-WebHook_'.$result['result']['d_user']['username']);
+				$webhook->set_value('username', 'Bot-WebHook');
 				$webhook->set_value('avatar_url', $result['result']['d_user']['avatar_url']);
 				$webhook->set_value('content', 'DEBUG Export');
 				$tmp=tempnam(sys_get_temp_dir(), 'php_'.hash('crc32',time()));
