@@ -34,7 +34,11 @@ class discord{
 			];
 			curl_setopt($curl_req,CURLOPT_HTTPHEADER, $headers);
 		}
-		curl_setopt($curl_req,CURLOPT_POSTFIELDS,     http_build_query($this->postdata));
+		if($this->postfile){
+			curl_setopt($curl_req,CURLOPT_POSTFIELDS, $this->postdata);
+		} else {
+			curl_setopt($curl_req,CURLOPT_POSTFIELDS, http_build_query($this->postdata));
+		}
 		curl_setopt($curl_req,CURLOPT_RETURNTRANSFER, TRUE);
 		curl_setopt($curl_req,CURLOPT_FOLLOWLOCATION, TRUE); // Locationヘッダを追跡
 
