@@ -126,3 +126,8 @@ curl -H "Authorization: Bearer ${access_token}" https://discordapp.com/api/users
 }
 
 ```
+
+##### User icon
+```http
+GET https://cdn.discordapp.com/avatars/Discord ID/アバターID
+```
