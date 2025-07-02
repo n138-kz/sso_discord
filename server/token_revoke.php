@@ -152,8 +152,9 @@ if($curl_res_info>399 || $curl_res_info<200){
 	http_response_code(401);
 	$result['result']=[
 		'id'=>1,
-		'level'=>'Error',
+		'level'=>result_setLevel(3),
 		'description'=>'Unauthorized('.$curl_res_info.').',
+		'detail'=>'Error: Unauthorized',
 	];
 	error_log($result['result']['level'].': '.$result['result']['description'].' evented on '.__FILE__.'#'.__LINE__);
 	echo json_encode($result['result'],JSON_PRETTY_PRINT|JSON_INVALID_UTF8_IGNORE|JSON_UNESCAPED_UNICODE);
