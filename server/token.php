@@ -116,7 +116,7 @@ for($i=0;$i<count($list);$i++) {
 
 $result['result']=[
 	'id'=>0,
-	'level'=>'Information',
+	'level'=>result_setLevel(6),
 	'description'=>null,
 	'detail'=>null,
 	'oauth2_token'=>[
