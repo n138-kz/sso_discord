@@ -9,6 +9,29 @@ header('Access-Control-Expose-Headers: *');
 header('Server: Hidden');
 header('X-Powered-By: Hidden');
 
+function result_setLevel($level=6) {
+	$level_text='';
+	switch($level){
+		case 0:
+			$level_text='Emerg';break;
+		case 1:
+			$level_text='Alert';break;
+		case 2:
+			$level_text='Crit';break;
+		case 3:
+			$level_text='Error';break;
+		case 4:
+			$level_text='Warning';break;
+		case 5:
+			$level_text='Notice';break;
+		case 6:
+			$level_text='Information';break;
+		case 7:
+			$level_text='Debug';break;
+	}
+	return $level_text.';'.$level;
+}
+
 $result=[
 	'_request'=>[],
 	'_server'=> $_SERVER,
