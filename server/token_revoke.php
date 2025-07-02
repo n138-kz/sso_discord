@@ -118,7 +118,7 @@ $result['result']=[
 	'id'=>0,
 	'level'=>result_setLevel(6),
 	'description'=>null,
-	'detail'=>null,
+	'details'=>json_encode([]),
 ];
 
 # oauth2_token_revoke
@@ -154,7 +154,7 @@ if($curl_res_info>399 || $curl_res_info<200){
 		'id'=>1,
 		'level'=>result_setLevel(3),
 		'description'=>'Unauthorized('.$curl_res_info.').',
-		'detail'=>'Error: Unauthorized',
+		'details'=json_encode(['Error: Unauthorized']),
 	];
 	error_log($result['result']['level'].': '.$result['result']['description'].' evented on '.__FILE__.'#'.__LINE__);
 	echo json_encode($result['result'],JSON_PRETTY_PRINT|JSON_INVALID_UTF8_IGNORE|JSON_UNESCAPED_UNICODE);
@@ -164,6 +164,6 @@ if($curl_res_info>399 || $curl_res_info<200){
 $result['result'] = array_merge($result['result'], [
 	'level'=>result_setLevel(6),
 	'description'=>'Token has revoked',
-	'detail'=>json_encode('Token has revoked. Have a nice day.'),
+	'details'=>json_encode(['Token has revoked. Have a nice day.']),
 ]);
 echo json_encode($result['result'],JSON_PRETTY_PRINT|JSON_INVALID_UTF8_IGNORE|JSON_UNESCAPED_UNICODE);
