@@ -161,4 +161,9 @@ if($curl_res_info>399 || $curl_res_info<200){
 	exit(1);
 }
 
+$result['result'] = array_merge($result['result'], [
+	'level'=>result_setLevel(6),
+	'description'=>'Token has revoked',
+	'detail'=>json_encode('Token has revoked. Have a nice day.'),
+]);
 echo json_encode($result['result'],JSON_PRETTY_PRINT|JSON_INVALID_UTF8_IGNORE|JSON_UNESCAPED_UNICODE);
