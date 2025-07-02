@@ -303,7 +303,7 @@ try {
 		. 'expires_in,'
 		. 'refresh_token,'
 		. 'scope,'
-		. 'token_type,'
+		. 'token_type'
 		. ') VALUES (?,?,?,?,?,?,?);');
 		$pdo_res = $pdo_con->execute([
 			$request['code'],
@@ -344,7 +344,7 @@ try {
 		. 'country_code,'
 		. 'country,'
 		. 'continent_code,'
-		. 'continent,'
+		. 'continent'
 		. ') VALUES (?,?,?,?,?,?,?,?,?);');
 	$pdo_res = $pdo_con->execute([
 		$request['code'],
