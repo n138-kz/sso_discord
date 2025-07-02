@@ -345,6 +345,26 @@ if($curl_res_info>299 || $curl_res_info<200){
 	exit(1);
 }
 
+try {
+	# Update userid access_code ... discord.user.id
+	$pdo = new \PDO( $pdo_dsn, null, null, $pdo_option );
+	$pdo_con = $pdo->prepare('UPDATE '.$config['internal']['databases'][0]['tableprefix'].'_token SET userid = :userid WHERE access_code = :access_code;');
+	$pdo_res = $pdo_con->execute([
+		'userid'=>$result['result']['users_me']['id'],
+		'access_code'=>$request['code'],
+	]);
+	if(!$pdo_res){
+		error_log('[PDO] Update error:');
+		error_log('[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_token');
+		error_log('[PDO]     ext-user-id='.$request['code'].'('.$result['result']['users_me']['id'].')');
+		error_log('[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
+		throw new Exception('[PDO] Update error: table='.$config['internal']['databases'][0]['tableprefix'].'_token', 1);
+	}
+	$pdo = null;
+} catch (\Exception $th) {
+	error_log('['.$th->getLine().'] '.$th->getMessage());
+}
+
 # refrash token
 $endpoint='https://discordapp.com/api/oauth2/token';
 $parameter='grant_type=refresh_token';
