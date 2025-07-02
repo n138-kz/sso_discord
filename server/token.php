@@ -244,5 +244,6 @@ $curl_res_info=curl_getinfo($curl_req, CURLINFO_RESPONSE_CODE);
 $result['result']['oauth2_token'] = array_merge($result['result']['oauth2_token'], $curl_res);
 $result['result']['oauth2_token']['api_http_response_code'] = $curl_res_info;
 
+# export
 $result['config']['external']['discord']['auth_sso']['client_secret']='CLIENT_SECRET::Hidden';
 echo json_encode($result['result'],JSON_PRETTY_PRINT|JSON_INVALID_UTF8_IGNORE|JSON_UNESCAPED_UNICODE);
