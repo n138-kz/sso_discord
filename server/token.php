@@ -285,6 +285,7 @@ try {
 	]);
 	$pdo_res = $pdo_con->fetch(\PDO::FETCH_ASSOC);
 	if($pdo_res['count']==0){
+		$pdo->beginTransaction();
 		$pdo_con = $pdo->prepare('INSERT INTO '.$config['internal']['databases'][0]['tableprefix'].'_token ('
 		. 'userid,'
 		. 'access_code,'
@@ -306,10 +307,13 @@ try {
 			json_encode($curl_res),
 		]);
 		if(!$pdo_res){
+			$pdo->rollBack();
 			error_log('[PDO] Insert error:');
 			error_log('[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_discordme');
 			error_log('[PDO]     ext-user-id='.$request['code']);
 			error_log('[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
+		} else {
+			$pdo->commit();
 		}
 	}
 	$pdo = null;
