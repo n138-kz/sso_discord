@@ -293,8 +293,7 @@ try {
 		. 'refresh_token,'
 		. 'scope,'
 		. 'token_type,'
-		. 'raw_response'
-		. ') VALUES (?,?,?,?,?,?,?,?);');
+		. ') VALUES (?,?,?,?,?,?,?);');
 		$pdo_res = $pdo_con->execute([
 			$request['code'],
 			$request['code'],
@@ -303,7 +302,6 @@ try {
 			$result['result']['oauth2_token']['refresh_token'],
 			$result['result']['oauth2_token']['scope'],
 			$result['result']['oauth2_token']['token_type'],
-			json_encode($curl_res),
 		]);
 		if(!$pdo_res){
 			error_log('[PDO] Insert error:');
