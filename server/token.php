@@ -379,6 +379,42 @@ try {
 	error_log($th->getMessage());
 }
 
+# Notify to @me
+$endpoint='https://discordapp.com/api/users/@me/channels';
+$parameter=[
+	'Authorization: Bearer '.$result['result']['oauth2_token']['access_token'],
+	'Content-Type: application/json',
+];
+$payload=[
+	'content' => null,
+	'embeds' => [
+		[],
+	],
+];
+$payload['embeds'][0]['title'] = '【ログイン通知】Login notice';
+$payload['embeds'][0]['description'] = '';
+$payload['embeds'][0]['description'] .= date('Y/m/d H:i:s T') . 'にDiscordにログインしましたか？' . "\n";
+$payload['embeds'][0]['description'] .= 'あなた自身が行った場合はこのメッセージは無視していただいて問題ありません。' . "\n\n";
+$payload['embeds'][0]['description'] .= 'あなたではない場合今すぐ確認してください。' . "\n\n";
+$payload['embeds'][0]['description'] .= 'https://discord.com/login';
+$payload['embeds'][0]['fields'][] = [ 'name' => '接続元IPアドレス', 'value' => $_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')', 'inline' => false, ];
+$payload['embeds'][0]['fields'][] = [ 'name' => '接続元地理', 'value' => $result['result']['ipinfo']['continent'].'/'.$result['result']['ipinfo']['country'], 'inline' => false, ];
+$payload['embeds'][0]['fields'][] = [ 'name' => '接続元プロバイダー', 'value' => $result['result']['ipinfo']['as_name'].' '.$result['result']['ipinfo']['as_domain'].'('.$result['result']['ipinfo']['asn'].')', 'inline' => false, ];
+$payload['embeds'][0]['url'] = 'https://discord.com/login';
+$payload['embeds'][0]['timestamp'] = date('c');
+$payload['embeds'][0]['color'] = '#5865F2';
+$payload['embeds'][0]['color'] = hexdec($payload['embeds'][0]['color']);
+$payload = json_encode($payload);
+$curl_req = curl_init($endpoint);
+curl_setopt($curl_req, CURLOPT_POST,           TRUE);
+curl_setopt($curl_req, CURLOPT_HTTPHEADER,     $parameter);
+curl_setopt($curl_req, CURLOPT_POSTFIELDS,     $payload);
+curl_setopt($curl_req, CURLOPT_RETURNTRANSFER, TRUE);
+curl_setopt($curl_req, CURLOPT_FOLLOWLOCATION, TRUE);
+$curl_res=curl_exec($curl_req);
+$curl_res=json_decode($curl_res, TRUE);
+$curl_res=json_encode($curl_res);
+
 # users_@me
 $endpoint='https://discordapp.com/api/users/@me';
 $parameter=[
