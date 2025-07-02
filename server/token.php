@@ -155,6 +155,20 @@ $result['result']=[
 ];
 
 # oauth2_token
+/*
+* sh:
+discord_client_id=$config['external']['discord']['auth_sso']['client_id']
+discord_client_secret=$config['external']['discord']['auth_sso']['client_secret']
+discord_redirect_uri=$config['external']['discord']['auth_sso']['redirect_uri']
+code='xxxxxxxxxxxxxxxxxxxxxxxxxx.yyyyyyyyyyyyyyyyyyyyyyyyyyyyyy'
+curl \
+    -s \
+    -i \
+    -X POST \
+    -H 'Content-Type: application/x-www-form-urlencoded' \
+    -d 'grant_type=authorization_code&client_id='${discord_client_id}'&client_secret='${discord_client_secret}'&redirect_uri='${discord_redirect_uri}'&code='${code} \
+    'https://discordapp.com/api/oauth2/token'
+*/
 $endpoint='https://discordapp.com/api/oauth2/token';
 $parameter='grant_type=authorization_code';
 $parameter.='&client_id='.$config['external']['discord']['auth_sso']['client_id'];
