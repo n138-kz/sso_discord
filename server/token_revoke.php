@@ -82,7 +82,7 @@ for($i=0;$i<count($list);$i++) {
 			'id'=>1,
 			'level'=>result_setLevel(2),
 			'description'=>'Config load failed: No such item: /external/discord/auth_sso/'.$list[$i].'.',
-			'details'=json_encode([]),
+			'details'=json_encode(null),
 		];
 		error_log($result['result']['level'].': '.$result['result']['description'].' evented on '.__FILE__.'#'.__LINE__);
 		echo json_encode($result['result'],JSON_PRETTY_PRINT|JSON_INVALID_UTF8_IGNORE|JSON_UNESCAPED_UNICODE);
@@ -108,7 +108,7 @@ for($i=0;$i<count($list);$i++) {
 			'id'=>1,
 			'level'=>result_setLevel(3),
 			'description'=>'Not attempted parameter `'.$list[$i].'`',
-			'details'=json_encode([]),
+			'details'=json_encode(null),
 		];
 		error_log($result['result']['level'].': '.$result['result']['description'].'. evented on '.__FILE__.'#'.__LINE__);
 		echo json_encode($result['result'],JSON_PRETTY_PRINT|JSON_INVALID_UTF8_IGNORE|JSON_UNESCAPED_UNICODE);
@@ -120,7 +120,7 @@ $result['result']=[
 	'id'=>0,
 	'level'=>result_setLevel(6),
 	'description'=>null,
-	'details'=>json_encode([]),
+	'details'=>json_encode(null),
 ];
 
 # oauth2_token_revoke
