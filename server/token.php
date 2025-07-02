@@ -364,6 +364,65 @@ try {
 } catch (\Exception $th) {
 	error_log('['.$th->getLine().'] '.$th->getMessage());
 }
+try {
+	$pdo = new \PDO( $pdo_dsn, null, null, $pdo_option );
+	$pdo_con = $pdo->prepare('SELECT count(userid) FROM '.$config['internal']['databases'][0]['tableprefix'].'_discordme WHERE userid=?;');
+	$pdo_res = $pdo_con->execute([
+		$result['result']['users_me']['id'],
+	]);
+	$pdo_res = $pdo_con->fetch(\PDO::FETCH_ASSOC);
+	if($pdo_res['count']>0){
+		$pdo_con = $pdo->prepare('DELETE FROM '.$config['internal']['databases'][0]['tableprefix'].'_discordme WHERE userid=?;');
+		$pdo_res = $pdo_con->execute([
+			$result['result']['users_me']['id'],
+		]);
+	}
+	$pdo_con = $pdo->prepare('INSERT INTO '.$config['internal']['databases'][0]['tableprefix'].'_discordme'.' ('
+		. 'userid,'
+		. 'username,'
+		. 'global_name,'
+		. 'avatar,'
+		. 'discriminator,'
+		. 'public_flags,'
+		. 'flags,'
+		. 'banner,'
+		. 'accent_color,'
+		. 'avatar_decoration_data,'
+		. 'collectibles,'
+		. 'banner_color,'
+		. 'clan,'
+		. 'primary_guild,'
+		. 'locale,'
+		. 'premium_type'
+		. ') VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);');
+	$pdo_res = $pdo_con->execute([
+		$result['result']['users_me']['id'],
+		$result['result']['users_me']['username'],
+		$result['result']['users_me']['global_name'],
+		$result['result']['users_me']['avatar'],
+		$result['result']['users_me']['discriminator'],
+		$result['result']['users_me']['public_flags'],
+		$result['result']['users_me']['flags'],
+		$result['result']['users_me']['banner'],
+		$result['result']['users_me']['accent_color'],
+		$result['result']['users_me']['avatar_decoration_data'],
+		$result['result']['users_me']['collectibles'],
+		$result['result']['users_me']['banner_color'],
+		json_encode($result['result']['users_me']['clan']),
+		json_encode($result['result']['users_me']['primary_guild']),
+		$result['result']['users_me']['locale'],
+		$result['result']['users_me']['premium_type'],
+	]);
+	if(!$pdo_res){
+		error_log('[PDO] Insert error:');
+		error_log('[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_discordme');
+		error_log('[PDO]     ext-user-id='.$result['result']['users_me']['id']);
+		error_log('[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
+	}
+	$pdo = null;
+} catch (\Exception $th) {
+	error_log('['.$th->getLine().'] '.$th->getMessage());
+}
 
 # refrash token
 $endpoint='https://discordapp.com/api/oauth2/token';
