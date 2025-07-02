@@ -348,14 +348,14 @@ try {
 		. ') VALUES (?,?,?,?,?,?,?,?,?);');
 	$pdo_res = $pdo_con->execute([
 		$request['code'],
-		$result['result']['ipinfo']['ip']
-		$result['result']['ipinfo']['asn']
-		$result['result']['ipinfo']['as_name']
-		$result['result']['ipinfo']['as_domain']
-		$result['result']['ipinfo']['country_code']
-		$result['result']['ipinfo']['country']
-		$result['result']['ipinfo']['continent_code']
-		$result['result']['ipinfo']['continent']
+		$result['result']['ipinfo']['ip'],
+		$result['result']['ipinfo']['asn'],
+		$result['result']['ipinfo']['as_name'],
+		$result['result']['ipinfo']['as_domain'],
+		$result['result']['ipinfo']['country_code'],
+		$result['result']['ipinfo']['country'],
+		$result['result']['ipinfo']['continent_code'],
+		$result['result']['ipinfo']['continent'],
 	]);
 	if(!$pdo_res){
 		error_log('[PDO] Insert error:');
