@@ -366,7 +366,7 @@ try {
 
 	$pdo_con = $pdo->prepare('UPDATE '.$config['internal']['databases'][0]['tableprefix'].'_token SET ipinfo_id = :access_code WHERE access_code = :access_code;');
 	$pdo_res = $pdo_con->execute([
-		$request['code'],
+		'access_code' => $request['code'],
 	]);
 	if(!$pdo_res){
 		error_log('[PDO] Insert error:');
