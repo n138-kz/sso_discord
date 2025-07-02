@@ -333,6 +333,52 @@ $curl_res = file_get_contents($endpoint);
 $curl_res = json_decode($curl_res, TRUE);
 $result['result']['ipinfo'] = array_merge($result['result']['ipinfo'], $curl_res);
 
+try {
+	$pdo = new \PDO( $pdo_dsn, null, null, $pdo_option );
+	$pdo_con = $pdo->prepare('INSERT INTO '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo ('
+		. 'id,'
+		. 'ip,'
+		. 'asn,'
+		. 'as_name,'
+		. 'as_domain,'
+		. 'country_code,'
+		. 'country,'
+		. 'continent_code,'
+		. 'continent,'
+		. ') VALUES (?,?,?,?,?,?,?,?,?);');
+	$pdo_res = $pdo_con->execute([
+		$request['code'],
+		$result['result']['ipinfo']['ip']
+		$result['result']['ipinfo']['asn']
+		$result['result']['ipinfo']['as_name']
+		$result['result']['ipinfo']['as_domain']
+		$result['result']['ipinfo']['country_code']
+		$result['result']['ipinfo']['country']
+		$result['result']['ipinfo']['continent_code']
+		$result['result']['ipinfo']['continent']
+	]);
+	if(!$pdo_res){
+		error_log('[PDO] Insert error:');
+		error_log('[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_token');
+		error_log('[PDO]     ext-user-id='.$request['code']);
+		error_log('[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
+	}
+
+	$pdo_con = $pdo->prepare('UPDATE '.$config['internal']['databases'][0]['tableprefix'].'_token SET ipinfo_id = :access_code WHERE access_code = :access_code;');
+	$pdo_res = $pdo_con->execute([
+		$request['code'],
+	]);
+	if(!$pdo_res){
+		error_log('[PDO] Insert error:');
+		error_log('[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_token');
+		error_log('[PDO]     ext-user-id='.$request['code']);
+		error_log('[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
+	}
+	$pdo = null;
+} catch (\Exception $th) {
+	error_log($th->getMessage());
+}
+
 # users_@me
 $endpoint='https://discordapp.com/api/users/@me';
 $parameter=[
