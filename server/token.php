@@ -176,7 +176,7 @@ if($curl_res_info>399 || $curl_res_info<200){
 	http_response_code(401);
 	$result['result']=[
 		'id'=>1,
-		'level'=>'Error',
+		'level'=>result_setLevel(3),
 		'description'=>'Unauthorized('.$curl_res_info.').',
 	];
 	error_log($result['result']['level'].': '.$result['result']['description'].' evented on '.__FILE__.'#'.__LINE__);
@@ -203,7 +203,7 @@ if($curl_res_info>299 || $curl_res_info<200){
 	http_response_code(401);
 	$result['result']=[
 		'id'=>1,
-		'level'=>'Error',
+		'level'=>result_setLevel(3),
 		'description'=>'Unauthorized('.$curl_res_info.').',
 	];
 	error_log($result['result']['level'].': '.$result['result']['description'].' evented on '.__FILE__.'#'.__LINE__);
