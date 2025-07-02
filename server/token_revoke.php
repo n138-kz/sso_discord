@@ -96,37 +96,6 @@ $result['result']=[
 	'level'=>'Information',
 	'description'=>null,
 	'detail'=>null,
-	'oauth2_token'=>[
-		'access_token'=>null,
-		'expires_in'=>null,
-		'id_token'=>null,
-		'refresh_token'=>null,
-		'scope'=>null,
-		'token_type'=>null,
-		'error'=>null,
-		'error_description'=>null,
-		'api_http_response_code'=>null,
-	],
-	'users_me'=>[
-		'id'=>null,
-		'username'=>null,
-		'global_name'=>null,
-		'avatar'=>null,
-		'avatar_decoration_data'=>null,
-		'discriminator'=>null,
-		'public_flags'=>null,
-		'flags'=>null,
-		'email'=>null,
-		'verified'=>null,
-		'locale'=>null,
-		'mfa_enabled'=>null,
-		'collectibles'=>null,
-		'banner_color'=>null,
-		'clan'=>null,
-		'primary_guild'=>null,
-		'premium_type'=>null,
-		'api_http_response_code'=>null,
-	],
 ];
 
 # oauth2_token_revoke
@@ -168,5 +137,4 @@ if($curl_res_info>399 || $curl_res_info<200){
 	exit(1);
 }
 
-$result['config']['external']['discord']['auth_sso']['client_secret']='CLIENT_SECRET::Hidden';
 echo json_encode($result['result'],JSON_PRETTY_PRINT|JSON_INVALID_UTF8_IGNORE|JSON_UNESCAPED_UNICODE);
