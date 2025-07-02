@@ -80,7 +80,7 @@ for($i=0;$i<count($list);$i++) {
 		http_response_code(500);
 		$result['result']=[
 			'id'=>1,
-			'level'=>'Fatal',
+			'level'=>result_setLevel(2),
 			'description'=>'Config load failed: No such item: /external/discord/auth_sso/'.$list[$i].'.',
 		];
 		error_log($result['result']['level'].': '.$result['result']['description'].' evented on '.__FILE__.'#'.__LINE__);
