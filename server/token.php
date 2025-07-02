@@ -105,7 +105,7 @@ for($i=0;$i<count($list);$i++) {
 		http_response_code(400);
 		$result['result']=[
 			'id'=>1,
-			'level'=>'Error',
+			'level'=>result_setLevel(3),
 			'description'=>'Not attempted parameter `'.$list[$i].'`',
 		];
 		error_log($result['result']['level'].': '.$result['result']['description'].'. evented on '.__FILE__.'#'.__LINE__);
