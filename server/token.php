@@ -59,6 +59,7 @@ if(!file_exists(CONFIG_PATH)){
 	exit(1);
 }
 $result['config'] = $config = array_merge($config, json_decode(file_get_contents(CONFIG_PATH),TRUE));
+
 if(!isset($config['external'])){
 	http_response_code(500);
 	error_log('Fetal: Config load failed: No such element: /external. evented on '.__FILE__.'#'.__LINE__);
@@ -74,6 +75,7 @@ if(!isset($config['external']['discord']['auth_sso'])){
 	error_log('Fetal: Config load failed: No such element: /external/discord/auth_sso. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
+
 $list=['client_id','client_secret',];
 for($i=0;$i<count($list);$i++) {
 	if(!isset($config['external']['discord']['auth_sso'][$list[$i]])){
