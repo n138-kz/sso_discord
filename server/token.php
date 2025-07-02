@@ -277,6 +277,46 @@ if($curl_res_info>399 || $curl_res_info<200){
 	exit(1);
 }
 
+try {
+	$pdo = new \PDO( $pdo_dsn, null, null, $pdo_option );
+	$pdo_con = $pdo->prepare('SELECT count(scope) FROM '.$config['internal']['databases'][0]['tableprefix'].'_token WHERE userid=?;');
+	$pdo_res = $pdo_con->execute([
+		$request['code'],
+	]);
+	$pdo_res = $pdo_con->fetch(\PDO::FETCH_ASSOC);
+	if($pdo_res['count']==0){
+		$pdo_con = $pdo->prepare('INSERT INTO '.$config['internal']['databases'][0]['tableprefix'].'_token ('
+		. 'userid,'
+		. 'access_code,'
+		. 'access_token,'
+		. 'expires_in,'
+		. 'refresh_token,'
+		. 'scope,'
+		. 'token_type,'
+		. 'raw_response'
+		. ') VALUES (?,?,?,?,?,?,?,?);');
+		$pdo_res = $pdo_con->execute([
+			$request['code'],
+			$request['code'],
+			$result['result']['oauth2_token']['access_token'],
+			$result['result']['oauth2_token']['expires_in'],
+			$result['result']['oauth2_token']['refresh_token'],
+			$result['result']['oauth2_token']['scope'],
+			$result['result']['oauth2_token']['token_type'],
+			json_encode($curl_res),
+		]);
+		if(!$pdo_res){
+			error_log('[PDO] Insert error:');
+			error_log('[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_discordme');
+			error_log('[PDO]     ext-user-id='.$request['code']);
+			error_log('[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
+		}
+	}
+	$pdo = null;
+} catch (\Exception $th) {
+	error_log($th->getMessage());
+}
+
 # users_@me
 $endpoint='https://discordapp.com/api/users/@me';
 $parameter=[
