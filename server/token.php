@@ -151,6 +151,16 @@ if(!isset($config['external']['discord']['auth_sso'])){
 	error_log('Fetal: Config load failed: No such element: /external/discord/auth_sso. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
+if(!isset($config['external']['ipinfo'])){
+	http_response_code(500);
+	error_log('Fetal: Config load failed: No such element: /external/ipinfo. evented on '.__FILE__.'#'.__LINE__);
+	exit(1);
+}
+if(!isset($config['external']['ipinfo']['token'])){
+	http_response_code(500);
+	error_log('Fetal: Config load failed: No such element: /external/ipinfo/token. evented on '.__FILE__.'#'.__LINE__);
+	exit(1);
+}
 
 $list=['client_id','client_secret',];
 for($i=0;$i<count($list);$i++) {
@@ -199,6 +209,7 @@ $result['result']=[
 	'level'=>result_setLevel(6),
 	'description'=>null,
 	'details'=>json_encode(null),
+	'ipinfo'=>[],
 	'oauth2_token'=>[
 		'access_token'=>null,
 		'expires_in'=>null,
@@ -314,6 +325,13 @@ try {
 } catch (\Exception $th) {
 	error_log($th->getMessage());
 }
+
+# Get IPinfo Lite Data
+$endpoint='https://api.ipinfo.io/lite/' . $_SERVER['REMOTE_ADDR'] . '?token=' . $config['external']['ipinfo']['token'];
+error_log("curl ${endpoint}");
+$curl_res = file_get_contents($endpoint);
+$curl_res = json_decode($curl_res, TRUE);
+$result['result']['ipinfo'] = array_merge($result['result']['ipinfo'], $curl_res);
 
 # users_@me
 $endpoint='https://discordapp.com/api/users/@me';
