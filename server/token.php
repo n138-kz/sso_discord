@@ -309,7 +309,7 @@ try {
 		if(!$pdo_res){
 			$pdo->rollBack();
 			error_log('[PDO] Insert error:');
-			error_log('[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_discordme');
+			error_log('[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_token');
 			error_log('[PDO]     ext-user-id='.$request['code']);
 			error_log('[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
 		} else {
