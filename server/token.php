@@ -172,7 +172,7 @@ $curl_res_info=curl_getinfo($curl_req, CURLINFO_RESPONSE_CODE);
 $result['result']['oauth2_token'] = array_merge($result['result']['oauth2_token'], $curl_res);
 $result['result']['oauth2_token']['api_http_response_code'] = $curl_res_info;
 
-if($curl_res_info>299 || $curl_res_info<200){
+if($curl_res_info>399 || $curl_res_info<200){
 	http_response_code(401);
 	$result['result']=[
 		'id'=>1,
