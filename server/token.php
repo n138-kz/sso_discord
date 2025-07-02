@@ -60,6 +60,82 @@ if(!file_exists(CONFIG_PATH)){
 }
 $result['config'] = $config = array_merge($config, json_decode(file_get_contents(CONFIG_PATH),TRUE));
 
+if(!isset($config['internal'])){
+	http_response_code(500);
+	error_log('Fetal: Config load failed: No such element: /internal. evented on '.__FILE__.'#'.__LINE__);
+	exit(1);
+}
+if(!isset($config['internal']['databases'])){
+	http_response_code(500);
+	error_log('Fetal: Config load failed: No such element: /internal/databases. evented on '.__FILE__.'#'.__LINE__);
+	exit(1);
+}
+if(!isset($config['internal']['databases'][0])){
+	http_response_code(500);
+	error_log('Fetal: Config load failed: No such element: /internal/databases[0]. evented on '.__FILE__.'#'.__LINE__);
+	exit(1);
+}
+if(!isset($config['internal']['databases'][0]['schema'])){
+	http_response_code(500);
+	error_log('Fetal: Config load failed: No such element: /internal/databases[0]/schema. evented on '.__FILE__.'#'.__LINE__);
+	exit(1);
+}
+if(!isset($config['internal']['databases'][0]['host'])){
+	http_response_code(500);
+	error_log('Fetal: Config load failed: No such element: /internal/databases[0]/host. evented on '.__FILE__.'#'.__LINE__);
+	exit(1);
+}
+if(!isset($config['internal']['databases'][0]['port'])){
+	http_response_code(500);
+	error_log('Fetal: Config load failed: No such element: /internal/databases[0]/port. evented on '.__FILE__.'#'.__LINE__);
+	exit(1);
+}
+if(!isset($config['internal']['databases'][0]['database'])){
+	http_response_code(500);
+	error_log('Fetal: Config load failed: No such element: /internal/databases[0]/database. evented on '.__FILE__.'#'.__LINE__);
+	exit(1);
+}
+if(!isset($config['internal']['databases'][0]['user'])){
+	http_response_code(500);
+	error_log('Fetal: Config load failed: No such element: /internal/databases[0]/user. evented on '.__FILE__.'#'.__LINE__);
+	exit(1);
+}
+if(!isset($config['internal']['databases'][0]['password'])){
+	http_response_code(500);
+	error_log('Fetal: Config load failed: No such element: /internal/databases[0]/password. evented on '.__FILE__.'#'.__LINE__);
+	exit(1);
+}
+
+# Database parameters
+/*
+* [vars]
+* $pdo_option
+* $pdo_dsn
+*
+* [table]
+* %preset_discordme
+* discord userinfo(users/@me)
+* %preset_token
+* discord token(oauth2/token)
+*
+*/
+$pdo_option = [
+	\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+	\PDO::ATTR_DEFAULT_FETCH_MODE => \PDO::FETCH_ASSOC,
+	\PDO::ATTR_EMULATE_PREPARES => true,
+	\PDO::ATTR_PERSISTENT => true,
+];
+
+$pdo_dsn = '';
+$pdo_dsn .= $config['internal']['databases'][0]['schema'];
+$pdo_dsn .= ':';
+$pdo_dsn .= 'host='     . $config['internal']['databases'][0]['host'] . ';';
+$pdo_dsn .= 'port='     . $config['internal']['databases'][0]['port'] . ';';
+$pdo_dsn .= 'dbname='   . $config['internal']['databases'][0]['database'] . ';';
+$pdo_dsn .= 'user='     . $config['internal']['databases'][0]['user'] . ';';
+$pdo_dsn .= 'password=' . $config['internal']['databases'][0]['password'] . ';';
+$pdo_dsn .= '';
+
 if(!isset($config['external'])){
 	http_response_code(500);
 	error_log('Fetal: Config load failed: No such element: /external. evented on '.__FILE__.'#'.__LINE__);
