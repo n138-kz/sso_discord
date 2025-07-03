@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS sso_discord_discordme (
   clan json,
   primary_guild json,
   locale text,
-  premium_type text,
+  premium_type int,
   CONSTRAINT sso_discord_discordme_pkey PRIMARY KEY (userid)
 );
 ALTER TABLE IF EXISTS sso_discord_discordme OWNER to webapp;
