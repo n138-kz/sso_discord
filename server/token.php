@@ -586,6 +586,14 @@ curl_setopt($curl_req, CURLOPT_FOLLOWLOCATION, TRUE);
 $curl_res=curl_exec($curl_req);
 $curl_res=json_decode($curl_res, TRUE);
 $curl_res_info=curl_getinfo($curl_req, CURLINFO_RESPONSE_CODE);
+$curl_res = (is_null($curl_res))?[]:$curl_res;
+$curl_res = array_merge([
+	'http'=>[
+		'response'=>[
+			'code'=>$curl_res_info,
+		]
+	]
+], $curl_res);
 error_log('['.__LINE__.'] '.json_encode($curl_res));
 $result['result']['directmessage_channel'] = array_merge($result['result']['directmessage_channel'], $curl_res);
 $result['result']['directmessage_channel']['api_http_response_code'] = $curl_res_info;
