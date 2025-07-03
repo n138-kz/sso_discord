@@ -295,7 +295,7 @@ if($curl_res_info>399 || $curl_res_info<200){
 	$result['result']=[
 		'id'=>1,
 		'level'=>result_setLevel(3),
-		'description'=>'Unauthorized('.$curl_res_info.').',
+		'description'=>'Unauthorized('.$curl_res_info.') code:'.$request['code'],
 		'details'=>json_encode(['Error: Unauthorized','HTTP Error: '.$curl_res_info]),
 	];
 	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.$result['result']['level'].': '.$result['result']['description']);
