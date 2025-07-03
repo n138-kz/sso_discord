@@ -1,0 +1,36 @@
+{
+  "internal": {
+    "databases": [
+      {
+        "host": "127.0.0.1",
+        "port": "5432",
+        "schema": "pgsql",
+        "user": "postgres",
+        "password": "password",
+        "database": "postgres",
+        "tableprefix": "sso_discord"
+      }
+    ]
+  },
+  "external": {
+    "ipinfo": {
+      "token": ""
+    },
+    "discord": {
+      "auth_sso": {
+        "client_id": 1331215597119340585,
+        "client_secret": "",
+        "redirect_uri": "https://n138-kz.github.io/sso_discord/",
+        "admin_users": []
+      },
+      "webhook": {
+        "notice": {
+          "active": true,
+          "endpoint": "",
+          "color": "32768",
+          "avater_url": ""
+        }
+      }
+    }
+  }
+}
