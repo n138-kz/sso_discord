@@ -10,6 +10,6 @@ CREATE TABLE IF NOT EXISTS sso_discord_token (
   token_type text NOT NULL,
   revoked boolean NOT NULL DEFAULT false,
   ipinfo_id text,
-  CONSTRAINT sso_discord_token_pkey PRIMARY KEY (access_code)
+  CONSTRAINT sso_discord_token_pkey PRIMARY KEY (access_token)
 );
 ALTER TABLE IF EXISTS sso_discord_token OWNER to webapp;
