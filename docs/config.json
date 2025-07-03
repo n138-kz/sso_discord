@@ -27,10 +27,8 @@
       },
       "webhook": {
         "notice": {
-          "active": true,
           "endpoint": "",
-          "color": "32768",
-          "avater_url": ""
+          "active": true
         }
       }
     }
