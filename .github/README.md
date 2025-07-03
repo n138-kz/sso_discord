@@ -26,7 +26,6 @@
 - [![](https://www.google.com/s2/favicons?size=64&domain=https://github.com)http_post](https://github.com/n138-kz/http_post)
 
 <details>
-
 	<summary>PHP、CURLFileでファイルをアップロードする。(multipart/form-data、POST)</summary>
 
 	```php
