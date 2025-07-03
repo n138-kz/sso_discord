@@ -323,7 +323,7 @@ try {
 	}
 	$pdo = null;
 } catch (\Exception $th) {
-	error_log($th->getMessage());
+	error_log('['.$th->getLine().'] '.$th->getMessage());
 }
 
 # Get IPinfo Lite Data
