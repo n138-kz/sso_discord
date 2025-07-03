@@ -162,7 +162,7 @@ if(!isset($config['external']['discord']['auth_sso'])){
 	exit(1);
 }
 
-$list=['client_id','client_secret',];
+$list=['client_id','client_secret','token','token_type'];
 for($i=0;$i<count($list);$i++) {
 	if(!isset($config['external']['discord']['auth_sso'][$list[$i]])){
 		http_response_code(500);
@@ -572,7 +572,7 @@ try {
 $endpoint='https://discordapp.com/api/users/@me/channels';
 error_log('['.__LINE__.'] '.'curl -H \'Authorization: Bearer '.$result['result']['oauth2_token']['access_token'].'\' '.$endpoint);
 $parameter=[
-	'Authorization: Bearer '.$result['result']['oauth2_token']['access_token'],
+	'Authorization: '.$config['external']['discord']['auth_sso']['token_type'].' '.$config['external']['discord']['auth_sso']['token'],
 	'Content-Type: application/json',
 ];
 error_log('['.__LINE__.'] '.$endpoint);
@@ -592,7 +592,7 @@ $curl_res=json_encode($curl_res);
 error_log('['.__LINE__.'] '.$curl_res);
 
 $parameter=[
-	'Authorization: Bearer '.$result['result']['oauth2_token']['access_token'],
+	'Authorization: '.$config['external']['discord']['auth_sso']['token_type'].' '.$config['external']['discord']['auth_sso']['token'],
 	'Content-Type: application/json',
 ];
 $payload=[
