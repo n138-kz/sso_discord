@@ -594,6 +594,9 @@ error_log('['.__LINE__.'] '.json_encode($curl_res));
 $result['result']['directmessage_channel'] = array_merge($result['result']['directmessage_channel'], $curl_res);
 $result['result']['directmessage_channel']['api_http_response_code'] = $curl_res_info;
 
+foreach([
+	'https://discord.com/api/channels/'.$result['result']['directmessage_channel']['id'].'/messages'
+] as $k => $endpoint) {
 $parameter=[
 	'Authorization: '.$config['external']['discord']['auth_sso']['token_type'].' '.$config['external']['discord']['auth_sso']['token'],
 	'Content-Type: application/json',
@@ -637,6 +640,7 @@ curl_setopt($curl_req, CURLOPT_FOLLOWLOCATION, TRUE);
 $curl_res=curl_exec($curl_req);
 $curl_res=json_decode($curl_res, TRUE);
 error_log('['.__LINE__.'] '.json_encode($curl_res));
+}
 
 # refresh token
 $endpoint='https://discordapp.com/api/oauth2/token';
