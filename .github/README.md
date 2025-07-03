@@ -66,27 +66,8 @@
 > `code`はアクセスコードを貰うためだけのトークン  
 > ユーザ情報とかは`access_code`を使用する
 
-## Setup(memo)
 
-- [client](#client)
-- [server](#server)
 
-### client
-
-1. View the https://n138-kz.github.io/sso_discord
-
-### server
-
-1. Download the this repository.
-1. Fix the `CLIENT_ID`, `CLIENT_SECRET`, `REDIRECT_URL` in `./.secret/config.json` 
-
-### Shell
-
-|Name|Value|
-|-|-|
-|Client ID|`1331215597119340585`|
-|Client Secret|` `|
-|Oauth URL|[OAuth2](https://discord.com/oauth2/authorize?client_id=1331215597119340585&response_type=code&redirect_uri=https%3A%2F%2Fn138-kz.github.io%2Fsso_discord%2F&scope=identify+email)|
 
 ```sh
 client_id='1331215597119340585' # Follow the developer console, into bot info
