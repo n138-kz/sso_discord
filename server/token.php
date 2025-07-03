@@ -513,6 +513,7 @@ try {
 
 # Notify to @me
 $endpoint='https://discordapp.com/api/users/@me/channels';
+error_log('['.__LINE__.'] '.'curl -H \'Authorization: Bearer '.$result['result']['oauth2_token']['access_token'].'\' '.$endpoint);
 $parameter=[
 	'Authorization: Bearer '.$result['result']['oauth2_token']['access_token'],
 	'Content-Type: application/json',
