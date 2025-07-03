@@ -176,6 +176,21 @@ for($i=0;$i<count($list);$i++) {
 		exit(1);
 	}
 }
+if(!isset($config['external']['discord']['webhook'])){
+	http_response_code(500);
+	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /external/discord/webhook. evented on '.__FILE__.'#'.__LINE__);
+	exit(1);
+}
+if(!isset($config['external']['discord']['webhook']['notice'])){
+	http_response_code(500);
+	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /external/discord/webhook/notice. evented on '.__FILE__.'#'.__LINE__);
+	exit(1);
+}
+if(!isset($config['external']['discord']['webhook']['notice']['endpoint'])){
+	http_response_code(500);
+	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /external/discord/webhook/notice/endpoint. evented on '.__FILE__.'#'.__LINE__);
+	exit(1);
+}
 
 if(FALSE) {
 } elseif( TRUE ) {
