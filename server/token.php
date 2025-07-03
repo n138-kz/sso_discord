@@ -141,6 +141,16 @@ if(!isset($config['external'])){
 	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /external. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
+if(!isset($config['external']['ipinfo'])){
+	http_response_code(500);
+	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /external/ipinfo. evented on '.__FILE__.'#'.__LINE__);
+	exit(1);
+}
+if(!isset($config['external']['ipinfo']['token'])){
+	http_response_code(500);
+	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /external/ipinfo/token. evented on '.__FILE__.'#'.__LINE__);
+	exit(1);
+}
 if(!isset($config['external']['discord'])){
 	http_response_code(500);
 	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /external/discord. evented on '.__FILE__.'#'.__LINE__);
