@@ -54,55 +54,55 @@ $config = [
 define('CONFIG_PATH', realpath(__DIR__.'/../.secret/config.json'));
 if(!file_exists(CONFIG_PATH)){
 	http_response_code(500);
-	error_log('['.__LINE__.'] '.'Fetal: Config not found: No such file or directory: `'.CONFIG_PATH.'`. evented on '.__FILE__.'#'.__LINE__);
-	error_log('['.__LINE__.'] '.'Hint: Make the config: `'.json_encode($config).'`. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'Fetal: Config not found: No such file or directory: `'.CONFIG_PATH.'`. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'Hint: Make the config: `'.json_encode($config).'`. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 $result['config'] = $config = array_merge($config, json_decode(file_get_contents(CONFIG_PATH),TRUE));
 
 if(!isset($config['internal'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /internal. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'Fetal: Config load failed: No such element: /internal. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['internal']['databases'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /internal/databases. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'Fetal: Config load failed: No such element: /internal/databases. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['internal']['databases'][0])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /internal/databases[0]. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'Fetal: Config load failed: No such element: /internal/databases[0]. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['internal']['databases'][0]['schema'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /internal/databases[0]/schema. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'Fetal: Config load failed: No such element: /internal/databases[0]/schema. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['internal']['databases'][0]['host'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /internal/databases[0]/host. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'Fetal: Config load failed: No such element: /internal/databases[0]/host. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['internal']['databases'][0]['port'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /internal/databases[0]/port. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'Fetal: Config load failed: No such element: /internal/databases[0]/port. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['internal']['databases'][0]['database'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /internal/databases[0]/database. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'Fetal: Config load failed: No such element: /internal/databases[0]/database. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['internal']['databases'][0]['user'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /internal/databases[0]/user. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'Fetal: Config load failed: No such element: /internal/databases[0]/user. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['internal']['databases'][0]['password'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /internal/databases[0]/password. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'Fetal: Config load failed: No such element: /internal/databases[0]/password. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 
@@ -138,27 +138,27 @@ $pdo_dsn .= '';
 
 if(!isset($config['external'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /external. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'Fetal: Config load failed: No such element: /external. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['external']['ipinfo'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /external/ipinfo. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'Fetal: Config load failed: No such element: /external/ipinfo. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['external']['ipinfo']['token'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /external/ipinfo/token. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'Fetal: Config load failed: No such element: /external/ipinfo/token. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['external']['discord'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /external/discord. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'Fetal: Config load failed: No such element: /external/discord. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['external']['discord']['auth_sso'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /external/discord/auth_sso. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'Fetal: Config load failed: No such element: /external/discord/auth_sso. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 $list=['client_id','client_secret','token','token_type'];
@@ -171,24 +171,24 @@ for($i=0;$i<count($list);$i++) {
 			'description'=>'Config load failed: No such item: /external/discord/auth_sso/'.$list[$i].'.',
 			'details'=>json_encode(null),
 		];
-		error_log('['.__LINE__.'] '.$result['result']['level'].': '.$result['result']['description'].' evented on '.__FILE__.'#'.__LINE__);
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.$result['result']['level'].': '.$result['result']['description'].' evented on '.__FILE__.'#'.__LINE__);
 		echo json_encode($result['result'],JSON_PRETTY_PRINT|JSON_INVALID_UTF8_IGNORE|JSON_UNESCAPED_UNICODE);
 		exit(1);
 	}
 }
 if(!isset($config['external']['discord']['webhook'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /external/discord/webhook. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'Fetal: Config load failed: No such element: /external/discord/webhook. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['external']['discord']['webhook']['notice'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /external/discord/webhook/notice. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'Fetal: Config load failed: No such element: /external/discord/webhook/notice. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['external']['discord']['webhook']['notice']['endpoint'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /external/discord/webhook/notice/endpoint. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'Fetal: Config load failed: No such element: /external/discord/webhook/notice/endpoint. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 
@@ -212,7 +212,7 @@ for($i=0;$i<count($list);$i++) {
 			'description'=>'Not attempted parameter `'.$list[$i].'`',
 			'details'=>json_encode(null),
 		];
-		error_log('['.__LINE__.'] '.$result['result']['level'].': '.$result['result']['description'].'. evented on '.__FILE__.'#'.__LINE__);
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.$result['result']['level'].': '.$result['result']['description'].'. evented on '.__FILE__.'#'.__LINE__);
 		echo json_encode($result['result'],JSON_PRETTY_PRINT|JSON_INVALID_UTF8_IGNORE|JSON_UNESCAPED_UNICODE);
 		exit(1);
 	}
@@ -298,7 +298,7 @@ if($curl_res_info>399 || $curl_res_info<200){
 		'description'=>'Unauthorized('.$curl_res_info.').',
 		'details'=>json_encode(['Error: Unauthorized','HTTP Error: '.$curl_res_info]),
 	];
-	error_log('['.__LINE__.'] '.$result['result']['level'].': '.$result['result']['description'].' evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.$result['result']['level'].': '.$result['result']['description'].' evented on '.__FILE__.'#'.__LINE__);
 	echo json_encode($result['result'],JSON_PRETTY_PRINT|JSON_INVALID_UTF8_IGNORE|JSON_UNESCAPED_UNICODE);
 	exit(1);
 }
@@ -330,15 +330,15 @@ try {
 			$result['result']['oauth2_token']['token_type'],
 		]);
 		if(!$pdo_res){
-			error_log('['.__LINE__.'] '.'[PDO] Insert error:');
-			error_log('['.__LINE__.'] '.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_token');
-			error_log('['.__LINE__.'] '.'[PDO]     ext-user-id='.$request['code']);
-			error_log('['.__LINE__.'] '.'[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
+			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO] Insert error:');
+			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_token');
+			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO]     ext-user-id='.$request['code']);
+			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
 		}
 	}
 	$pdo = null;
 } catch (\Exception $th) {
-	error_log('['.$th->getLine().'] '.$th->getMessage());
+	error_log('['.$th->getLine().'] ['.$_SERVER['REMOTE_ADDR'].']'.$th->getMessage());
 }
 
 # Get IPinfo Lite Data
@@ -362,7 +362,7 @@ try {
 		$result['result']['ipinfo'] = array_merge($result['result']['ipinfo'], $pdo_res);
 	} else {
 		$endpoint='https://api.ipinfo.io/lite/' . $_SERVER['REMOTE_ADDR'] . '?token=' . $config['external']['ipinfo']['token'];
-		error_log('['.__LINE__.'] '."curl ${endpoint}");
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'."curl ${endpoint}");
 		$curl_res = file_get_contents($endpoint);
 		$curl_res = json_decode($curl_res, TRUE);
 		$result['result']['ipinfo'] = array_merge($result['result']['ipinfo'], $curl_res);
@@ -370,7 +370,7 @@ try {
 
 	$pdo = null;
 } catch (\Exception $th) {
-	error_log('['.$th->getLine().'] '.$th->getMessage());
+	error_log('['.$th->getLine().'] ['.$_SERVER['REMOTE_ADDR'].']'.$th->getMessage());
 }
 
 try {
@@ -398,10 +398,10 @@ try {
 		$result['result']['ipinfo']['continent'],
 	]);
 	if(!$pdo_res){
-		error_log('['.__LINE__.'] '.'[PDO] Insert error:');
-		error_log('['.__LINE__.'] '.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_token');
-		error_log('['.__LINE__.'] '.'[PDO]     ext-user-id='.$request['code']);
-		error_log('['.__LINE__.'] '.'[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO] Insert error:');
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_token');
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO]     ext-user-id='.$request['code']);
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
 	}
 
 	$pdo_con = $pdo->prepare('UPDATE '.$config['internal']['databases'][0]['tableprefix'].'_token SET ipinfo_id = :access_code WHERE access_code = :access_code;');
@@ -409,14 +409,14 @@ try {
 		'access_code' => $request['code'],
 	]);
 	if(!$pdo_res){
-		error_log('['.__LINE__.'] '.'[PDO] Insert error:');
-		error_log('['.__LINE__.'] '.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_token');
-		error_log('['.__LINE__.'] '.'[PDO]     ext-user-id='.$request['code']);
-		error_log('['.__LINE__.'] '.'[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO] Insert error:');
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_token');
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO]     ext-user-id='.$request['code']);
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
 	}
 	$pdo = null;
 } catch (\Exception $th) {
-	error_log('['.$th->getLine().'] '.$th->getMessage());
+	error_log('['.$th->getLine().'] ['.$_SERVER['REMOTE_ADDR'].']'.$th->getMessage());
 }
 
 # users_@me
@@ -442,7 +442,7 @@ if($curl_res_info>299 || $curl_res_info<200){
 		'description'=>'Unauthorized('.$curl_res_info.').',
 		'details'=>json_encode(['Error: Unauthorized','HTTP Error: '.$curl_res_info]),
 	];
-	error_log('['.__LINE__.'] '.$result['result']['level'].': '.$result['result']['description'].' evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.$result['result']['level'].': '.$result['result']['description'].' evented on '.__FILE__.'#'.__LINE__);
 	echo json_encode($result['result'],JSON_PRETTY_PRINT|JSON_INVALID_UTF8_IGNORE|JSON_UNESCAPED_UNICODE);
 	exit(1);
 }
@@ -456,15 +456,15 @@ try {
 		'access_code'=>$request['code'],
 	]);
 	if(!$pdo_res){
-		error_log('['.__LINE__.'] '.'[PDO] Update error:');
-		error_log('['.__LINE__.'] '.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_token');
-		error_log('['.__LINE__.'] '.'[PDO]     ext-user-id='.$request['code'].'('.$result['result']['users_me']['id'].')');
-		error_log('['.__LINE__.'] '.'[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO] Update error:');
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_token');
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO]     ext-user-id='.$request['code'].'('.$result['result']['users_me']['id'].')');
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
 		throw new Exception('[PDO] Update error: table='.$config['internal']['databases'][0]['tableprefix'].'_token', 1);
 	}
 	$pdo = null;
 } catch (\Exception $th) {
-	error_log('['.$th->getLine().'] '.$th->getMessage());
+	error_log('['.$th->getLine().'] ['.$_SERVER['REMOTE_ADDR'].']'.$th->getMessage());
 }
 try {
 	$pdo = new \PDO( $pdo_dsn, null, null, $pdo_option );
@@ -516,14 +516,14 @@ try {
 		$result['result']['users_me']['premium_type'],
 	]);
 	if(!$pdo_res){
-		error_log('['.__LINE__.'] '.'[PDO] Insert error:');
-		error_log('['.__LINE__.'] '.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_discordme');
-		error_log('['.__LINE__.'] '.'[PDO]     ext-user-id='.$result['result']['users_me']['id']);
-		error_log('['.__LINE__.'] '.'[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO] Insert error:');
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_discordme');
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO]     ext-user-id='.$result['result']['users_me']['id']);
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
 	}
 	$pdo = null;
 } catch (\Exception $th) {
-	error_log('['.$th->getLine().'] '.$th->getMessage());
+	error_log('['.$th->getLine().'] ['.$_SERVER['REMOTE_ADDR'].']'.$th->getMessage());
 }
 
 # refresh token
@@ -572,15 +572,15 @@ try {
 			$request['code'],
 		]);
 		if(!$pdo_res){
-			error_log('['.__LINE__.'] '.'[PDO] Insert error:');
-			error_log('['.__LINE__.'] '.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_token');
-			error_log('['.__LINE__.'] '.'[PDO]     ext-user-id='.$request['code']);
-			error_log('['.__LINE__.'] '.'[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
+			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO] Insert error:');
+			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_token');
+			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO]     ext-user-id='.$request['code']);
+			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
 		}
 	}
 	$pdo = null;
 } catch (\Exception $th) {
-	error_log('['.$th->getLine().'] '.$th->getMessage());
+	error_log('['.$th->getLine().'] ['.$_SERVER['REMOTE_ADDR'].']'.$th->getMessage());
 }
 
 # Notify to @me
@@ -608,7 +608,7 @@ $curl_res = array_merge([
 		]
 	]
 ], $curl_res);
-error_log('['.__LINE__.'] '.json_encode($curl_res));
+error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.json_encode($curl_res));
 $result['result']['directmessage_channel'] = array_merge($result['result']['directmessage_channel'], $curl_res);
 $result['result']['directmessage_channel']['api_http_response_code'] = $curl_res_info;
 
@@ -668,7 +668,7 @@ $curl_res = array_merge([
 		]
 	]
 ], $curl_res);
-error_log('['.__LINE__.'] '.json_encode($curl_res));
+error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.json_encode($curl_res));
 }
 
 # refresh token
@@ -717,15 +717,15 @@ try {
 			$request['code'],
 		]);
 		if(!$pdo_res){
-			error_log('['.__LINE__.'] '.'[PDO] Insert error:');
-			error_log('['.__LINE__.'] '.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_token');
-			error_log('['.__LINE__.'] '.'[PDO]     ext-user-id='.$request['code']);
-			error_log('['.__LINE__.'] '.'[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
+			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO] Insert error:');
+			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_token');
+			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO]     ext-user-id='.$request['code']);
+			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].']'.'[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
 		}
 	}
 	$pdo = null;
 } catch (\Exception $th) {
-	error_log('['.$th->getLine().'] '.$th->getMessage());
+	error_log('['.$th->getLine().'] ['.$_SERVER['REMOTE_ADDR'].']'.$th->getMessage());
 }
 
 /*
