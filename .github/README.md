@@ -70,6 +70,7 @@
 
 Follow [config.json](/docs/config.json)
 
+## Sample(shell)
 
 ```sh
 client_id='1331215597119340585' # Follow the developer console, into bot info
