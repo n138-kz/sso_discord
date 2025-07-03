@@ -66,7 +66,9 @@
 > `code`はアクセスコードを貰うためだけのトークン  
 > ユーザ情報とかは`access_code`を使用する
 
+## config.json
 
+Follow [config.json](/docs/config.json)
 
 
 ```sh
