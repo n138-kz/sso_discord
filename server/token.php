@@ -571,16 +571,12 @@ try {
 
 # Notify to @me
 $endpoint='https://discordapp.com/api/users/@me/channels';
-error_log('['.__LINE__.'] '.'curl -H \'Authorization: Bearer '.$result['result']['oauth2_token']['access_token'].'\' '.$endpoint);
 $parameter=[
 	'Authorization: '.$config['external']['discord']['auth_sso']['token_type'].' '.$config['external']['discord']['auth_sso']['token'],
 	'Content-Type: application/json',
 ];
-error_log('['.__LINE__.'] '.$endpoint);
-error_log('['.__LINE__.'] '.json_encode($parameter));
 $payload=[ 'recipient_id' => $result['result']['users_me']['id'], ];
 $payload=json_encode($payload);
-error_log('['.__LINE__.'] '.$payload);
 $curl_req = curl_init($endpoint);
 curl_setopt($curl_req, CURLOPT_POST,           TRUE);
 curl_setopt($curl_req, CURLOPT_HTTPHEADER,     $parameter);
