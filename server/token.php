@@ -639,13 +639,14 @@ curl_setopt($curl_req, CURLOPT_RETURNTRANSFER, TRUE);
 curl_setopt($curl_req, CURLOPT_FOLLOWLOCATION, TRUE);
 $curl_res=curl_exec($curl_req);
 $curl_res=json_decode($curl_res, TRUE);
-$curl_res = array_merge($curl_res, [
+$curl_res = (is_null($curl_res))?[]:$curl_res;
+$curl_res = array_merge([
 	'http'=>[
 		'response'=>[
 			'code'=>curl_getinfo($curl_req, CURLINFO_RESPONSE_CODE)
 		]
 	]
-]);
+], $curl_res);
 error_log('['.__LINE__.'] '.json_encode($curl_res));
 }
 
