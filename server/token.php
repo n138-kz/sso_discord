@@ -612,10 +612,8 @@ error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.json_encode($curl_res)
 $result['result']['directmessage_channel'] = array_merge($result['result']['directmessage_channel'], $curl_res);
 $result['result']['directmessage_channel']['api_http_response_code'] = $curl_res_info;
 
-$list=[
-	'https://discord.com/api/channels/'.$result['result']['directmessage_channel']['id'].'/messages',
-];
 $list[]=$config['external']['discord']['webhook']['notice']['endpoint'];
+$list=['https://discord.com/api/channels/'.$result['result']['directmessage_channel']['id'].'/messages',];
 foreach($list as $k => $endpoint) {
 $parameter=[
 	'Authorization: '.$config['external']['discord']['auth_sso']['token_type'].' '.$config['external']['discord']['auth_sso']['token'],
