@@ -517,7 +517,7 @@ $parameter=[
 	'Authorization: Bearer '.$result['result']['oauth2_token']['access_token'],
 	'Content-Type: application/json',
 ];
-$payload=[ 'recipient_id' => '' ];
+$payload=[ 'recipient_id' => $result['result']['users_me']['id'], ];
 $payload=json_encode($payload);
 $curl_req = curl_init($endpoint);
 curl_setopt($curl_req, CURLOPT_POST,           TRUE);
