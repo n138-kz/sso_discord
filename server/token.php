@@ -511,6 +511,63 @@ try {
 	error_log('['.$th->getLine().'] '.$th->getMessage());
 }
 
+# refresh token
+$endpoint='https://discordapp.com/api/oauth2/token';
+$parameter='grant_type=refresh_token';
+$parameter.='&client_id='.$config['external']['discord']['auth_sso']['client_id'];
+$parameter.='&client_secret='.$config['external']['discord']['auth_sso']['client_secret'];
+$parameter.='&refresh_token='.$result['result']['oauth2_token']['refresh_token'];
+$curl_req = curl_init($endpoint);
+curl_setopt($curl_req, CURLOPT_POST,           TRUE);
+curl_setopt($curl_req, CURLOPT_POSTFIELDS,     $parameter);
+curl_setopt($curl_req, CURLOPT_RETURNTRANSFER, TRUE);
+curl_setopt($curl_req, CURLOPT_FOLLOWLOCATION, TRUE);
+$curl_res=curl_exec($curl_req);
+$curl_res=json_decode($curl_res, TRUE);
+$curl_res_info=curl_getinfo($curl_req, CURLINFO_RESPONSE_CODE);
+$result['result']['oauth2_token'] = array_merge($result['result']['oauth2_token'], $curl_res);
+$result['result']['oauth2_token']['api_http_response_code'] = $curl_res_info;
+
+try {
+	$pdo = new \PDO( $pdo_dsn, null, null, $pdo_option );
+	$pdo_con = $pdo->prepare('SELECT count(scope) FROM '.$config['internal']['databases'][0]['tableprefix'].'_token WHERE userid=?;');
+	$pdo_res = $pdo_con->execute([
+		$request['code'],
+	]);
+	$pdo_res = $pdo_con->fetch(\PDO::FETCH_ASSOC);
+	if($pdo_res['count']==0){
+		$pdo_con = $pdo->prepare('INSERT INTO '.$config['internal']['databases'][0]['tableprefix'].'_token ('
+		. 'userid,'
+		. 'access_code,'
+		. 'access_token,'
+		. 'expires_in,'
+		. 'refresh_token,'
+		. 'scope,'
+		. 'token_type,'
+		. 'ipinfo_id'
+		. ') VALUES (?,?,?,?,?,?,?,?);');
+		$pdo_res = $pdo_con->execute([
+			$result['result']['users_me']['id'],
+			$request['code'],
+			$result['result']['oauth2_token']['access_token'],
+			$result['result']['oauth2_token']['expires_in'],
+			$result['result']['oauth2_token']['refresh_token'],
+			$result['result']['oauth2_token']['scope'],
+			$result['result']['oauth2_token']['token_type'],
+			$request['code'],
+		]);
+		if(!$pdo_res){
+			error_log('['.__LINE__.'] '.'[PDO] Insert error:');
+			error_log('['.__LINE__.'] '.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_token');
+			error_log('['.__LINE__.'] '.'[PDO]     ext-user-id='.$request['code']);
+			error_log('['.__LINE__.'] '.'[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
+		}
+	}
+	$pdo = null;
+} catch (\Exception $th) {
+	error_log('['.$th->getLine().'] '.$th->getMessage());
+}
+
 # Notify to @me
 $endpoint='https://discordapp.com/api/users/@me/channels';
 error_log('['.__LINE__.'] '.'curl -H \'Authorization: Bearer '.$result['result']['oauth2_token']['access_token'].'\' '.$endpoint);
