@@ -26,32 +26,32 @@
 - [![](https://www.google.com/s2/favicons?size=64&domain=https://github.com)http_post](https://github.com/n138-kz/http_post)
 
 <details>
-	<summary>PHP、CURLFileでファイルをアップロードする。(multipart/form-data、POST)</summary>
+<summary>PHP、CURLFileでファイルをアップロードする。(multipart/form-data、POST)</summary>
 
-	```php
-	$curl_file = new \CURLFile($_FILES['uploadfile']["tmp_name"], $_FILES['uploadfile']["type"], $_FILES['uploadfile']["name"]);
-	$option = [
-	    'aaa' => 'AAA',
-	    'bbb' => 'BBB',
-	];
-	$option_encode = json_encode($option);
-	$param = [
-	    // $curl_fileと、その他に必要なパラメータがあればここに追加。
-	    'file' => $curl_file,
-	    'pass' => "abcdef",
-	    'option' => $option_encode,
-	];
-	$postdata = $param;
+```php
+$curl_file = new \CURLFile($_FILES['uploadfile']["tmp_name"], $_FILES['uploadfile']["type"], $_FILES['uploadfile']["name"]);
+$option = [
+    'aaa' => 'AAA',
+    'bbb' => 'BBB',
+];
+$option_encode = json_encode($option);
+$param = [
+    // $curl_fileと、その他に必要なパラメータがあればここに追加。
+    'file' => $curl_file,
+    'pass' => "abcdef",
+    'option' => $option_encode,
+];
+$postdata = $param;
 
-	$ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, "https://xxx.jp/yyy/zzz.php");
-	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-	curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: multipart/form-data"));
-	curl_setopt($ch, CURLOPT_POST, true);
-	curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
-	$result = curl_exec($ch);
-	$result_decode = json_decode($result, true);
-	```
+$ch = curl_init();
+curl_setopt($ch, CURLOPT_URL, "https://xxx.jp/yyy/zzz.php");
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array("Content-Type: multipart/form-data"));
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
+$result = curl_exec($ch);
+$result_decode = json_decode($result, true);
+```
 
 </details>
 
