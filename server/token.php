@@ -438,6 +438,7 @@ $payload['embeds'][0]['thumbnail'] = [];
 $payload['embeds'][0]['thumbnail']['url'] = '';
 $payload['embeds'][0]['color'] = '#5865F2';
 $payload['embeds'][0]['color'] = hexdec($payload['embeds'][0]['color']);
+$payload['avatar_url'] = 'https://cdn.discordapp.com/embed/avatars/0.png';
 $payload = json_encode($payload);
 $curl_req = curl_init($endpoint);
 curl_setopt($curl_req, CURLOPT_POST,           TRUE);
