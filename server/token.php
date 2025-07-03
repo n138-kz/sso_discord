@@ -613,7 +613,7 @@ $payload=[
 ];
 $payload['embeds'][0]['title'] = '【ログイン通知】Login notice';
 $payload['embeds'][0]['description'] = '';
-$payload['embeds'][0]['description'] .= date('Y/m/d H:i:s T') . 'にDiscordにログインしましたか？' . "\n";
+$payload['embeds'][0]['description'] .= '<t:'.time().':F>にDiscordにログインしましたか？' . "\n";
 $payload['embeds'][0]['description'] .= 'あなた自身が行った場合はこのメッセージは無視していただいて問題ありません。' . "\n\n";
 $payload['embeds'][0]['description'] .= 'あなたではない場合今すぐ確認してください。' . "\n\n";
 $payload['embeds'][0]['description'] .= 'https://discord.com/login';
