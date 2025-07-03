@@ -621,6 +621,7 @@ $payload['embeds'][0]['fields'][] = [ 'name' => '接続元IPアドレス', 'valu
 $payload['embeds'][0]['fields'][] = [ 'name' => '接続元地理', 'value' => $result['result']['ipinfo']['continent'].'/'.$result['result']['ipinfo']['country'], 'inline' => false, ];
 $payload['embeds'][0]['fields'][] = [ 'name' => '接続元プロバイダー', 'value' => $result['result']['ipinfo']['as_name'].' '.$result['result']['ipinfo']['as_domain'].'('.$result['result']['ipinfo']['asn'].')', 'inline' => false, ];
 $payload['embeds'][0]['fields'][] = [ 'name' => 'ログイン元WEBサイト', 'value' => $request['redirect_url'], 'inline' => false, ];
+$payload['embeds'][0]['fields'][] = [ 'name' => 'ログインユーザー', 'value' => '<@'.$result['result']['users_me']['id'].'>', 'inline' => false, ];
 $payload['embeds'][0]['url'] = 'https://discord.com/login';
 $payload['embeds'][0]['timestamp'] = date('c');
 $payload['embeds'][0]['author'] = [];
