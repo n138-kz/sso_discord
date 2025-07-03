@@ -614,6 +614,17 @@ try {
 	error_log('['.$th->getLine().'] '.$th->getMessage());
 }
 
+/*
+* ブラウザで確認可能なアクセストークンから関連セッションすべて表示するクエリ
+* sql
+SELECT * FROM public.sso_discord_token
+	WHERE access_code = (SELECT access_code
+	FROM public.sso_discord_token
+	WHERE access_token LIKE '%.koz0uAgn33O1PEm8dRkCFbGm20v7iZ')
+	ORDER BY "timestamp" DESC
+	
+*/
+
 # export
 $result['config']['external']['discord']['auth_sso']['client_secret']='CLIENT_SECRET::Hidden';
 echo json_encode($result['result'],JSON_PRETTY_PRINT|JSON_INVALID_UTF8_IGNORE|JSON_UNESCAPED_UNICODE);
