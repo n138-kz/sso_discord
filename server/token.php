@@ -327,11 +327,36 @@ try {
 }
 
 # Get IPinfo Lite Data
-$endpoint='https://api.ipinfo.io/lite/' . $_SERVER['REMOTE_ADDR'] . '?token=' . $config['external']['ipinfo']['token'];
-error_log("curl ${endpoint}");
-$curl_res = file_get_contents($endpoint);
-$curl_res = json_decode($curl_res, TRUE);
-$result['result']['ipinfo'] = array_merge($result['result']['ipinfo'], $curl_res);
+try {
+	$pdo = new \PDO( $pdo_dsn, null, null, $pdo_option );
+	$pdo_con = $pdo->prepare('SELECT '
+		. 'ip,'
+		. 'asn,'
+		. 'as_name,'
+		. 'as_domain,'
+		. 'country_code,'
+		. 'country,'
+		. 'continent_code,'
+		. 'continent'
+		. ' FROM '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo WHERE ip = ? limit 1;');
+	$pdo_res = $pdo_con->execute([
+		$_SERVER['REMOTE_ADDR'],
+	]);
+	$pdo_res = $pdo_con->fetch(\PDO::FETCH_ASSOC);
+	if(count($pdo_res)>0){
+		$result['result']['ipinfo'] = array_merge($result['result']['ipinfo'], $pdo_res);
+	} else {
+		$endpoint='https://api.ipinfo.io/lite/' . $_SERVER['REMOTE_ADDR'] . '?token=' . $config['external']['ipinfo']['token'];
+		error_log("curl ${endpoint}");
+		$curl_res = file_get_contents($endpoint);
+		$curl_res = json_decode($curl_res, TRUE);
+		$result['result']['ipinfo'] = array_merge($result['result']['ipinfo'], $curl_res);
+	}
+
+	$pdo = null;
+} catch (\Exception $th) {
+	error_log('['.$th->getLine().'] '.$th->getMessage());
+}
 
 try {
 	$pdo = new \PDO( $pdo_dsn, null, null, $pdo_option );
