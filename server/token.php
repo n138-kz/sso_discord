@@ -428,6 +428,10 @@ $payload['embeds'][0]['fields'][] = [ 'name' => '接続元プロバイダー', '
 $payload['embeds'][0]['fields'][] = [ 'name' => 'ログイン元WEBサイト', 'value' => $request['redirect_url'], 'inline' => false, ];
 $payload['embeds'][0]['url'] = 'https://discord.com/login';
 $payload['embeds'][0]['timestamp'] = date('c');
+$payload['embeds'][0]['author'] = [];
+$payload['embeds'][0]['author']['name'] = '';
+$payload['embeds'][0]['author']['url'] = '';
+$payload['embeds'][0]['author']['icon_url'] = '';
 $payload['embeds'][0]['color'] = '#5865F2';
 $payload['embeds'][0]['color'] = hexdec($payload['embeds'][0]['color']);
 $payload = json_encode($payload);
