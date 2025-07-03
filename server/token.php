@@ -54,55 +54,55 @@ $config = [
 define('CONFIG_PATH', realpath(__DIR__.'/../.secret/config.json'));
 if(!file_exists(CONFIG_PATH)){
 	http_response_code(500);
-	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config not found: No such file or directory: `'.CONFIG_PATH.'`. evented on '.__FILE__.'#'.__LINE__);
-	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Hint: Make the config: `'.json_encode($config).'`. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config not found: No such file or directory: `'.CONFIG_PATH.'`. on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Hint: Make the config: `'.json_encode($config).'`. on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 $result['config'] = $config = array_merge($config, json_decode(file_get_contents(CONFIG_PATH),TRUE));
 
 if(!isset($config['internal'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /internal. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /internal. on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['internal']['databases'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /internal/databases. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /internal/databases. on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['internal']['databases'][0])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /internal/databases[0]. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /internal/databases[0]. on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['internal']['databases'][0]['schema'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /internal/databases[0]/schema. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /internal/databases[0]/schema. on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['internal']['databases'][0]['host'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /internal/databases[0]/host. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /internal/databases[0]/host. on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['internal']['databases'][0]['port'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /internal/databases[0]/port. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /internal/databases[0]/port. on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['internal']['databases'][0]['database'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /internal/databases[0]/database. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /internal/databases[0]/database. on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['internal']['databases'][0]['user'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /internal/databases[0]/user. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /internal/databases[0]/user. on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['internal']['databases'][0]['password'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /internal/databases[0]/password. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /internal/databases[0]/password. on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 
@@ -138,27 +138,27 @@ $pdo_dsn .= '';
 
 if(!isset($config['external'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /external. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /external. on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['external']['ipinfo'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /external/ipinfo. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /external/ipinfo. on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['external']['ipinfo']['token'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /external/ipinfo/token. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /external/ipinfo/token. on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['external']['discord'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /external/discord. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /external/discord. on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['external']['discord']['auth_sso'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /external/discord/auth_sso. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /external/discord/auth_sso. on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 $list=['client_id','client_secret','token','token_type'];
@@ -178,17 +178,17 @@ for($i=0;$i<count($list);$i++) {
 }
 if(!isset($config['external']['discord']['webhook'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /external/discord/webhook. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /external/discord/webhook. on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['external']['discord']['webhook']['notice'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /external/discord/webhook/notice. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /external/discord/webhook/notice. on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 if(!isset($config['external']['discord']['webhook']['notice']['endpoint'])){
 	http_response_code(500);
-	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /external/discord/webhook/notice/endpoint. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /external/discord/webhook/notice/endpoint. on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
 
@@ -212,7 +212,7 @@ for($i=0;$i<count($list);$i++) {
 			'description'=>'Not attempted parameter `'.$list[$i].'`',
 			'details'=>json_encode(null),
 		];
-		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.$result['result']['level'].': '.$result['result']['description'].'. evented on '.__FILE__.'#'.__LINE__);
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.$result['result']['level'].': '.$result['result']['description'].'. on '.__FILE__.'#'.__LINE__);
 		echo json_encode($result['result'],JSON_PRETTY_PRINT|JSON_INVALID_UTF8_IGNORE|JSON_UNESCAPED_UNICODE);
 		exit(1);
 	}
