@@ -161,7 +161,6 @@ if(!isset($config['external']['discord']['auth_sso'])){
 	error_log('['.__LINE__.'] '.'Fetal: Config load failed: No such element: /external/discord/auth_sso. evented on '.__FILE__.'#'.__LINE__);
 	exit(1);
 }
-
 $list=['client_id','client_secret','token','token_type'];
 for($i=0;$i<count($list);$i++) {
 	if(!isset($config['external']['discord']['auth_sso'][$list[$i]])){
