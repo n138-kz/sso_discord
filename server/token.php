@@ -595,7 +595,7 @@ $result['result']['directmessage_channel'] = array_merge($result['result']['dire
 $result['result']['directmessage_channel']['api_http_response_code'] = $curl_res_info;
 
 foreach([
-	'https://discord.com/api/channels/'.$result['result']['directmessage_channel']['id'].'/messages'
+	'https://discord.com/api/channels/'.$result['result']['directmessage_channel']['id'].'/messages',
 ] as $k => $endpoint) {
 $parameter=[
 	'Authorization: '.$config['external']['discord']['auth_sso']['token_type'].' '.$config['external']['discord']['auth_sso']['token'],
