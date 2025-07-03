@@ -20,6 +20,8 @@
       "auth_sso": {
         "client_id": 1331215597119340585,
         "client_secret": "",
+        "token": "",
+        "token_type": "Bot",
         "redirect_uri": "https://n138-kz.github.io/sso_discord/",
         "admin_users": []
       },
