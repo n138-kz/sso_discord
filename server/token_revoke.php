@@ -54,24 +54,24 @@ $config = [
 define('CONFIG_PATH', realpath(__DIR__.'/../.secret/config.json'));
 if(!file_exists(CONFIG_PATH)){
 	http_response_code(500);
-	error_log('Fetal: Config not found: No such file or directory: `'.CONFIG_PATH.'`. evented on '.__FILE__.'#'.__LINE__);
-	error_log('Hint: Make the config: `'.json_encode($config).'`. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config not found: No such file or directory: `'.CONFIG_PATH.'`.');
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Hint: Make the config: `'.json_encode($config).'`.');
 	exit(1);
 }
 $result['config'] = $config = array_merge($config, json_decode(file_get_contents(CONFIG_PATH),TRUE));
 if(!isset($config['external'])){
 	http_response_code(500);
-	error_log('Fetal: Config load failed: No such element: /external. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /external.');
 	exit(1);
 }
 if(!isset($config['external']['discord'])){
 	http_response_code(500);
-	error_log('Fetal: Config load failed: No such element: /external/discord. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /external/discord.');
 	exit(1);
 }
 if(!isset($config['external']['discord']['auth_sso'])){
 	http_response_code(500);
-	error_log('Fetal: Config load failed: No such element: /external/discord/auth_sso. evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'Fetal: Config load failed: No such element: /external/discord/auth_sso.');
 	exit(1);
 }
 $list=['client_id','client_secret',];
@@ -84,7 +84,7 @@ for($i=0;$i<count($list);$i++) {
 			'description'=>'Config load failed: No such item: /external/discord/auth_sso/'.$list[$i].'.',
 			'details'=>json_encode(null),
 		];
-		error_log($result['result']['level'].': '.$result['result']['description'].' evented on '.__FILE__.'#'.__LINE__);
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.$result['result']['level'].': '.$result['result']['description']);
 		echo json_encode($result['result'],JSON_PRETTY_PRINT|JSON_INVALID_UTF8_IGNORE|JSON_UNESCAPED_UNICODE);
 		exit(1);
 	}
@@ -110,7 +110,7 @@ for($i=0;$i<count($list);$i++) {
 			'description'=>'Not attempted parameter `'.$list[$i].'`',
 			'details'=>json_encode(null),
 		];
-		error_log($result['result']['level'].': '.$result['result']['description'].'. evented on '.__FILE__.'#'.__LINE__);
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.$result['result']['level'].': '.$result['result']['description'].'.');
 		echo json_encode($result['result'],JSON_PRETTY_PRINT|JSON_INVALID_UTF8_IGNORE|JSON_UNESCAPED_UNICODE);
 		exit(1);
 	}
@@ -158,7 +158,7 @@ if($curl_res_info>399 || $curl_res_info<200){
 		'description'=>'Unauthorized('.$curl_res_info.').',
 		'details'=>json_encode(['Error: Unauthorized','HTTP Error: '.$curl_res_info]),
 	];
-	error_log($result['result']['level'].': '.$result['result']['description'].' evented on '.__FILE__.'#'.__LINE__);
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.$result['result']['level'].': '.$result['result']['description']);
 	echo json_encode($result['result'],JSON_PRETTY_PRINT|JSON_INVALID_UTF8_IGNORE|JSON_UNESCAPED_UNICODE);
 	exit(1);
 }
