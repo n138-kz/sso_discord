@@ -168,4 +168,7 @@ $result['result'] = array_merge($result['result'], [
 	'description'=>'Token has revoked',
 	'details'=>json_encode(['Token has revoked. Have a nice day.']),
 ]);
+
+# export
+$result['config']['external']['discord']['auth_sso']['client_secret']='CLIENT_SECRET::Hidden';
 echo json_encode($result['result'],JSON_PRETTY_PRINT|JSON_INVALID_UTF8_IGNORE|JSON_UNESCAPED_UNICODE);
