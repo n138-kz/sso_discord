@@ -344,7 +344,7 @@ try {
 # Get IPinfo Lite Data
 try {
 	$pdo = new \PDO( $pdo_dsn, null, null, $pdo_option );
-	$pdo_con = $pdo->prepare('SELECT '
+	$sql = 'SELECT '
 		. 'ip,'
 		. 'asn,'
 		. 'as_name,'
@@ -353,12 +353,13 @@ try {
 		. 'country,'
 		. 'continent_code,'
 		. 'continent'
-		. ' FROM '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo WHERE ip = ? limit 1;');
+		. ' FROM '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo WHERE ip = ? limit 1;';
+	$pdo_con = $pdo->prepare($sql);
 	$pdo_res = $pdo_con->execute([
 		$_SERVER['REMOTE_ADDR'],
 	]);
 	$pdo_res = $pdo_con->fetch(\PDO::FETCH_ASSOC);
-	if(count($pdo_res)>0){
+	if($pdo_res !== FALSE && count($pdo_res)>0){
 		$result['result']['ipinfo'] = array_merge($result['result']['ipinfo'], $pdo_res);
 	} else {
 		$endpoint='https://api.ipinfo.io/lite/' . $_SERVER['REMOTE_ADDR'] . '?token=' . $config['external']['ipinfo']['token'];
