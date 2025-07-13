@@ -377,7 +377,6 @@ try {
 try {
 	$pdo = new \PDO( $pdo_dsn, null, null, $pdo_option );
 	$pdo_con = $pdo->prepare('INSERT INTO '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo ('
-		. 'id,'
 		. 'ip,'
 		. 'asn,'
 		. 'as_name,'
@@ -386,9 +385,8 @@ try {
 		. 'country,'
 		. 'continent_code,'
 		. 'continent'
-		. ') VALUES (?,?,?,?,?,?,?,?,?);');
+		. ') VALUES (?,?,?,?,?,?,?,?);');
 	$pdo_res = $pdo_con->execute([
-		$request['code'],
 		$result['result']['ipinfo']['ip'],
 		$result['result']['ipinfo']['asn'],
 		$result['result']['ipinfo']['as_name'],
