@@ -687,7 +687,7 @@ foreach($list as $k => $endpoint) {
 	$payload['embeds'][0]['color'] = hexdec($payload['embeds'][0]['color']);
 	$payload['avatar_url'] = 'https://cdn.discordapp.com/embed/avatars/0.png';
 	$payload = json_encode($payload);
-	$curl_req = curl_init($endpoint);
+	$curl_req = curl_init($endpoint.'?wait=true');
 	curl_setopt($curl_req, CURLOPT_POST,           TRUE);
 	curl_setopt($curl_req, CURLOPT_HTTPHEADER,     $parameter);
 	curl_setopt($curl_req, CURLOPT_POSTFIELDS,     $payload);
@@ -696,14 +696,23 @@ foreach($list as $k => $endpoint) {
 	$curl_res=curl_exec($curl_req);
 	$curl_res=json_decode($curl_res, TRUE);
 	$curl_res = (is_null($curl_res))?[]:$curl_res;
-	$curl_res = array_merge([
+	$curl_res = [
 		'http'=>[
 			'response'=>[
 				'code'=>curl_getinfo($curl_req, CURLINFO_RESPONSE_CODE)
 			]
-		]
-	], $curl_res);
+		],
+		'response'=>$curl_res,
+	];
 	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.json_encode($curl_res));
+	error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.json_encode([
+		'http'=>[
+			'response'=>[
+				'code'=>curl_getinfo($curl_req, CURLINFO_RESPONSE_CODE)
+			]
+		],
+		'response'=>$curl_res['response']['channel_id'].'/'.$curl_res['response']['id'].'/'.$curl_res['response']['author']['id'],
+	]));
 }
 
 # refresh token
