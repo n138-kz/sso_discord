@@ -1,7 +1,6 @@
 DROP TABLE IF EXISTS sso_discord_discordme;
 CREATE TABLE IF NOT EXISTS sso_discord_discordme (
   "timestamp" double precision NOT NULL DEFAULT EXTRACT(epoch FROM CURRENT_TIMESTAMP),
-  timestamp_iso8601 text NOT NULL DEFAULT CURRENT_TIMESTAMP,
   userid text NOT NULL,
   username text,
   global_name text,

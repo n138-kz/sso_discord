@@ -1,7 +1,6 @@
 DROP TABLE IF EXISTS sso_discord_ipinfo;
 CREATE TABLE IF NOT EXISTS sso_discord_ipinfo (
   "timestamp" double precision NOT NULL DEFAULT EXTRACT(epoch FROM CURRENT_TIMESTAMP),
-  timestamp_iso8601 text NOT NULL DEFAULT CURRENT_TIMESTAMP,
   ip text NOT NULL UNIQUE,
   asn text,
   as_name text,
