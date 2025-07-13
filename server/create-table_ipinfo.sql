@@ -1,8 +1,7 @@
 DROP TABLE IF EXISTS sso_discord_ipinfo;
 CREATE TABLE IF NOT EXISTS sso_discord_ipinfo (
   "timestamp" double precision NOT NULL DEFAULT EXTRACT(epoch FROM CURRENT_TIMESTAMP),
-  id text NOT NULL,
-  ip text NOT NULL,
+  ip text NOT NULL UNIQUE,
   asn text,
   as_name text,
   as_domain text,
@@ -10,6 +9,6 @@ CREATE TABLE IF NOT EXISTS sso_discord_ipinfo (
   country text,
   continent_code text,
   continent text,
-  CONSTRAINT sso_discord_ipinfo_pkey PRIMARY KEY (id)
+  CONSTRAINT sso_discord_ipinfo_pkey PRIMARY KEY (ip)
 );
 ALTER TABLE IF EXISTS sso_discord_ipinfo OWNER to webapp;

@@ -9,7 +9,8 @@ CREATE TABLE IF NOT EXISTS sso_discord_token (
   scope text NOT NULL,
   token_type text NOT NULL,
   revoked boolean NOT NULL DEFAULT false,
-  ipinfo_id text,
+  remote_address text,
+  FOREIGN KEY(remote_address) REFERENCES sso_discord_ipinfo(ip),
   CONSTRAINT sso_discord_token_pkey PRIMARY KEY (access_token)
 );
 ALTER TABLE IF EXISTS sso_discord_token OWNER to webapp;
