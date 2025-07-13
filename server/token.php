@@ -772,17 +772,11 @@ try {
 	error_log('['.$th->getLine().'] ['.$_SERVER['REMOTE_ADDR'].'] '.$th->getMessage());
 }
 
-try {
-	/* timestamp_iso8601 を timestampに合わせる */
-	$pdo = new \PDO( $pdo_dsn, null, null, $pdo_option );
-	$sql = 'UPDATE sso_discord_token SET timestamp_iso8601 = TO_TIMESTAMP(timestamp);';
-	$pdo_con = $pdo->prepare($sql);
-	$pdo_res = $pdo_con->execute();
-	$pdo_res = $pdo_con->fetch(\PDO::FETCH_ASSOC);
-	$pdo = null;
-} catch (\Exception $th) {
-	error_log('['.$th->getLine().'] ['.$_SERVER['REMOTE_ADDR'].'] '.$th->getMessage());
-}
+/*
+* epoch秒をISO8601形式に変換して表示
+* sql
+SELECT "timestamp",TO_TIMESTAMP("timestamp");
+*/
 
 /*
 * ブラウザで確認可能なアクセストークンから関連セッションすべて表示するクエリ
