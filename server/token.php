@@ -342,8 +342,9 @@ try {
 		. 'expires_in,'
 		. 'refresh_token,'
 		. 'scope,'
-		. 'token_type'
-		. ') VALUES (?,?,?,?,?,?,?);');
+		. 'token_type,'
+		. 'remote_address'
+		. ') VALUES (?,?,?,?,?,?,?,?);');
 		$pdo_res = $pdo_con->execute([
 			$request['code'],
 			$request['code'],
@@ -352,6 +353,7 @@ try {
 			$result['result']['oauth2_token']['refresh_token'],
 			$result['result']['oauth2_token']['scope'],
 			$result['result']['oauth2_token']['token_type'],
+			$_SERVER['REMOTE_ADDR'],
 		]);
 		if(!$pdo_res){
 			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO] Insert error:');
@@ -400,7 +402,8 @@ try {
 
 try {
 	$pdo = new \PDO( $pdo_dsn, null, null, $pdo_option );
-	$pdo_con = $pdo->prepare('INSERT INTO '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo ('
+
+	$sql = 'SELECT '
 		. 'ip,'
 		. 'asn,'
 		. 'as_name,'
@@ -409,34 +412,42 @@ try {
 		. 'country,'
 		. 'continent_code,'
 		. 'continent'
-		. ') VALUES (?,?,?,?,?,?,?,?);');
+		. ' FROM '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo WHERE ip = ? limit 1;';
+	$pdo_con = $pdo->prepare($sql);
 	$pdo_res = $pdo_con->execute([
-		$result['result']['ipinfo']['ip'],
-		$result['result']['ipinfo']['asn'],
-		$result['result']['ipinfo']['as_name'],
-		$result['result']['ipinfo']['as_domain'],
-		$result['result']['ipinfo']['country_code'],
-		$result['result']['ipinfo']['country'],
-		$result['result']['ipinfo']['continent_code'],
-		$result['result']['ipinfo']['continent'],
+		$_SERVER['REMOTE_ADDR'],
 	]);
-	if(!$pdo_res){
-		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO] Insert error:');
-		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_token');
-		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO]     ext-user-id='.$request['code']);
-		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
+	$pdo_res = $pdo_con->fetch(\PDO::FETCH_ASSOC);
+	if($pdo_res === FALSE || count($pdo_res)===0){
+		/*  */
+		$pdo_con = $pdo->prepare('INSERT INTO '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo ('
+			. 'ip,'
+			. 'asn,'
+			. 'as_name,'
+			. 'as_domain,'
+			. 'country_code,'
+			. 'country,'
+			. 'continent_code,'
+			. 'continent'
+			. ') VALUES (?,?,?,?,?,?,?,?);');
+		$pdo_res = $pdo_con->execute([
+			$result['result']['ipinfo']['ip'],
+			$result['result']['ipinfo']['asn'],
+			$result['result']['ipinfo']['as_name'],
+			$result['result']['ipinfo']['as_domain'],
+			$result['result']['ipinfo']['country_code'],
+			$result['result']['ipinfo']['country'],
+			$result['result']['ipinfo']['continent_code'],
+			$result['result']['ipinfo']['continent'],
+		]);
+		if(!$pdo_res){
+			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO] Insert error:');
+			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_token');
+			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO]     ext-user-id='.$request['code']);
+			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
+		}
 	}
 
-	$pdo_con = $pdo->prepare('UPDATE '.$config['internal']['databases'][0]['tableprefix'].'_token SET ipinfo_id = :access_code WHERE access_code = :access_code;');
-	$pdo_res = $pdo_con->execute([
-		'access_code' => $request['code'],
-	]);
-	if(!$pdo_res){
-		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO] Insert error:');
-		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_token');
-		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO]     ext-user-id='.$request['code']);
-		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
-	}
 	$pdo = null;
 } catch (\Exception $th) {
 	error_log('['.$th->getLine().'] ['.$_SERVER['REMOTE_ADDR'].'] '.$th->getMessage());
@@ -581,9 +592,8 @@ try {
 		. 'expires_in,'
 		. 'refresh_token,'
 		. 'scope,'
-		. 'token_type,'
-		. 'ipinfo_id'
-		. ') VALUES (?,?,?,?,?,?,?,?);');
+		. 'token_type'
+		. ') VALUES (?,?,?,?,?,?,?);');
 		$pdo_res = $pdo_con->execute([
 			$result['result']['users_me']['id'],
 			$request['code'],
@@ -592,7 +602,6 @@ try {
 			$result['result']['oauth2_token']['refresh_token'],
 			$result['result']['oauth2_token']['scope'],
 			$result['result']['oauth2_token']['token_type'],
-			$request['code'],
 		]);
 		if(!$pdo_res){
 			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO] Insert error:');
@@ -728,7 +737,7 @@ try {
 		. 'refresh_token,'
 		. 'scope,'
 		. 'token_type,'
-		. 'ipinfo_id'
+		. 'remote_address'
 		. ') VALUES (?,?,?,?,?,?,?,?);');
 		$pdo_res = $pdo_con->execute([
 			$result['result']['users_me']['id'],
@@ -738,7 +747,7 @@ try {
 			$result['result']['oauth2_token']['refresh_token'],
 			$result['result']['oauth2_token']['scope'],
 			$result['result']['oauth2_token']['token_type'],
-			$request['code'],
+			$_SERVER['REMOTE_ADDR'],
 		]);
 		if(!$pdo_res){
 			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO] Insert error:');
