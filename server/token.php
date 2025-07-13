@@ -592,8 +592,9 @@ try {
 		. 'expires_in,'
 		. 'refresh_token,'
 		. 'scope,'
-		. 'token_type'
-		. ') VALUES (?,?,?,?,?,?,?);');
+		. 'token_type,'
+		. 'remote_address'
+		. ') VALUES (?,?,?,?,?,?,?,?);');
 		$pdo_res = $pdo_con->execute([
 			$result['result']['users_me']['id'],
 			$request['code'],
@@ -602,6 +603,7 @@ try {
 			$result['result']['oauth2_token']['refresh_token'],
 			$result['result']['oauth2_token']['scope'],
 			$result['result']['oauth2_token']['token_type'],
+			$_SERVER['REMOTE_ADDR'],
 		]);
 		if(!$pdo_res){
 			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO] Insert error:');
