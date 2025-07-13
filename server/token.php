@@ -40,14 +40,38 @@ $result=[
 ];
 
 $config = [
+	'internal' => [
+		'databases' => [
+			[
+				'host' => 'localhost',
+				'port' => '5432',
+				'schema' => 'pgsql',
+				'user' => 'postgres',
+				'password' => 'password',
+				'database' => 'postgres',
+				'tableprefix' => 'sso_discord',
+			],
+		],
+	],
 	'external' => [
 		'discord' => [
 			'auth_sso' => [
 				'client_id' => 0,
 				'client_secret' => 'Follow the https://discord.com/developers/applications, then set appropriate value.',
+				'token' => '',
+				'token_type' => 'Bot',
 				'redirect_uri' => 'https://example.org/',
 				'admin_users' => [],
 			],
+			'webhook' => [
+				'notice' => [
+					'endpoint' => '',
+					'active' => true,
+				],
+			],
+		],
+		'ipinfo' => [
+			'token' => ''
 		],
 	],
 ];
