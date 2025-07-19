@@ -1,3 +1,4 @@
+DROP VIEW IF EXISTS sso_discord_ipinfo_view;
 DROP TABLE IF EXISTS sso_discord_ipinfo;
 CREATE TABLE IF NOT EXISTS sso_discord_ipinfo (
   "timestamp" double precision NOT NULL DEFAULT EXTRACT(epoch FROM CURRENT_TIMESTAMP),
