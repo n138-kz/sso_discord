@@ -21,5 +21,5 @@ CREATE TABLE IF NOT EXISTS sso_discord_discordme (
 );
 ALTER TABLE IF EXISTS sso_discord_discordme OWNER to webapp;
 ALTER TABLE IF EXISTS sso_discord_discordme
-    ADD CONSTRAINT sso_discord_discordme_premium_type_fkey FOREIGN KEY (premium_type)
-    REFERENCES discord_premium_type (id) MATCH SIMPLE;
+  ADD CONSTRAINT sso_discord_discordme_premium_type_fkey FOREIGN KEY (premium_type)
+  REFERENCES discord_premium_type (id) MATCH SIMPLE;
