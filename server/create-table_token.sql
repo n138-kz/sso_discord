@@ -1,3 +1,4 @@
+DROP VIEW IF EXISTS sso_discord_token_view;
 DROP TABLE IF EXISTS sso_discord_token;
 CREATE TABLE IF NOT EXISTS sso_discord_token (
   "timestamp" double precision NOT NULL DEFAULT EXTRACT(epoch FROM CURRENT_TIMESTAMP),
@@ -14,3 +15,19 @@ CREATE TABLE IF NOT EXISTS sso_discord_token (
   CONSTRAINT sso_discord_token_pkey PRIMARY KEY (access_token)
 );
 ALTER TABLE IF EXISTS sso_discord_token OWNER to webapp;
+CREATE OR REPLACE VIEW sso_discord_token_view
+  AS
+  SELECT
+    to_timestamp(trunc(sso_discord_token."timestamp")) as timestamp,
+    sso_discord_token.userid,
+    sso_discord_token.access_code,
+    sso_discord_token.access_token,
+    sso_discord_token.expires_in,
+    sso_discord_token.refresh_token,
+    sso_discord_token.scope,
+    sso_discord_token.token_type,
+    sso_discord_token.revoked,
+    sso_discord_token.remote_address
+  FROM sso_discord_token
+  ORDER BY
+    sso_discord_token."timestamp" DESC;
