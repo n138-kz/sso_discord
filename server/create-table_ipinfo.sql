@@ -12,8 +12,8 @@ CREATE TABLE IF NOT EXISTS sso_discord_ipinfo_lite (
   continent text,
   CONSTRAINT sso_discord_ipinfo_lite_pkey PRIMARY KEY (ip)
 );
-CREATE OR REPLACE VIEW sso_discord_ipinfo_view
 ALTER TABLE IF EXISTS sso_discord_ipinfo_lite OWNER to webapp;
+CREATE OR REPLACE VIEW sso_discord_ipinfo_lite_view
   AS
   SELECT
     to_timestamp(trunc(sso_discord_ipinfo."timestamp")) as timestamp,
