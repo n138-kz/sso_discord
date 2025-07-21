@@ -1,5 +1,19 @@
 DROP VIEW IF EXISTS sso_discord_ipinfo_view;
 DROP TABLE IF EXISTS sso_discord_ipinfo;
+CREATE TABLE IF NOT EXISTS sso_discord_ipinfo (
+  "timestamp" double precision NOT NULL DEFAULT EXTRACT(epoch FROM CURRENT_TIMESTAMP),
+  ip text NOT NULL UNIQUE,
+  hostname text,
+  city text,
+  region text,
+  country text,
+  loc text,
+  org text,
+  postal text,
+  timezone text,
+  readme text,
+  CONSTRAINT sso_discord_ipinfo_pkey PRIMARY KEY (ip)
+);
 DROP VIEW IF EXISTS sso_discord_ipinfo_lite_view;
 DROP TABLE IF EXISTS sso_discord_ipinfo_lite;
 CREATE TABLE IF NOT EXISTS sso_discord_ipinfo_lite (
