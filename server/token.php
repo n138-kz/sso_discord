@@ -368,6 +368,102 @@ try {
 	error_log('['.$th->getLine().'] ['.$_SERVER['REMOTE_ADDR'].'] '.$th->getMessage());
 }
 
+# Get IPinfo Data
+try {
+	$pdo = new \PDO( $pdo_dsn, null, null, $pdo_option );
+	$sql = 'SELECT '
+		. 'ip,'
+		. 'hostname,'
+		. 'city,'
+		. 'region,'
+		. 'country,'
+		. 'loc,'
+		. 'org,'
+		. 'postal,'
+		. 'timezone,'
+		. 'readme'
+		. ' FROM '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo'
+		. ' WHERE ip = ? limit 1;';
+	$pdo_con = $pdo->prepare($sql);
+	$pdo_res = $pdo_con->execute([
+		$_SERVER['REMOTE_ADDR'],
+	]);
+	$pdo_res = $pdo_con->fetch(\PDO::FETCH_ASSOC);
+	if($pdo_res !== FALSE && count($pdo_res)>0){
+		$result['result']['ipinfo'] = array_merge($result['result']['ipinfo'], $pdo_res);
+	} else {
+		$endpoint='https://ipinfo.io/' . $_SERVER['REMOTE_ADDR'];
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '."curl ${endpoint}");
+		$curl_res = file_get_contents($endpoint);
+		$curl_res = json_decode($curl_res, TRUE);
+		$result['result']['ipinfo'] = array_merge($result['result']['ipinfo'], $curl_res);
+	}
+
+	$pdo = null;
+} catch (\Exception $th) {
+	error_log('['.$th->getLine().'] ['.$_SERVER['REMOTE_ADDR'].'] '.$th->getMessage());
+}
+
+try {
+	$pdo = new \PDO( $pdo_dsn, null, null, $pdo_option );
+
+	$sql = 'SELECT '
+		. 'ip,'
+		. 'hostname,'
+		. 'city,'
+		. 'region,'
+		. 'country,'
+		. 'loc,'
+		. 'org,'
+		. 'postal,'
+		. 'timezone,'
+		. 'readme'
+		. ' FROM '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo'
+		. ' WHERE ip = ? limit 1;';
+	$pdo_con = $pdo->prepare($sql);
+	$pdo_res = $pdo_con->execute([
+		$_SERVER['REMOTE_ADDR'],
+	]);
+	$pdo_res = $pdo_con->fetch(\PDO::FETCH_ASSOC);
+	if($pdo_res === FALSE || count($pdo_res)===0){
+		/*  */
+		$pdo_con = $pdo->prepare('INSERT INTO '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo ('
+			. 'ip,'
+			. 'hostname,'
+			. 'city,'
+			. 'region,'
+			. 'country,'
+			. 'loc,'
+			. 'org,'
+			. 'postal,'
+			. 'timezone,'
+			. 'readme'
+			. ') VALUES (?,?,?,?,?,?,?,?,?,?);');
+		$pdo_res = $pdo_con->execute([
+			$result['result']['ipinfo']['ip'],
+			$result['result']['ipinfo']['hostname'],
+			$result['result']['ipinfo']['city'],
+			$result['result']['ipinfo']['region'],
+			$result['result']['ipinfo']['country'],
+			$result['result']['ipinfo']['loc'],
+			$result['result']['ipinfo']['org'],
+			$result['result']['ipinfo']['postal'],
+			$result['result']['ipinfo']['timezone'],
+			$result['result']['ipinfo']['readme'],
+		]);
+		if(!$pdo_res){
+			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO] Insert error:');
+			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_ipinfo');
+			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO]     ext-user-id='.$request['code']);
+			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
+		}
+	}
+
+	$pdo = null;
+} catch (\Exception $th) {
+	error_log('['.$th->getLine().'] ['.$_SERVER['REMOTE_ADDR'].'] '.$th->getMessage());
+}
+
 # Get IPinfo Lite Data
 try {
 	$pdo = new \PDO( $pdo_dsn, null, null, $pdo_option );
@@ -380,7 +476,8 @@ try {
 		. 'country,'
 		. 'continent_code,'
 		. 'continent'
-		. ' FROM '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo_lite WHERE ip = ? limit 1;';
+		. ' FROM '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo_lite'
+		. ' WHERE ip = ? limit 1;';
 	$pdo_con = $pdo->prepare($sql);
 	$pdo_res = $pdo_con->execute([
 		$_SERVER['REMOTE_ADDR'],
@@ -413,7 +510,8 @@ try {
 		. 'country,'
 		. 'continent_code,'
 		. 'continent'
-		. ' FROM '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo_lite WHERE ip = ? limit 1;';
+		. ' FROM '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo_lite'
+		. ' WHERE ip = ? limit 1;';
 	$pdo_con = $pdo->prepare($sql);
 	$pdo_res = $pdo_con->execute([
 		$_SERVER['REMOTE_ADDR'],
@@ -443,7 +541,7 @@ try {
 		]);
 		if(!$pdo_res){
 			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO] Insert error:');
-			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_token');
+			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_ipinfo_lite');
 			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO]     ext-user-id='.$request['code']);
 			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
 		}
