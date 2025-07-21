@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS sso_discord_ipinfo (
   readme text,
   CONSTRAINT sso_discord_ipinfo_pkey PRIMARY KEY (ip)
 );
+ALTER TABLE IF EXISTS sso_discord_ipinfo OWNER to webapp;
 DROP VIEW IF EXISTS sso_discord_ipinfo_lite_view;
 DROP TABLE IF EXISTS sso_discord_ipinfo_lite;
 CREATE TABLE IF NOT EXISTS sso_discord_ipinfo_lite (
