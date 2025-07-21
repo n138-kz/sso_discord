@@ -661,18 +661,19 @@ foreach($list as $k => $endpoint) {
 			[],
 		],
 	];
-	$payload['embeds'][0]['title'] = '【ログイン通知】Login notice';
+	$payload['embeds'][0]['title'] = '【ログイン通知】Login Notice';
 	$payload['embeds'][0]['description'] = '';
+	$payload['embeds'][0]['description'] .= 'TO) <@'.$result['result']['users_me']['id'].'>殿' . "\n\n";
 	$payload['embeds'][0]['description'] .= '<t:'.time().':F>にDiscordにログインしましたか？' . "\n";
-	$payload['embeds'][0]['description'] .= 'あなた自身が行った場合はこのメッセージは無視していただいて問題ありません。' . "\n\n";
-	$payload['embeds'][0]['description'] .= 'あなたではない場合今すぐ確認してください。' . "\n\n";
-	$payload['embeds'][0]['description'] .= 'https://discord.com/login' . "\n";
-	$payload['embeds'][0]['description'] .= '[discord://preference](discord://preference)' . "\n";
+	$payload['embeds'][0]['description'] .= 'あなた自身が行った場合はこのメッセージは無視していただいて問題ありません。' . "\n";
+	$payload['embeds'][0]['description'] .= 'ログインにお心当たりがない場合は、パスワードの変更をお願いします。' . "\n\n";
+	$payload['embeds'][0]['description'] .= '▼Discordへのログインはこちら' . "\n";
+	$payload['embeds'][0]['description'] .= 'https://discord.com/login' . "\n\n";
+	$payload['embeds'][0]['fields'][] = [ 'name' => 'ログイン日時', 'value' => '<t:'.time().':F> (<t:'.time().':R>)', 'inline' => false, ];
 	$payload['embeds'][0]['fields'][] = [ 'name' => '接続元IPアドレス', 'value' => '['.$_SERVER['REMOTE_ADDR'].'](https://ipinfo.io/'.$_SERVER['REMOTE_ADDR'].')'.' ('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')', 'inline' => false, ];
 	$payload['embeds'][0]['fields'][] = [ 'name' => '接続元地理', 'value' => $result['result']['ipinfo']['continent'].'/'.$result['result']['ipinfo']['country'], 'inline' => false, ];
-	$payload['embeds'][0]['fields'][] = [ 'name' => '接続元プロバイダー', 'value' => $result['result']['ipinfo']['as_name'].' '.$result['result']['ipinfo']['as_domain'].'('.$result['result']['ipinfo']['asn'].')', 'inline' => false, ];
+	$payload['embeds'][0]['fields'][] = [ 'name' => '接続元プロバイダー', 'value' => '['.$result['result']['ipinfo']['asn'].'](https://ipinfo.io/'.$result['result']['ipinfo']['asn'].') ('.$result['result']['ipinfo']['as_name'].' '.$result['result']['ipinfo']['as_domain'].')', 'inline' => false, ];
 	$payload['embeds'][0]['fields'][] = [ 'name' => 'ログイン元WEBサイト', 'value' => $request['redirect_url'], 'inline' => false, ];
-	$payload['embeds'][0]['fields'][] = [ 'name' => 'ログインユーザー', 'value' => '<@'.$result['result']['users_me']['id'].'>', 'inline' => false, ];
 	$payload['embeds'][0]['url'] = 'https://discord.com/login';
 	$payload['embeds'][0]['timestamp'] = date('c');
 	$payload['embeds'][0]['author'] = [];
