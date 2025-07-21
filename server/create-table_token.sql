@@ -26,7 +26,7 @@ CREATE OR REPLACE VIEW sso_discord_token_view
     sso_discord_token.revoked,
     sso_discord_token.access_code,
     sso_discord_token.access_token,
-    sso_discord_token.expires_in,
+    sso_discord_token.expires_in, -- unit: seconds
     sso_discord_token.refresh_token,
     sso_discord_token.scope,
     sso_discord_token.token_type
