@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS sso_discord_ipinfo_lite (
   country text,
   continent_code text,
   continent text,
-  CONSTRAINT sso_discord_ipinfo_pkey PRIMARY KEY (ip)
+  CONSTRAINT sso_discord_ipinfo_lite_pkey PRIMARY KEY (ip)
 );
 ALTER TABLE IF EXISTS sso_discord_ipinfo OWNER to webapp;
 CREATE OR REPLACE VIEW sso_discord_ipinfo_view
