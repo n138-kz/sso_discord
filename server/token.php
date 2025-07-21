@@ -380,7 +380,7 @@ try {
 		. 'country,'
 		. 'continent_code,'
 		. 'continent'
-		. ' FROM '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo WHERE ip = ? limit 1;';
+		. ' FROM '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo_lite WHERE ip = ? limit 1;';
 	$pdo_con = $pdo->prepare($sql);
 	$pdo_res = $pdo_con->execute([
 		$_SERVER['REMOTE_ADDR'],
@@ -413,7 +413,7 @@ try {
 		. 'country,'
 		. 'continent_code,'
 		. 'continent'
-		. ' FROM '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo WHERE ip = ? limit 1;';
+		. ' FROM '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo_lite WHERE ip = ? limit 1;';
 	$pdo_con = $pdo->prepare($sql);
 	$pdo_res = $pdo_con->execute([
 		$_SERVER['REMOTE_ADDR'],
@@ -421,7 +421,7 @@ try {
 	$pdo_res = $pdo_con->fetch(\PDO::FETCH_ASSOC);
 	if($pdo_res === FALSE || count($pdo_res)===0){
 		/*  */
-		$pdo_con = $pdo->prepare('INSERT INTO '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo ('
+		$pdo_con = $pdo->prepare('INSERT INTO '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo_lite ('
 			. 'ip,'
 			. 'asn,'
 			. 'as_name,'
