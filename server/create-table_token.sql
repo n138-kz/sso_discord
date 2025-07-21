@@ -22,14 +22,14 @@ CREATE OR REPLACE VIEW sso_discord_token_view
     sso_discord_token.userid,
     sso_discord_discordme.username,
     sso_discord_discordme.global_name,
-    sso_discord_token.remote_address
+    sso_discord_token.remote_address,
     sso_discord_token.revoked,
     sso_discord_token.access_code,
     sso_discord_token.access_token,
     sso_discord_token.expires_in,
     sso_discord_token.refresh_token,
     sso_discord_token.scope,
-    sso_discord_token.token_type,
+    sso_discord_token.token_type
   FROM sso_discord_token
   INNER JOIN sso_discord_discordme
 	ON
