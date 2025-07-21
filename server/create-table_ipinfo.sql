@@ -66,3 +66,31 @@ CREATE OR REPLACE VIEW sso_discord_ipinfo_lite_view
   ORDER BY
     sso_discord_ipinfo_lite."timestamp" DESC;
 ALTER VIEW IF EXISTS sso_discord_ipinfo_lite_view OWNER to webapp;
+--
+DROP VIEW IF EXISTS sso_discord_ipinfo_all_view;
+CREATE OR REPLACE VIEW sso_discord_ipinfo_all_view
+  AS
+  SELECT
+    to_timestamp(trunc(EXTRACT(epoch FROM CURRENT_TIMESTAMP))) as timestamp,
+    sso_discord_ipinfo.ip,
+    sso_discord_ipinfo.hostname,
+    sso_discord_ipinfo_lite.continent_code,
+    sso_discord_ipinfo_lite.continent,
+    sso_discord_ipinfo_lite.country_code,
+    sso_discord_ipinfo_lite.country,
+    sso_discord_ipinfo.postal,
+    sso_discord_ipinfo.region,
+    sso_discord_ipinfo.city,
+    sso_discord_ipinfo.loc,
+    sso_discord_ipinfo.timezone,
+    sso_discord_ipinfo.org,
+    sso_discord_ipinfo.readme,
+    sso_discord_ipinfo_lite.asn,
+    sso_discord_ipinfo_lite.as_name,
+    sso_discord_ipinfo_lite.as_domain
+  FROM sso_discord_ipinfo
+  FULL OUTER JOIN sso_discord_ipinfo_lite
+    ON
+    sso_discord_ipinfo.ip = sso_discord_ipinfo_lite.ip
+  ORDER BY
+    sso_discord_ipinfo.ip DESC;
