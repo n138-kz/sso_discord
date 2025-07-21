@@ -28,3 +28,4 @@ CREATE OR REPLACE VIEW sso_discord_ipinfo_lite_view
   FROM sso_discord_ipinfo_lite
   ORDER BY
     sso_discord_ipinfo_lite."timestamp" DESC;
+ALTER VIEW IF EXISTS sso_discord_ipinfo_lite_view OWNER to webapp;
