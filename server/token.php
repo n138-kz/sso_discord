@@ -368,6 +368,41 @@ try {
 	error_log('['.$th->getLine().'] ['.$_SERVER['REMOTE_ADDR'].'] '.$th->getMessage());
 }
 
+# Get IPinfo Data
+try {
+	$pdo = new \PDO( $pdo_dsn, null, null, $pdo_option );
+	$sql = 'SELECT '
+		. 'ip,'
+		. 'hostname,'
+		. 'city,'
+		. 'region,'
+		. 'country,'
+		. 'loc,'
+		. 'org,'
+		. 'postal,'
+		. 'timezone,'
+		. 'readme'
+		. ' FROM '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo WHERE ip = ? limit 1;';
+	$pdo_con = $pdo->prepare($sql);
+	$pdo_res = $pdo_con->execute([
+		$_SERVER['REMOTE_ADDR'],
+	]);
+	$pdo_res = $pdo_con->fetch(\PDO::FETCH_ASSOC);
+	if($pdo_res !== FALSE && count($pdo_res)>0){
+		$result['result']['ipinfo'] = array_merge($result['result']['ipinfo'], $pdo_res);
+	} else {
+		$endpoint='https://ipinfo.io/' . $_SERVER['REMOTE_ADDR'];
+		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '."curl ${endpoint}");
+		$curl_res = file_get_contents($endpoint);
+		$curl_res = json_decode($curl_res, TRUE);
+		$result['result']['ipinfo'] = array_merge($result['result']['ipinfo'], $curl_res);
+	}
+
+	$pdo = null;
+} catch (\Exception $th) {
+	error_log('['.$th->getLine().'] ['.$_SERVER['REMOTE_ADDR'].'] '.$th->getMessage());
+}
+
 # Get IPinfo Lite Data
 try {
 	$pdo = new \PDO( $pdo_dsn, null, null, $pdo_option );
