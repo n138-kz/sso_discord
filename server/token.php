@@ -666,7 +666,7 @@ foreach($list as $k => $endpoint) {
 	$payload['embeds'][0]['description'] .= '<t:'.time().':F>にDiscordにログインしましたか？' . "\n";
 	$payload['embeds'][0]['description'] .= 'あなた自身が行った場合はこのメッセージは無視していただいて問題ありません。' . "\n\n";
 	$payload['embeds'][0]['description'] .= 'あなたではない場合今すぐ確認してください。' . "\n\n";
-	$payload['embeds'][0]['description'] .= 'https://discord.com/login' . "\n";
+	$payload['embeds'][0]['description'] .= 'https://discord.com/login' . "\n\n";
 	$payload['embeds'][0]['fields'][] = [ 'name' => '接続元IPアドレス', 'value' => '['.$_SERVER['REMOTE_ADDR'].'](https://ipinfo.io/'.$_SERVER['REMOTE_ADDR'].')'.' ('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')', 'inline' => false, ];
 	$payload['embeds'][0]['fields'][] = [ 'name' => '接続元地理', 'value' => $result['result']['ipinfo']['continent'].'/'.$result['result']['ipinfo']['country'], 'inline' => false, ];
 	$payload['embeds'][0]['fields'][] = [ 'name' => '接続元プロバイダー', 'value' => $result['result']['ipinfo']['as_name'].' '.$result['result']['ipinfo']['as_domain'].'('.$result['result']['ipinfo']['asn'].')', 'inline' => false, ];
