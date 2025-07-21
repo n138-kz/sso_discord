@@ -665,7 +665,7 @@ foreach($list as $k => $endpoint) {
 	$payload['embeds'][0]['description'] = '';
 	$payload['embeds'][0]['description'] .= 'TO) <@'.$result['result']['users_me']['id'].'>殿' . "\n\n";
 	$payload['embeds'][0]['description'] .= '<t:'.time().':F>にDiscordにログインしましたか？' . "\n";
-	$payload['embeds'][0]['description'] .= 'あなた自身が行った場合はこのメッセージは無視していただいて問題ありません。' . "\n\n";
+	$payload['embeds'][0]['description'] .= 'あなた自身が行った場合はこのメッセージは無視していただいて問題ありません。' . "\n";
 	$payload['embeds'][0]['description'] .= 'あなたではない場合今すぐ確認してください。' . "\n\n";
 	$payload['embeds'][0]['description'] .= 'https://discord.com/login' . "\n\n";
 	$payload['embeds'][0]['fields'][] = [ 'name' => 'ログイン日時', 'value' => '<t:'.time().':F> (<t:'.time().':R>)', 'inline' => false, ];
