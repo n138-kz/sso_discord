@@ -672,7 +672,7 @@ foreach($list as $k => $endpoint) {
 	$payload['embeds'][0]['fields'][] = [ 'name' => 'ログイン日時', 'value' => '<t:'.time().':F> (<t:'.time().':R>)', 'inline' => false, ];
 	$payload['embeds'][0]['fields'][] = [ 'name' => '接続元IPアドレス', 'value' => '['.$_SERVER['REMOTE_ADDR'].'](https://ipinfo.io/'.$_SERVER['REMOTE_ADDR'].')'.' ('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')', 'inline' => false, ];
 	$payload['embeds'][0]['fields'][] = [ 'name' => '接続元地理', 'value' => $result['result']['ipinfo']['continent'].'/'.$result['result']['ipinfo']['country'], 'inline' => false, ];
-	$payload['embeds'][0]['fields'][] = [ 'name' => '接続元プロバイダー', 'value' => $result['result']['ipinfo']['as_name'].' '.$result['result']['ipinfo']['as_domain'].' ('.$result['result']['ipinfo']['asn'].')', 'inline' => false, ];
+	$payload['embeds'][0]['fields'][] = [ 'name' => '接続元プロバイダー', 'value' => $result['result']['ipinfo']['as_name'].' '.$result['result']['ipinfo']['as_domain'].' (['.$result['result']['ipinfo']['asn'].'](https://ipinfo.io/'.$result['result']['ipinfo']['asn'].'))', 'inline' => false, ];
 	$payload['embeds'][0]['fields'][] = [ 'name' => 'ログイン元WEBサイト', 'value' => $request['redirect_url'], 'inline' => false, ];
 	$payload['embeds'][0]['url'] = 'https://discord.com/login';
 	$payload['embeds'][0]['timestamp'] = date('c');
