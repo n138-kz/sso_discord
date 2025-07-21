@@ -249,6 +249,7 @@ $result['result']=[
 	'details'=>json_encode(null),
 	'directmessage_channel'=>[],
 	'ipinfo'=>[],
+	'ipinfo_lite'=>[],
 	'oauth2_token'=>[
 		'access_token'=>null,
 		'expires_in'=>null,
@@ -379,20 +380,20 @@ try {
 		. 'country,'
 		. 'continent_code,'
 		. 'continent'
-		. ' FROM '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo WHERE ip = ? limit 1;';
+		. ' FROM '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo_lite WHERE ip = ? limit 1;';
 	$pdo_con = $pdo->prepare($sql);
 	$pdo_res = $pdo_con->execute([
 		$_SERVER['REMOTE_ADDR'],
 	]);
 	$pdo_res = $pdo_con->fetch(\PDO::FETCH_ASSOC);
 	if($pdo_res !== FALSE && count($pdo_res)>0){
-		$result['result']['ipinfo'] = array_merge($result['result']['ipinfo'], $pdo_res);
+		$result['result']['ipinfo_lite'] = array_merge($result['result']['ipinfo_lite'], $pdo_res);
 	} else {
 		$endpoint='https://api.ipinfo.io/lite/' . $_SERVER['REMOTE_ADDR'] . '?token=' . $config['external']['ipinfo']['token'];
 		error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '."curl ${endpoint}");
 		$curl_res = file_get_contents($endpoint);
 		$curl_res = json_decode($curl_res, TRUE);
-		$result['result']['ipinfo'] = array_merge($result['result']['ipinfo'], $curl_res);
+		$result['result']['ipinfo_lite'] = array_merge($result['result']['ipinfo_lite'], $curl_res);
 	}
 
 	$pdo = null;
@@ -412,7 +413,7 @@ try {
 		. 'country,'
 		. 'continent_code,'
 		. 'continent'
-		. ' FROM '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo WHERE ip = ? limit 1;';
+		. ' FROM '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo_lite WHERE ip = ? limit 1;';
 	$pdo_con = $pdo->prepare($sql);
 	$pdo_res = $pdo_con->execute([
 		$_SERVER['REMOTE_ADDR'],
@@ -420,7 +421,7 @@ try {
 	$pdo_res = $pdo_con->fetch(\PDO::FETCH_ASSOC);
 	if($pdo_res === FALSE || count($pdo_res)===0){
 		/*  */
-		$pdo_con = $pdo->prepare('INSERT INTO '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo ('
+		$pdo_con = $pdo->prepare('INSERT INTO '.$config['internal']['databases'][0]['tableprefix'].'_ipinfo_lite ('
 			. 'ip,'
 			. 'asn,'
 			. 'as_name,'
@@ -431,14 +432,14 @@ try {
 			. 'continent'
 			. ') VALUES (?,?,?,?,?,?,?,?);');
 		$pdo_res = $pdo_con->execute([
-			$result['result']['ipinfo']['ip'],
-			$result['result']['ipinfo']['asn'],
-			$result['result']['ipinfo']['as_name'],
-			$result['result']['ipinfo']['as_domain'],
-			$result['result']['ipinfo']['country_code'],
-			$result['result']['ipinfo']['country'],
-			$result['result']['ipinfo']['continent_code'],
-			$result['result']['ipinfo']['continent'],
+			$result['result']['ipinfo_lite']['ip'],
+			$result['result']['ipinfo_lite']['asn'],
+			$result['result']['ipinfo_lite']['as_name'],
+			$result['result']['ipinfo_lite']['as_domain'],
+			$result['result']['ipinfo_lite']['country_code'],
+			$result['result']['ipinfo_lite']['country'],
+			$result['result']['ipinfo_lite']['continent_code'],
+			$result['result']['ipinfo_lite']['continent'],
 		]);
 		if(!$pdo_res){
 			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO] Insert error:');
@@ -671,8 +672,8 @@ foreach($list as $k => $endpoint) {
 	$payload['embeds'][0]['description'] .= 'https://discord.com/login' . "\n\n";
 	$payload['embeds'][0]['fields'][] = [ 'name' => 'ログイン日時', 'value' => '<t:'.time().':F> (<t:'.time().':R>)', 'inline' => false, ];
 	$payload['embeds'][0]['fields'][] = [ 'name' => '接続元IPアドレス', 'value' => '['.$_SERVER['REMOTE_ADDR'].'](https://ipinfo.io/'.$_SERVER['REMOTE_ADDR'].')'.' ('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')', 'inline' => false, ];
-	$payload['embeds'][0]['fields'][] = [ 'name' => '接続元地理', 'value' => $result['result']['ipinfo']['continent'].'/'.$result['result']['ipinfo']['country'], 'inline' => false, ];
-	$payload['embeds'][0]['fields'][] = [ 'name' => '接続元プロバイダー', 'value' => '['.$result['result']['ipinfo']['asn'].'](https://ipinfo.io/'.$result['result']['ipinfo']['asn'].') ('.$result['result']['ipinfo']['as_name'].' '.$result['result']['ipinfo']['as_domain'].')', 'inline' => false, ];
+	$payload['embeds'][0]['fields'][] = [ 'name' => '接続元地理', 'value' => $result['result']['ipinfo_lite']['continent'].'/'.$result['result']['ipinfo_lite']['country'], 'inline' => false, ];
+	$payload['embeds'][0]['fields'][] = [ 'name' => '接続元プロバイダー', 'value' => '['.$result['result']['ipinfo_lite']['asn'].'](https://ipinfo.io/'.$result['result']['ipinfo_lite']['asn'].') ('.$result['result']['ipinfo_lite']['as_name'].' '.$result['result']['ipinfo_lite']['as_domain'].')', 'inline' => false, ];
 	$payload['embeds'][0]['fields'][] = [ 'name' => 'ログイン元WEBサイト', 'value' => $request['redirect_url'], 'inline' => false, ];
 	$payload['embeds'][0]['url'] = 'https://discord.com/login';
 	$payload['embeds'][0]['timestamp'] = date('c');

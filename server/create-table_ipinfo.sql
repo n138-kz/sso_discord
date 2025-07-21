@@ -1,6 +1,6 @@
-DROP VIEW IF EXISTS sso_discord_ipinfo_view;
-DROP TABLE IF EXISTS sso_discord_ipinfo;
-CREATE TABLE IF NOT EXISTS sso_discord_ipinfo (
+DROP VIEW IF EXISTS sso_discord_ipinfo_lite_view;
+DROP TABLE IF EXISTS sso_discord_ipinfo_lite;
+CREATE TABLE IF NOT EXISTS sso_discord_ipinfo_lite (
   "timestamp" double precision NOT NULL DEFAULT EXTRACT(epoch FROM CURRENT_TIMESTAMP),
   ip text NOT NULL UNIQUE,
   asn text,
@@ -10,21 +10,22 @@ CREATE TABLE IF NOT EXISTS sso_discord_ipinfo (
   country text,
   continent_code text,
   continent text,
-  CONSTRAINT sso_discord_ipinfo_pkey PRIMARY KEY (ip)
+  CONSTRAINT sso_discord_ipinfo_lite_pkey PRIMARY KEY (ip)
 );
-ALTER TABLE IF EXISTS sso_discord_ipinfo OWNER to webapp;
-CREATE OR REPLACE VIEW sso_discord_ipinfo_view
+ALTER TABLE IF EXISTS sso_discord_ipinfo_lite OWNER to webapp;
+CREATE OR REPLACE VIEW sso_discord_ipinfo_lite_view
   AS
   SELECT
     to_timestamp(trunc(sso_discord_ipinfo."timestamp")) as timestamp,
-    sso_discord_ipinfo.ip,
-    sso_discord_ipinfo.asn,
-    sso_discord_ipinfo.as_name,
-    sso_discord_ipinfo.as_domain,
-    sso_discord_ipinfo.country_code,
-    sso_discord_ipinfo.country,
-    sso_discord_ipinfo.continent_code,
-    sso_discord_ipinfo.continent
-  FROM sso_discord_ipinfo
+    sso_discord_ipinfo_lite.ip,
+    sso_discord_ipinfo_lite.asn,
+    sso_discord_ipinfo_lite.as_name,
+    sso_discord_ipinfo_lite.as_domain,
+    sso_discord_ipinfo_lite.country_code,
+    sso_discord_ipinfo_lite.country,
+    sso_discord_ipinfo_lite.continent_code,
+    sso_discord_ipinfo_lite.continent
+  FROM sso_discord_ipinfo_lite
   ORDER BY
-    sso_discord_ipinfo."timestamp" DESC;
+    sso_discord_ipinfo_lite."timestamp" DESC;
+ALTER VIEW IF EXISTS sso_discord_ipinfo_lite_view OWNER to webapp;
