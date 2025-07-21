@@ -1,3 +1,5 @@
+DROP VIEW IF EXISTS sso_discord_ipinfo_view;
+DROP TABLE IF EXISTS sso_discord_ipinfo;
 DROP VIEW IF EXISTS sso_discord_ipinfo_lite_view;
 DROP TABLE IF EXISTS sso_discord_ipinfo_lite;
 CREATE TABLE IF NOT EXISTS sso_discord_ipinfo_lite (
