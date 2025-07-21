@@ -21,7 +21,7 @@ CREATE OR REPLACE VIEW sso_discord_ipinfo_view
   SELECT
     to_timestamp(trunc(sso_discord_ipinfo."timestamp")) as timestamp,
     sso_discord_ipinfo.ip,
-    sso_discord_ipinfo.hostname,
+    COALESCE(sso_discord_ipinfo.hostname, sso_discord_ipinfo.ip) as hostname, -- OracleでのNVL、SQL ServerでのISNULL、MySQLでのCOALESCEに相当
     sso_discord_ipinfo.city,
     sso_discord_ipinfo.region,
     sso_discord_ipinfo.country,
@@ -73,7 +73,7 @@ CREATE OR REPLACE VIEW sso_discord_ipinfo_all_view
   SELECT
     to_timestamp(trunc(EXTRACT(epoch FROM CURRENT_TIMESTAMP))) as timestamp,
     sso_discord_ipinfo.ip,
-    sso_discord_ipinfo.hostname,
+    COALESCE(sso_discord_ipinfo.hostname, sso_discord_ipinfo.ip) as hostname, -- OracleでのNVL、SQL ServerでのISNULL、MySQLでのCOALESCEに相当
     sso_discord_ipinfo_lite.continent_code,
     sso_discord_ipinfo_lite.continent,
     sso_discord_ipinfo_lite.country_code,
