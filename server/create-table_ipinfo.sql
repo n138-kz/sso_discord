@@ -1,3 +1,4 @@
+--
 DROP VIEW IF EXISTS sso_discord_ipinfo_view;
 DROP TABLE IF EXISTS sso_discord_ipinfo;
 CREATE TABLE IF NOT EXISTS sso_discord_ipinfo (
@@ -33,7 +34,7 @@ CREATE OR REPLACE VIEW sso_discord_ipinfo_view
   ORDER BY
     sso_discord_ipinfo."timestamp" DESC;
 ALTER VIEW IF EXISTS sso_discord_ipinfo_view OWNER to webapp;
-
+--
 DROP VIEW IF EXISTS sso_discord_ipinfo_lite_view;
 DROP TABLE IF EXISTS sso_discord_ipinfo_lite;
 CREATE TABLE IF NOT EXISTS sso_discord_ipinfo_lite (
