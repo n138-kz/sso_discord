@@ -537,7 +537,7 @@ try {
 		]);
 		if(!$pdo_res){
 			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO] Insert error:');
-			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_token');
+			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO]     table='.$config['internal']['databases'][0]['tableprefix'].'_ipinfo_lite');
 			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO]     ext-user-id='.$request['code']);
 			error_log('['.__LINE__.'] ['.$_SERVER['REMOTE_ADDR'].'] '.'[PDO]     remote-addr='.$_SERVER['REMOTE_ADDR'].'('.gethostbyaddr($_SERVER['REMOTE_ADDR']).')');
 		}
