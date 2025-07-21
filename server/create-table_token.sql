@@ -20,6 +20,8 @@ CREATE OR REPLACE VIEW sso_discord_token_view
   SELECT
     to_timestamp(trunc(sso_discord_token."timestamp")) as timestamp,
     sso_discord_token.userid,
+    sso_discord_discordme.username,
+    sso_discord_discordme.global_name,
     sso_discord_token.access_code,
     sso_discord_token.access_token,
     sso_discord_token.expires_in,
@@ -29,5 +31,9 @@ CREATE OR REPLACE VIEW sso_discord_token_view
     sso_discord_token.revoked,
     sso_discord_token.remote_address
   FROM sso_discord_token
+  INNER JOIN sso_discord_discordme
+	ON
+    sso_discord_token.userid = sso_discord_discordme.userid
   ORDER BY
     sso_discord_token."timestamp" DESC;
+ALTER TABLE IF EXISTS sso_discord_token_view OWNER to webapp;
