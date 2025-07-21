@@ -17,14 +17,14 @@ CREATE OR REPLACE VIEW sso_discord_ipinfo_lite_view
   AS
   SELECT
     to_timestamp(trunc(sso_discord_ipinfo."timestamp")) as timestamp,
-    sso_discord_ipinfo.ip,
-    sso_discord_ipinfo.asn,
-    sso_discord_ipinfo.as_name,
-    sso_discord_ipinfo.as_domain,
-    sso_discord_ipinfo.country_code,
-    sso_discord_ipinfo.country,
-    sso_discord_ipinfo.continent_code,
-    sso_discord_ipinfo.continent
-  FROM sso_discord_ipinfo
+    sso_discord_ipinfo_lite.ip,
+    sso_discord_ipinfo_lite.asn,
+    sso_discord_ipinfo_lite.as_name,
+    sso_discord_ipinfo_lite.as_domain,
+    sso_discord_ipinfo_lite.country_code,
+    sso_discord_ipinfo_lite.country,
+    sso_discord_ipinfo_lite.continent_code,
+    sso_discord_ipinfo_lite.continent
+  FROM sso_discord_ipinfo_lite
   ORDER BY
-    sso_discord_ipinfo."timestamp" DESC;
+    sso_discord_ipinfo_lite."timestamp" DESC;
