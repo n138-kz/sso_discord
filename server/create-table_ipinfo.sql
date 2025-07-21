@@ -16,7 +16,7 @@ ALTER TABLE IF EXISTS sso_discord_ipinfo_lite OWNER to webapp;
 CREATE OR REPLACE VIEW sso_discord_ipinfo_lite_view
   AS
   SELECT
-    to_timestamp(trunc(sso_discord_ipinfo."timestamp")) as timestamp,
+    to_timestamp(trunc(sso_discord_ipinfo_lite."timestamp")) as timestamp,
     sso_discord_ipinfo_lite.ip,
     sso_discord_ipinfo_lite.asn,
     sso_discord_ipinfo_lite.as_name,
