@@ -15,6 +15,25 @@ CREATE TABLE IF NOT EXISTS sso_discord_ipinfo (
   CONSTRAINT sso_discord_ipinfo_pkey PRIMARY KEY (ip)
 );
 ALTER TABLE IF EXISTS sso_discord_ipinfo OWNER to webapp;
+CREATE OR REPLACE VIEW sso_discord_ipinfo_view
+  AS
+  SELECT
+    to_timestamp(trunc(sso_discord_ipinfo."timestamp")) as timestamp,
+    sso_discord_ipinfo.ip,
+    sso_discord_ipinfo.hostname,
+    sso_discord_ipinfo.city,
+    sso_discord_ipinfo.region,
+    sso_discord_ipinfo.country,
+    sso_discord_ipinfo.loc,
+    sso_discord_ipinfo.org,
+    sso_discord_ipinfo.postal,
+    sso_discord_ipinfo.timezone,
+    sso_discord_ipinfo.readme
+  FROM sso_discord_ipinfo
+  ORDER BY
+    sso_discord_ipinfo."timestamp" DESC;
+ALTER VIEW IF EXISTS sso_discord_ipinfo_view OWNER to webapp;
+
 DROP VIEW IF EXISTS sso_discord_ipinfo_lite_view;
 DROP TABLE IF EXISTS sso_discord_ipinfo_lite;
 CREATE TABLE IF NOT EXISTS sso_discord_ipinfo_lite (
