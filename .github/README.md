@@ -118,8 +118,8 @@ curl -H "Authorization: Bearer ${access_token}" https://discordapp.com/api/users
   }
 }
 ```
-https://discord.com/developers/docs/resources/user#user-object
-https://discord.com/developers/docs/resources/user#get-current-user
+https://discord.com/developers/docs/resources/user#user-object  
+https://discord.com/developers/docs/resources/user#get-current-user  
 
 ##### User icon
 ```http
