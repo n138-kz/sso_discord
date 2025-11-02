@@ -773,7 +773,7 @@ foreach($list as $k => $endpoint) {
 	$payload['embeds'][0]['fields'][] = [ 'name' => '> 接続元地理', 'value' => $result['result']['ipinfo_lite']['continent'].'/'.$result['result']['ipinfo_lite']['country'], 'inline' => false, ];
 	$payload['embeds'][0]['fields'][] = [ 'name' => '> 接続元プロバイダー', 'value' => '['.$result['result']['ipinfo_lite']['asn'].'](https://ipinfo.io/'.$result['result']['ipinfo_lite']['asn'].') ('.$result['result']['ipinfo_lite']['as_name'].' '.$result['result']['ipinfo_lite']['as_domain'].')', 'inline' => false, ];
 	$payload['embeds'][0]['fields'][] = [ 'name' => '> ログイン元WEBサイト', 'value' => $request['redirect_url'], 'inline' => false, ];
-	$payload['embeds'][0]['fields'][] = [ 'name' => '> セッション強制ログアウト', 'value' => '[ログアウト](https://api.n138.jp/sso_discord/server/token_revoke.php?token='.$request['code'].') [https://api.n138.jp/sso_discord/server/token_revoke](https://api.n138.jp/sso_discord/server/token_revoke.php?token='.$request['code'].')', 'inline' => false, ];
+	$payload['embeds'][0]['fields'][] = [ 'name' => '> セッション強制ログアウト', 'value' => '[ログアウト](https://api.n138.jp/sso_discord/server/token_revoke.php?token='.$request['code'].')', 'inline' => false, ];
 	$payload['embeds'][0]['url'] = 'https://discord.com/login';
 	$payload['embeds'][0]['timestamp'] = date('c');
 	$payload['embeds'][0]['author'] = [];
