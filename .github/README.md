@@ -86,29 +86,40 @@ curl -H "Authorization: Bearer ${access_token}" https://discordapp.com/api/users
 
 #### sample output
 
-```json
-{
-  "id": "0000000000000000",
-  "username": "Your_name",
-  "avatar": "00000000000000000000000000000000",
-  "discriminator": "0",
-  "public_flags": 0,
-  "flags": 0,
-  "banner": null,
-  "accent_color": null,
-  "global_name": null,
-  "avatar_decoration_data": null,
-  "banner_color": "#000000",
-  "clan": null,
-  "primary_guild": null,
-  "mfa_enabled": true,
-  "locale": "ja",
-  "premium_type": 0,
-  "email": "your@example.org",
-  "verified": true
+```json{
+  "id": "80351110224678912",
+  "username": "Nelly",
+  "discriminator": "1337",
+  "avatar": "8342729096ea3675442027381ff50dfe",
+  "verified": true,
+  "email": "nelly@discord.com",
+  "flags": 64,
+  "banner": "06c16474723fe537c283b8efa61a30c8",
+  "accent_color": 16711680,
+  "premium_type": 1,
+  "public_flags": 64,
+  "avatar_decoration_data": {
+    "sku_id": "1144058844004233369",
+    "asset": "a_fed43ab12698df65902ba06727e20c0e"
+  },
+  "collectibles": {
+    "nameplate": {
+      "sku_id": "2247558840304243311",
+      "asset": "nameplates/nameplates/twilight/",
+      "label": "",
+      "palette": "cobalt"
+    }
+  },
+  "primary_guild": {
+    "identity_guild_id": "1234647491267808778",
+    "identity_enabled": true,
+    "tag": "DISC",
+    "badge": "7d1734ae5a615e82bc7a4033b98fade8"
+  }
 }
-
 ```
+https://discord.com/developers/docs/resources/user#user-object  
+https://discord.com/developers/docs/resources/user#get-current-user  
 
 ##### User icon
 ```http
