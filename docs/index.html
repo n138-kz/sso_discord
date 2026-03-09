@@ -1,0 +1,155 @@
+<!DOCTYPE html><html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="referrer" content="no-referrer">
+	<meta http-equiv="refresh" content="300;./">
+	<base target='_blank'>
+	<title>Authn Discord</title>
+	<link rel="stylesheet" type="text/css" href="https://n138-kz.github.io/lib/master.css?t=0">
+	<script src="https://n138-kz.github.io/lib/master.js"></script>
+	<script>
+		window.addEventListener('DOMContentLoaded', ()=>{
+			console.log(`init.`);
+			console.log(`page-title: ${document.title}`);
+			let item = null;
+			item = document.createElement('h1');
+			item.innerText = document.title;
+			document.body.prepend(item);
+
+			init_setFavicon('https://www.twitch.tv/', true);
+		});
+	</script>
+	<style>
+		.require_code {
+			display: none;
+		}
+		.require_authn {
+			display: none;
+		}
+		.require_streamingstatus {
+			display: none;
+		}
+		code.blurOnForcusClear {
+			display: inline-block;
+			padding: 0 5px;
+			overflow: hidden;
+			cursor: pointer;
+		}
+		code.blurOnForcusClear span {
+			display: inline-block;
+			filter: blur(10px);
+			transition: 100ms;
+		}
+		code.blurOnForcusClear:hover span {
+			filter: none;
+			transition: 3s;
+		}
+		textarea.blurOnForcusClear {
+			display: inline-block;
+			filter: blur(10px);
+			transition: 100ms;
+		}
+		textarea.blurOnForcusClear:hover {
+			filter: none;
+			transition: 3s;
+		}
+	</style>
+	<script>
+		let config={}
+		{
+			const storage_l={};
+			storage_l.twitch={};
+			storage_l.twitch['client_id']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.twitch.client_id' );
+			storage_l.twitch['client_secret']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.twitch.client_secret' );
+			storage_l.twitch['redirect_uri']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.twitch.redirect_uri' );
+			storage_l.twitch['scope']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.twitch.scope' );
+			if (storage_l.twitch['client_id']===undefined||storage_l.twitch['client_id']===null||storage_l.twitch['client_id']==='') {
+				storage_l.twitch['client_id']='';
+				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.twitch.client_id', storage_l.twitch['client_id'] );
+			}
+			if (storage_l.twitch['client_secret']===undefined||storage_l.twitch['client_secret']===null||storage_l.twitch['client_secret']==='') {
+				storage_l.twitch['client_secret']='';
+				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.twitch.client_secret', storage_l.twitch['client_secret'] );
+			}
+			if (storage_l.twitch['redirect_uri']===undefined||storage_l.twitch['redirect_uri']===null||storage_l.twitch['redirect_uri']==='') {
+				storage_l.twitch['redirect_uri']=`${location.origin}${location.pathname}`;
+				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.twitch.redirect_uri', storage_l.twitch['redirect_uri'] );
+			}
+			if (storage_l.twitch['scope']===undefined||storage_l.twitch['scope']===null||storage_l.twitch['scope']==='') {
+				storage_l.twitch['scope']=`channel:manage:broadcast`;
+				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.twitch.scope', storage_l.twitch['scope'] );
+			}
+			console.debug(storage_l);
+			config.twitch=storage_l.twitch;
+		}
+
+		let twitchapi={};
+	</script>
+	<script>
+		window.addEventListener('DOMContentLoaded', ()=>{
+			{
+				let twitch_client_secret=localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.twitch.client_secret' );
+				if(!(twitch_client_secret===null||twitch_client_secret===undefined||twitch_client_secret==='')){
+					if(document.querySelectorAll('#twitchapi_request_token input[type="password"]').length===1){
+						document.querySelector('#twitchapi_request_token input[type="password"]').value=twitch_client_secret;
+					}
+				}
+			}
+			{
+				let d=document.querySelector('#twitchapi_request_token>input[type="password"]');
+					d.addEventListener('keydown',ev=>{
+						if(ev.key=='Enter'){
+							d.closest('form').querySelector('input[type=button]').click();
+						}
+					}, {once:true,});
+			}
+			{
+				let d=[];
+				d.push(document.createElement('span'));
+				d[d.length-1].style.position='fixed';
+				d[d.length-1].style.bottom='0';
+				d[d.length-1].style.left='0';
+				d.push(document.createElement('a'));
+				d.push(document.createElement('img'));
+				d[d.length-1].src=`https://www.google.com/s2/favicons?size=64&domain=https://github.com`;
+				d[d.length-2].appendChild(d[d.length-1]);
+				d.pop();
+				d[d.length-1].href=`https://github.com/n138-kz/twitchapi`;
+				d[d.length-2].appendChild(d[d.length-1]);
+				d.pop();
+
+				if (document.querySelectorAll('footer').length>0) {
+					document.querySelector('footer').appendChild(d[d.length-1]);
+				} else {
+					document.body.appendChild(d[d.length-1]);
+				}
+			}
+			Array.from(document.querySelectorAll('meta[http-equiv="refresh"]')).map(e=>{
+				let countdown=parseInt(`${e.content};`.split(';')[0]);
+				timerId=setInterval(()=>{
+					countdown--;
+					if(countdown<=0) clearInterval(timerId);
+					/* 
+					console.debug(`countdown: ${countdown}/${parseInt(`${e.content};`.split(';')[0])} key:${timerId}`);
+					 */
+				}, 1000);
+				sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + '.loopCounter.refreshPage', timerId );
+			});
+			Array.from(document.forms).map(e=>{
+				e.addEventListener('keypress', k=>{
+					if (k.key === 'Enter') {
+						k.preventDefault(); // Enterキーによるデフォルトのsubmit動作をキャンセル
+					}
+				});
+			});
+		});
+	</script>
+</head>
+<body>
+</body>
+</html>
