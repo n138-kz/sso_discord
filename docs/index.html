@@ -54,45 +54,45 @@
 		let config={}
 		{
 			const storage_l={};
-			storage_l.twitch={};
-			storage_l.twitch['client_id']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.twitch.client_id' );
-			storage_l.twitch['client_secret']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.twitch.client_secret' );
-			storage_l.twitch['redirect_uri']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.twitch.redirect_uri' );
-			storage_l.twitch['scope']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.twitch.scope' );
-			if (storage_l.twitch['client_id']===undefined||storage_l.twitch['client_id']===null||storage_l.twitch['client_id']==='') {
-				storage_l.twitch['client_id']='';
-				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.twitch.client_id', storage_l.twitch['client_id'] );
+			storage_l.discord={};
+			storage_l.discord['client_id']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.discord.client_id' );
+			storage_l.discord['client_secret']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.discord.client_secret' );
+			storage_l.discord['redirect_uri']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.discord.redirect_uri' );
+			storage_l.discord['scope']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.discord.scope' );
+			if (storage_l.discord['client_id']===undefined||storage_l.discord['client_id']===null||storage_l.discord['client_id']==='') {
+				storage_l.discord['client_id']='';
+				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.discord.client_id', storage_l.discord['client_id'] );
 			}
-			if (storage_l.twitch['client_secret']===undefined||storage_l.twitch['client_secret']===null||storage_l.twitch['client_secret']==='') {
-				storage_l.twitch['client_secret']='';
-				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.twitch.client_secret', storage_l.twitch['client_secret'] );
+			if (storage_l.discord['client_secret']===undefined||storage_l.discord['client_secret']===null||storage_l.discord['client_secret']==='') {
+				storage_l.discord['client_secret']='';
+				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.discord.client_secret', storage_l.discord['client_secret'] );
 			}
-			if (storage_l.twitch['redirect_uri']===undefined||storage_l.twitch['redirect_uri']===null||storage_l.twitch['redirect_uri']==='') {
-				storage_l.twitch['redirect_uri']=`${location.origin}${location.pathname}`;
-				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.twitch.redirect_uri', storage_l.twitch['redirect_uri'] );
+			if (storage_l.discord['redirect_uri']===undefined||storage_l.discord['redirect_uri']===null||storage_l.discord['redirect_uri']==='') {
+				storage_l.discord['redirect_uri']=`${location.origin}${location.pathname}`;
+				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.discord.redirect_uri', storage_l.discord['redirect_uri'] );
 			}
-			if (storage_l.twitch['scope']===undefined||storage_l.twitch['scope']===null||storage_l.twitch['scope']==='') {
-				storage_l.twitch['scope']=`channel:manage:broadcast`;
-				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.twitch.scope', storage_l.twitch['scope'] );
+			if (storage_l.discord['scope']===undefined||storage_l.discord['scope']===null||storage_l.discord['scope']==='') {
+				storage_l.discord['scope']=`channel:manage:broadcast`;
+				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.discord.scope', storage_l.discord['scope'] );
 			}
 			console.debug(storage_l);
-			config.twitch=storage_l.twitch;
+			config.discord=storage_l.discord;
 		}
 
-		let twitchapi={};
+		let discordapi={};
 	</script>
 	<script>
 		window.addEventListener('DOMContentLoaded', ()=>{
 			{
-				let twitch_client_secret=localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.twitch.client_secret' );
-				if(!(twitch_client_secret===null||twitch_client_secret===undefined||twitch_client_secret==='')){
-					if(document.querySelectorAll('#twitchapi_request_token input[type="password"]').length===1){
-						document.querySelector('#twitchapi_request_token input[type="password"]').value=twitch_client_secret;
+				let discord_client_secret=localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.discord.client_secret' );
+				if(!(discord_client_secret===null||discord_client_secret===undefined||discord_client_secret==='')){
+					if(document.querySelectorAll('#discordapi_request_token input[type="password"]').length===1){
+						document.querySelector('#discordapi_request_token input[type="password"]').value=discord_client_secret;
 					}
 				}
 			}
 			{
-				let d=document.querySelector('#twitchapi_request_token>input[type="password"]');
+				let d=document.querySelector('#discordapi_request_token>input[type="password"]');
 					d.addEventListener('keydown',ev=>{
 						if(ev.key=='Enter'){
 							d.closest('form').querySelector('input[type=button]').click();
@@ -110,7 +110,7 @@
 				d[d.length-1].src=`https://www.google.com/s2/favicons?size=64&domain=https://github.com`;
 				d[d.length-2].appendChild(d[d.length-1]);
 				d.pop();
-				d[d.length-1].href=`https://github.com/n138-kz/twitchapi`;
+				d[d.length-1].href=`https://github.com/n138-kz/discordapi`;
 				d[d.length-2].appendChild(d[d.length-1]);
 				d.pop();
 
