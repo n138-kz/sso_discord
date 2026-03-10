@@ -482,7 +482,7 @@
 					redirect_uri: config[this.constructor.API_PROVIDER].redirect_uri,
 				};
 	
-				{
+				if (item!==undefined) {
 					item.children.item(0).style.borderColor='#000';
 					item.children.item(0).style.backgroundColor='#fff';
 					item.children.item(0).style.color='#000';
