@@ -534,7 +534,7 @@
 						
 						Array.from(document.querySelectorAll(`meta[http-equiv="refresh"]`)).map(e=>{
 							console.debug(`meta[http-equiv="refresh"]:`, e);
-							e.content='';
+							e.content=``;
 							e.remove();
 							window.stop();
 						});
