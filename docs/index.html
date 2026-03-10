@@ -132,6 +132,10 @@
 				let d=document.querySelector('#discord_authorize>a');
 				d.href='https://discord.com/developers/applications';
 				d.href='https://discord.com/oauth2/authorize';
+				d.href+=`?client_id=${config.discord.client_id}`;
+				d.href+=`&redirect_uri=${config.discord.redirect_uri}`;
+				d.href+=`&response_type=code`;
+				d.href+=`&scope=${config.discord.scope}`;
 				d.href+=``;
 				d.target='_self';
 			}
