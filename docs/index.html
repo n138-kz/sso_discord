@@ -556,8 +556,8 @@
 					item.children.item(0).style.backgroundColor=`#a00`;
 					item.children.item(0).style.color=`#fff`;
 	
-					item.closest('form').querySelector('input[type=password]').removeAttribute('disabled');
-					item.closest('form').querySelector('input[type=password]').style.removeProperty('color');
+					item.closest(`form`).querySelector(`input[type=password]`).removeAttribute(`disabled`);
+					item.closest(`form`).querySelector(`input[type=password]`).style.removeProperty(`color`);
 	
 				}
 				if(Array.isArray(callback)){
