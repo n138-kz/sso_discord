@@ -193,7 +193,7 @@
 				form_input_config[form_input_config.length-1].style.width='stretch';
 				form_input_config[form_input_config.length-1].style.width='-moz-available;';
 				form_input_config[form_input_config.length-1].style.width='-webkit-fill-available';
-				form_input_config[form_input_config.length-1].value=`${config.twitch.client_id}`;
+				form_input_config[form_input_config.length-1].value=`${config.discord.client_id}`;
 				form_input_config[form_input_config.length-1].setAttribute('ondblclick', 'this.select();');
 				form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
 				form_input_config.pop();
@@ -204,13 +204,13 @@
 				form_input_config.push(document.createElement('input'));
 				form_input_config[form_input_config.length-1].type=`button`;
 				form_input_config[form_input_config.length-1].value=`保存`;
-				form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.twitch.client_id', this.parentNode.parentNode.closest('tr').querySelector('td.form_input').children[0].value );this.parentNode.closest('td').querySelector('span').innerText='保存しました';");
+				form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.discord.client_id', this.parentNode.parentNode.closest('tr').querySelector('td.form_input').children[0].value );this.parentNode.closest('td').querySelector('span').innerText='保存しました';");
 				form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
 				form_input_config.pop();
 				form_input_config.push(document.createElement('input'));
 				form_input_config[form_input_config.length-1].type=`button`;
 				form_input_config[form_input_config.length-1].value=`削除`;
-				form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.removeItem( (btoa(location.href)).slice(0, 16) + '.twitch.client_id' );this.parentNode.closest('td').querySelector('span').innerText='削除しました';");
+				form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.removeItem( (btoa(location.href)).slice(0, 16) + '.discord.client_id' );this.parentNode.closest('td').querySelector('span').innerText='削除しました';");
 				form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
 				form_input_config.pop();
 				form_input_config.push(document.createElement('span'));
@@ -228,7 +228,7 @@
 	
 				form_input_config.push(document.createElement('tr'));
 				form_input_config.push(document.createElement('th'));
-				form_input_config[form_input_config.length-1].innerText=`twitch['client_secret']`;
+				form_input_config[form_input_config.length-1].innerText=`discord['client_secret']`;
 				form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
 				form_input_config.pop();
 				form_input_config.push(document.createElement('td'));
@@ -238,7 +238,7 @@
 				form_input_config[form_input_config.length-1].style.width='stretch';
 				form_input_config[form_input_config.length-1].style.width='-moz-available;';
 				form_input_config[form_input_config.length-1].style.width='-webkit-fill-available';
-				form_input_config[form_input_config.length-1].value=`${config.twitch.client_secret}`;
+				form_input_config[form_input_config.length-1].value=`${config.discord.client_secret}`;
 				form_input_config[form_input_config.length-1].setAttribute('onclick', 'this.select();');
 				form_input_config[form_input_config.length-1].setAttribute('ondblclick', 'this.select();');
 				form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
@@ -250,13 +250,13 @@
 				form_input_config.push(document.createElement('input'));
 				form_input_config[form_input_config.length-1].type=`button`;
 				form_input_config[form_input_config.length-1].value=`保存`;
-				form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.twitch.client_secret', this.parentNode.parentNode.closest('tr').querySelector('td.form_input').children[0].value );this.parentNode.closest('td').querySelector('span').innerText='保存しました';");
+				form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.discord.client_secret', this.parentNode.parentNode.closest('tr').querySelector('td.form_input').children[0].value );this.parentNode.closest('td').querySelector('span').innerText='保存しました';");
 				form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
 				form_input_config.pop();
 				form_input_config.push(document.createElement('input'));
 				form_input_config[form_input_config.length-1].type=`button`;
 				form_input_config[form_input_config.length-1].value=`削除`;
-				form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.removeItem( (btoa(location.href)).slice(0, 16) + '.twitch.client_secret' ); this.parentNode.closest('td').querySelector('span').innerText='削除しました';");
+				form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.removeItem( (btoa(location.href)).slice(0, 16) + '.discord.client_secret' ); this.parentNode.closest('td').querySelector('span').innerText='削除しました';");
 				form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
 				form_input_config.pop();
 				form_input_config.push(document.createElement('span'));
@@ -274,7 +274,7 @@
 	
 				form_input_config.push(document.createElement('tr'));
 				form_input_config.push(document.createElement('th'));
-				form_input_config[form_input_config.length-1].innerText=`twitch['redirect_uri']`;
+				form_input_config[form_input_config.length-1].innerText=`discord['redirect_uri']`;
 				form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
 				form_input_config.pop();
 				form_input_config.push(document.createElement('td'));
@@ -284,7 +284,7 @@
 				form_input_config[form_input_config.length-1].style.width='stretch';
 				form_input_config[form_input_config.length-1].style.width='-moz-available;';
 				form_input_config[form_input_config.length-1].style.width='-webkit-fill-available';
-				form_input_config[form_input_config.length-1].value=`${config.twitch.redirect_uri}`;
+				form_input_config[form_input_config.length-1].value=`${config.discord.redirect_uri}`;
 				form_input_config[form_input_config.length-1].setAttribute('ondblclick', 'this.select();');
 				form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
 				form_input_config.pop();
@@ -295,13 +295,13 @@
 				form_input_config.push(document.createElement('input'));
 				form_input_config[form_input_config.length-1].type=`button`;
 				form_input_config[form_input_config.length-1].value=`保存`;
-				form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.twitch.redirect_uri', this.parentNode.parentNode.closest('tr').querySelector('td.form_input').children[0].value );this.parentNode.closest('td').querySelector('span').innerText='保存しました';");
+				form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.discord.redirect_uri', this.parentNode.parentNode.closest('tr').querySelector('td.form_input').children[0].value );this.parentNode.closest('td').querySelector('span').innerText='保存しました';");
 				form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
 				form_input_config.pop();
 				form_input_config.push(document.createElement('input'));
 				form_input_config[form_input_config.length-1].type=`button`;
 				form_input_config[form_input_config.length-1].value=`削除`;
-				form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.removeItem( (btoa(location.href)).slice(0, 16) + '.twitch.redirect_uri' ); this.parentNode.closest('td').querySelector('span').innerText='削除しました';");
+				form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.removeItem( (btoa(location.href)).slice(0, 16) + '.discord.redirect_uri' ); this.parentNode.closest('td').querySelector('span').innerText='削除しました';");
 				form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
 				form_input_config.pop();
 				form_input_config.push(document.createElement('span'));
@@ -319,7 +319,7 @@
 	
 				form_input_config.push(document.createElement('tr'));
 				form_input_config.push(document.createElement('th'));
-				form_input_config[form_input_config.length-1].innerText=`twitch['scope']`;
+				form_input_config[form_input_config.length-1].innerText=`discord['scope']`;
 				form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
 				form_input_config.pop();
 				form_input_config.push(document.createElement('td'));
@@ -329,10 +329,10 @@
 				form_input_config[form_input_config.length-1].style.width='stretch';
 				form_input_config[form_input_config.length-1].style.width='-moz-available;';
 				form_input_config[form_input_config.length-1].style.width='-webkit-fill-available';
-				form_input_config[form_input_config.length-1].value=`${config.twitch.scope}`;
-				form_input_config[form_input_config.length-1].dataset.ref=`https://dev.twitch.tv/docs/authentication/scopes/`;
+				form_input_config[form_input_config.length-1].value=`${config.discord.scope}`;
+				form_input_config[form_input_config.length-1].dataset.ref=``;
 				form_input_config[form_input_config.length-1].setAttribute('ondblclick', 'this.select();');
-				form_input_config[form_input_config.length-1].setAttribute('list', `twitch_scope_list`);
+				form_input_config[form_input_config.length-1].setAttribute('list', `discord_scope_list`);
 				form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
 				form_input_config.pop();
 				form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
@@ -342,13 +342,13 @@
 				form_input_config.push(document.createElement('input'));
 				form_input_config[form_input_config.length-1].type=`button`;
 				form_input_config[form_input_config.length-1].value=`保存`;
-				form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.twitch.scope', this.parentNode.parentNode.closest('tr').querySelector('td.form_input').children[0].value );this.parentNode.closest('td').querySelector('span').innerText='保存しました';");
+				form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.discord.scope', this.parentNode.parentNode.closest('tr').querySelector('td.form_input').children[0].value );this.parentNode.closest('td').querySelector('span').innerText='保存しました';");
 				form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
 				form_input_config.pop();
 				form_input_config.push(document.createElement('input'));
 				form_input_config[form_input_config.length-1].type=`button`;
 				form_input_config[form_input_config.length-1].value=`削除`;
-				form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.removeItem( (btoa(location.href)).slice(0, 16) + '.twitch.scope' ); this.parentNode.closest('td').querySelector('span').innerText='削除しました';");
+				form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.removeItem( (btoa(location.href)).slice(0, 16) + '.discord.scope' ); this.parentNode.closest('td').querySelector('span').innerText='削除しました';");
 				form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
 				form_input_config.pop();
 				form_input_config.push(document.createElement('span'));
@@ -373,7 +373,7 @@
 				form_input_config[form_input_config.length-1].classList.add('form_input');
 				form_input_config.push(document.createElement('textarea'));
 				form_input_config[form_input_config.length-1].classList.add('blurOnForcusClear');
-				form_input_config[form_input_config.length-1].value=`${JSON.stringify(config.twitch, null, '    ')}`;
+				form_input_config[form_input_config.length-1].value=`${JSON.stringify(config.discord, null, '    ')}`;
 				form_input_config[form_input_config.length-1].style.width='450px';
 				form_input_config[form_input_config.length-1].style.height='10em';
 				form_input_config[form_input_config.length-1].setAttribute('ondblclick', 'this.select();');
@@ -421,7 +421,7 @@
 				form_input_config.pop();
 
 				form_input_config.push(document.createElement('datalist'));
-				form_input_config[form_input_config.length-1].id=`twitch_scope_list`;
+				form_input_config[form_input_config.length-1].id=`discord_scope_list`;
 				[ `identify+email`, `identify`, ].map(e=>{
 					form_input_config.push(document.createElement('option'));
 					form_input_config[form_input_config.length-1].value=`${e}`
@@ -434,7 +434,7 @@
 				console.debug(form_input_config[form_input_config.length-1].innerHTML);
 				console.debug(form_input_config);
 
-				document.getElementById('twitchapi_authorize').appendChild(form_input_config[0]);
+				document.getElementById('discordapi_authorize').appendChild(form_input_config[0]);
 			}
 
 		});
