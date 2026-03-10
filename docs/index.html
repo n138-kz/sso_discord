@@ -118,6 +118,7 @@
 				d[d.length-2].appendChild(d[d.length-1]); /* span>a>img */
 				d.pop();
 				d=d[d.length-1];
+				console.warn(d, d.innerHTML);
 
 				if (document.querySelectorAll('footer').length>0) {
 					document.querySelector('footer').appendChild(d);
