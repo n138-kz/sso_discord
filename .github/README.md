@@ -1,7 +1,5 @@
 # [sso_discord](https://github.com/n138-kz/sso_discord)
 
-[![GitHub Extra Pins](https://images-ext-1.discordapp.net/external/eo3tIV-PsP_dMh9Q41MyUon9R1KjUNFDCq1LP_QCbR4/https/opengraph.githubassets.com/fd9d1a13709fbf4af941093e4224435d267051d0df64b34a247f6c70bd3e20e2/n138-kz/sso_discord?format=webp&width=1032&height=516)](https://github.com/n138-kz/sso_discord)
-
 ## Repos Info
 
 <div align="center">
