@@ -327,6 +327,7 @@
 				form_input_config.pop();
 	
 				form_input_config.push(document.createElement('tr'));
+				form_input_config[form_input_config.length-1].style.display=`none`;
 				form_input_config.push(document.createElement('th'));
 				form_input_config[form_input_config.length-1].innerText=`discord['scope']`;
 				form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
