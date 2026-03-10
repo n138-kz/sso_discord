@@ -478,7 +478,8 @@
 	
 				console.warn('config',config);
 				console.warn('API_PROVIDER',this.constructor.API_PROVIDER);
-				console.warn('constructor',this.constructor.API_PROVIDER);
+				console.warn('constructor',this.constructor);
+				console.warn('this',this);
 				console.warn('client_id',config[this.constructor.API_PROVIDER].client_id);
 				
 				let req_params={
