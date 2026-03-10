@@ -474,7 +474,7 @@
 				localStorage.setItem( (btoa(location.href)).slice(0, 16) + `.${this.constructor.API_PROVIDER}.client_secret`, item.children.item(1).value );
 				config[this.constructor.API_PROVIDER].client_secret=item.children.item(1).value;
 	
-				let d={
+				let req_params={
 					client_id: config[this.constructor.API_PROVIDER].client_id,
 					client_secret: config[this.constructor.API_PROVIDER].client_secret,
 					code: api.code,
@@ -493,7 +493,7 @@
 					let xhr=await fetch('https://discordapp.com/api/oauth2/token', {
 						method: 'POST',
 						headers: {'content-type': 'application/x-www-form-urlencoded'},
-						body: new URLSearchParams(d),
+						body: new URLSearchParams(req_params),
 					});
 					let r=await xhr.json();
 					console.debug('xhr result', r, await xhr.ok);
