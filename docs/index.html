@@ -490,9 +490,9 @@
 				}
 	
 				try {
-					let req=await fetch('https://discordapp.com/api/oauth2/token', {
 						method: 'POST',
 						headers: {'content-type': 'application/x-www-form-urlencoded'},
+					let req=await fetch(`https://discordapp.com/api/oauth2/token`, {
 						body: new URLSearchParams(req_params),
 					});
 					let res=await req.json();
