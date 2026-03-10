@@ -94,24 +94,20 @@
 	<script>
 		window.addEventListener('DOMContentLoaded', ()=>{
 			{
-				if (false) { /* 仕様が決まってないので... */
 				let discord_client_secret=localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.discord.client_secret' );
 				if(!(discord_client_secret===null||discord_client_secret===undefined||discord_client_secret==='')){
-					if(document.querySelectorAll('#discord_request_token input[type="password"]').length===1){
-						document.querySelector('#discord_request_token input[type="password"]').value=discord_client_secret;
+					if(document.querySelectorAll('#discordapi_request_token input[type="password"]').length===1){
+						document.querySelector('#discordapi_request_token input[type="password"]').value=discord_client_secret;
 					}
-				}
 				}
 			}
 			{
-				if (false) { /* 仕様が決まってないので... */
-				let d=document.querySelector('#discord_request_token>input[type="password"]');
+				let d=document.querySelector('#discordapi_request_token>input[type="password"]');
 					d.addEventListener('keydown',ev=>{
 						if(ev.key=='Enter'){
 							d.closest('form').querySelector('input[type=button]').click();
 						}
 					}, {once:true,});
-				}
 			}
 			{
 				let d=[];
@@ -452,6 +448,18 @@
 <body>
 	<div id="discord_authorize">
 		<a href="" tabindex="1">discord authorize</a>
+	</div>
+	<div>
+		<table>
+			<tr>
+				<td>
+					<form id="discordapi_request_token" class="require_code">
+						<input type="button" value="トークン取得" tabindex="12" onclick="discordapi_getToken(this);">
+						<input type="password" value="secret-key" tabindex="11" placeholder="Input the client_secret" onclick="this.select();">
+					</form>
+				</td>
+			</tr>
+		</table>
 	</div>
 </body>
 </html>
