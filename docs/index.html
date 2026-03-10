@@ -525,7 +525,6 @@
 					try {
 						sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + `.${this.API_PROVIDER}.updateToken.loopCounter`,
 							setInterval(()=>{
-								twitchapi_updateToken();
 							}, 10**3*300)
 						);
 						console.debug(`${this.API_PROVIDER}_updateToken_loopCounter: ${sessionStorage.getItem( (btoa(location.href)).slice(0, 16) + `.loopCounter.${this.API_PROVIDER}.updateToken` )}`);
