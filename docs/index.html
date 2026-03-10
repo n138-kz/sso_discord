@@ -513,12 +513,12 @@
 						item.children.item(0).style.color='#fff';
 					}
 					{
-						twitchapi.token=r;
-						twitchapi.token.issued_at=Date.now()/10**3;
-						twitchapi.token.issued_at_localized=`${new Date(twitchapi.token.issued_at*10**3)}`;
-						twitchapi.token.expires_in=(twitchapi.token.expires_in>0)?twitchapi.token.expires_in:0;
-						twitchapi.token.expires_at=twitchapi.token.issued_at+twitchapi.token.expires_in;
-						twitchapi.token.expires_at_localized=`${new Date(twitchapi.token.expires_at*10**3)}`;
+						api.token[this.constructor.API_PROVIDER]=res;
+						api.token[this.constructor.API_PROVIDER].issued_at=Date.now()/10**3;
+						api.token[this.constructor.API_PROVIDER].issued_at_localized=`${new Date(api.token[this.constructor.API_PROVIDER].issued_at*10**3)}`;
+						api.token[this.constructor.API_PROVIDER].expires_in=(api.token[this.constructor.API_PROVIDER].expires_in>0)?api.token[this.constructor.API_PROVIDER].expires_in:0;
+						api.token[this.constructor.API_PROVIDER].expires_at=api.token[this.constructor.API_PROVIDER].issued_at+api.token[this.constructor.API_PROVIDER].expires_in;
+						api.token[this.constructor.API_PROVIDER].expires_at_localized=`${new Date(api.token[this.constructor.API_PROVIDER].expires_at*10**3)}`;
 					}
 					item_wrapper.setAttribute('onclick', 'twitchapi_updateToken(this)');
 					Array.from(document.querySelectorAll('.require_authn')).map(e=>e.classList.remove('require_authn'));
