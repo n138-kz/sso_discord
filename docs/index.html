@@ -467,15 +467,15 @@
 				item.closest('form').querySelector('input[type=password]').setAttribute('disabled', 'disabled');
 				item.closest('form').querySelector('input[type=password]').style.color='#fff';
 	
-				localStorage.setItem( (btoa(location.href)).slice(0, 16) + `.${API_PROVIDER}.client_secret`, item.children.item(1).value );
-				config[API_PROVIDER].client_secret=item.children.item(1).value;
+				localStorage.setItem( (btoa(location.href)).slice(0, 16) + `.${this.constructor.API_PROVIDER}.client_secret`, item.children.item(1).value );
+				config[this.constructor.API_PROVIDER].client_secret=item.children.item(1).value;
 	
 				let d={
-					client_id: config[API_PROVIDER].client_id,
-					client_secret: config[API_PROVIDER].client_secret,
+					client_id: config[this.constructor.API_PROVIDER].client_id,
+					client_secret: config[this.constructor.API_PROVIDER].client_secret,
 					code: api.code,
 					grant_type: 'authorization_code',
-					redirect_uri: config[API_PROVIDER].redirect_uri,
+					redirect_uri: config[this.constructor.API_PROVIDER].redirect_uri,
 				};
 	
 				{
