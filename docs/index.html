@@ -464,7 +464,7 @@
 				const item_wrapper=item;
 				try {
 					item=item.parentNode;
-				} catch (error) { console.error(error); item=undefined; }
+				} catch (error) { console.warn(error); item=undefined; }
 
 				if (item!==undefined) {
 					item.closest(`form`).querySelector(`input[type=password]`).setAttribute(`disabled`, `disabled`);
