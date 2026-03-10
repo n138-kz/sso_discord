@@ -477,6 +477,8 @@
 				}
 	
 				console.warn(config);
+				console.warn(this.constructor.API_PROVIDER);
+				console.warn(config[this.constructor.API_PROVIDER]);
 				
 				let req_params={
 					client_id: config[this.constructor.API_PROVIDER].client_id,
