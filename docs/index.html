@@ -72,7 +72,7 @@
 				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.discord.redirect_uri', storage_l.discord['redirect_uri'] );
 			}
 			if (storage_l.discord['scope']===undefined||storage_l.discord['scope']===null||storage_l.discord['scope']==='') {
-				storage_l.discord['scope']=`channel:manage:broadcast`;
+				storage_l.discord['scope']=`identify+email`;
 				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.discord.scope', storage_l.discord['scope'] );
 			}
 			console.debug(storage_l);
