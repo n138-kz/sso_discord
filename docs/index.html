@@ -530,7 +530,7 @@
 								twitchapi_updateToken();
 							}, 10**3*300)
 						);
-						console.debug(`twitchapi_updateToken_loopCounter: ${sessionStorage.getItem( (btoa(location.href)).slice(0, 16) + '.loopCounter.twitch.updateToken' )}`);
+						console.debug(`twitchapi_updateToken_loopCounter: ${sessionStorage.getItem( (btoa(location.href)).slice(0, 16) + `.loopCounter.twitch.updateToken` )}`);
 						
 						Array.from(document.querySelectorAll('meta[http-equiv="refresh"]')).map(e=>{
 							console.debug(`meta[http-equiv="refresh"]:`, e);
