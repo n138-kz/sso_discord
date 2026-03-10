@@ -461,7 +461,7 @@
 			constructor(params) {
 			}
 			static async getToken(item=undefined, callback=[]){
-				item_wrapper=item;
+				const item_wrapper=item;
 				try {
 					item=item.parentNode;
 				} catch (error) { console.error(error); item=undefined; }
