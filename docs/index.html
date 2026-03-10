@@ -458,6 +458,106 @@
 	<script>
 		class discord {
 			constructor(params) {}
+			async function getToken(item, callback=[]){
+				const API_PROVIDER = `discord`;
+	
+				item_wrapper=item;
+				item=item.parentNode;
+	
+				item.closest('form').querySelector('input[type=password]').setAttribute('disabled', 'disabled');
+				item.closest('form').querySelector('input[type=password]').style.color='#fff';
+	
+				localStorage.setItem( (btoa(location.href)).slice(0, 16) + `.${API_PROVIDER}.client_secret`, item.children.item(1).value );
+				config[API_PROVIDER].client_secret=item.children.item(1).value;
+	
+				let d={
+					client_id: config[API_PROVIDER].client_id,
+					client_secret: config[API_PROVIDER].client_secret,
+					code: api.code,
+					grant_type: 'authorization_code',
+					redirect_uri: config[API_PROVIDER].redirect_uri,
+				};
+	
+				{
+					item.children.item(0).style.borderColor='#000';
+					item.children.item(0).style.backgroundColor='#fff';
+					item.children.item(0).style.color='#000';
+					Array.from(document.querySelectorAll('#errortext')).map(e=>e.remove());
+				}
+	
+				try {
+					let xhr=await fetch('https://discordapp.com/api/oauth2/token', {
+						method: 'POST',
+						headers: {'content-type': 'application/x-www-form-urlencoded'},
+						body: new URLSearchParams(d),
+					});
+					let r=await xhr.json();
+					console.debug('xhr result', r, await xhr.ok);
+					if (!await xhr.ok) {
+						throw new Error(`${xhr.status}: ${r.message}`);
+					}
+	
+					{
+						let b=document.createElement('span');
+						b.innerText=`${xhr.status}: token has issued`;
+						b.style.color='#0a0';
+						b.id='errortext';
+						item.appendChild(b);
+	
+						item.children.item(0).style.borderColor='#0f0';
+						item.children.item(0).style.backgroundColor='#0a0';
+						item.children.item(0).style.color='#fff';
+					}
+					{
+						twitchapi.token=r;
+						twitchapi.token.issued_at=Date.now()/10**3;
+						twitchapi.token.issued_at_localized=`${new Date(twitchapi.token.issued_at*10**3)}`;
+						twitchapi.token.expires_in=(twitchapi.token.expires_in>0)?twitchapi.token.expires_in:0;
+						twitchapi.token.expires_at=twitchapi.token.issued_at+twitchapi.token.expires_in;
+						twitchapi.token.expires_at_localized=`${new Date(twitchapi.token.expires_at*10**3)}`;
+					}
+					item_wrapper.setAttribute('onclick', 'twitchapi_updateToken(this)');
+					Array.from(document.querySelectorAll('.require_authn')).map(e=>e.classList.remove('require_authn'));
+					try {
+						sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + '.twitch.updateToken.loopCounter',
+							setInterval(()=>{
+								twitchapi_updateToken();
+							}, 10**3*300)
+						);
+						console.debug(`twitchapi_updateToken_loopCounter: ${sessionStorage.getItem( (btoa(location.href)).slice(0, 16) + '.loopCounter.twitch.updateToken' )}`);
+						
+						Array.from(document.querySelectorAll('meta[http-equiv="refresh"]')).map(e=>{
+							console.debug(`meta[http-equiv="refresh"]:`, e);
+							e.content='';
+							e.remove();
+							window.stop();
+						});
+	
+						item.closest('form').querySelector('input[type=password]').remove();
+					} catch (error) { console.error(error); }
+				} catch (error) {
+					console.error(error);
+	
+					let b=document.createElement('a');
+					b.href=`${location.origin}${location.pathname}`;
+					b.target='_self';
+					b.innerText=error;
+					b.style.color='#f00';
+					b.id='errortext';
+					item.appendChild(b);
+	
+					item.children.item(0).style.borderColor='#f00';
+					item.children.item(0).style.backgroundColor='#a00';
+					item.children.item(0).style.color='#fff';
+	
+					item.closest('form').querySelector('input[type=password]').removeAttribute('disabled');
+					item.closest('form').querySelector('input[type=password]').style.removeProperty('color');
+	
+				}
+				if(Array.isArray(callback)){
+					Array.from(callback).map(async (c)=>await c());
+				}
+			}
 		}
 	</script>
 </head>
