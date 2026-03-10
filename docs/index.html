@@ -462,13 +462,15 @@
 			}
 			async getToken(item, callback=[]){
 				item_wrapper=item;
-				item.closest('form').querySelector('input[type=password]').setAttribute('disabled', 'disabled');
-				item.closest('form').querySelector('input[type=password]').style.color='#fff';
-	
 				try {
 					item=item.parentNode;
 				} catch (error) { console.error(error); item=undefined; }
 
+				if (item!==undefined) {
+					item.closest('form').querySelector('input[type=password]').setAttribute('disabled', 'disabled');
+					item.closest('form').querySelector('input[type=password]').style.color='#fff';
+				}
+				
 				localStorage.setItem( (btoa(location.href)).slice(0, 16) + `.${this.constructor.API_PROVIDER}.client_secret`, item.children.item(1).value );
 				config[this.constructor.API_PROVIDER].client_secret=item.children.item(1).value;
 	
