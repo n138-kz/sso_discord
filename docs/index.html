@@ -457,10 +457,10 @@
 	<script src="./function_formatRelativeTime.js"></script>
 	<script>
 		class discord {
-			constructor(params) {}
+			static API_PROVIDER = `discord`;
+			constructor(params) {
+			}
 			async function getToken(item, callback=[]){
-				const API_PROVIDER = `discord`;
-	
 				item_wrapper=item;
 				item=item.parentNode;
 	
