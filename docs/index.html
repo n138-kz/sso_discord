@@ -125,6 +125,13 @@
 					document.body.appendChild(d);
 				}
 			}
+			{
+				let d=document.querySelector('#discord_authorize>a');
+				d.href='https://discord.com/developers/applications';
+				d.href='https://discord.com/oauth2/authorize';
+				d.href+=``;
+				d.target='_self';
+			}
 			Array.from(document.querySelectorAll('meta[http-equiv="refresh"]')).map(e=>{
 				let countdown=parseInt(`${e.content};`.split(';')[0]);
 				timerId=setInterval(()=>{
