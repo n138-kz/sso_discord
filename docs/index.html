@@ -521,7 +521,7 @@
 						api.token[this.constructor.API_PROVIDER].expires_at_localized=`${new Date(api.token[this.constructor.API_PROVIDER].expires_at*10**3)}`;
 					}
 					{
-						item_wrapper.setAttribute('onclick', 'discord.getToken(this)');
+						item_wrapper.setAttribute(`onclick`, `discord.getToken(this)`);
 						Array.from(document.querySelectorAll('.require_authn')).map(e=>e.classList.remove('require_authn'));
 					}
 					try {
