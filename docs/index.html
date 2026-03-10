@@ -472,16 +472,16 @@
 				}
 				
 				if (item!==undefined) {
-					localStorage.setItem( (btoa(location.href)).slice(0, 16) + `.${this.constructor.API_PROVIDER}.client_secret`, item.children.item(1).value );
-					config[this.constructor.API_PROVIDER].client_secret=item.children.item(1).value;
+					localStorage.setItem( (btoa(location.href)).slice(0, 16) + `.${this.API_PROVIDER}.client_secret`, item.children.item(1).value );
+					config[this.API_PROVIDER].client_secret=item.children.item(1).value;
 				}
 				
 				let req_params={
-					client_id: config[this.constructor.API_PROVIDER].client_id,
-					client_secret: config[this.constructor.API_PROVIDER].client_secret,
+					client_id: config[this.API_PROVIDER].client_id,
+					client_secret: config[this.API_PROVIDER].client_secret,
 					code: api.code,
 					grant_type: `authorization_code`,
-					redirect_uri: config[this.constructor.API_PROVIDER].redirect_uri,
+					redirect_uri: config[this.API_PROVIDER].redirect_uri,
 				};
 	
 				if (item!==undefined) {
@@ -515,12 +515,12 @@
 						item.children.item(0).style.color=`#fff`;
 					}
 					{
-						api.token[this.constructor.API_PROVIDER]=res;
-						api.token[this.constructor.API_PROVIDER].issued_at=Date.now()/10**3;
-						api.token[this.constructor.API_PROVIDER].issued_at_localized=`${new Date(api.token[this.constructor.API_PROVIDER].issued_at*10**3)}`;
-						api.token[this.constructor.API_PROVIDER].expires_in=(api.token[this.constructor.API_PROVIDER].expires_in>0)?api.token[this.constructor.API_PROVIDER].expires_in:0;
-						api.token[this.constructor.API_PROVIDER].expires_at=api.token[this.constructor.API_PROVIDER].issued_at+api.token[this.constructor.API_PROVIDER].expires_in;
-						api.token[this.constructor.API_PROVIDER].expires_at_localized=`${new Date(api.token[this.constructor.API_PROVIDER].expires_at*10**3)}`;
+						api.token[this.API_PROVIDER]=res;
+						api.token[this.API_PROVIDER].issued_at=Date.now()/10**3;
+						api.token[this.API_PROVIDER].issued_at_localized=`${new Date(api.token[this.API_PROVIDER].issued_at*10**3)}`;
+						api.token[this.API_PROVIDER].expires_in=(api.token[this.API_PROVIDER].expires_in>0)?api.token[this.API_PROVIDER].expires_in:0;
+						api.token[this.API_PROVIDER].expires_at=api.token[this.API_PROVIDER].issued_at+api.token[this.API_PROVIDER].expires_in;
+						api.token[this.API_PROVIDER].expires_at_localized=`${new Date(api.token[this.API_PROVIDER].expires_at*10**3)}`;
 					}
 					{
 						item_wrapper.setAttribute(`onclick`, `discord.getToken(this)`);
