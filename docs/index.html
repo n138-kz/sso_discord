@@ -476,9 +476,10 @@
 					config[this.constructor.API_PROVIDER].client_secret=item.children.item(1).value;
 				}
 	
-				console.warn(config);
-				console.warn(this.constructor.API_PROVIDER);
-				console.warn(config[this.constructor.API_PROVIDER]);
+				console.warn('config',config);
+				console.warn('API_PROVIDER',this.constructor.API_PROVIDER);
+				console.warn('constructor',this.constructor.API_PROVIDER);
+				console.warn('client_id',config[this.constructor.API_PROVIDER].client_id);
 				
 				let req_params={
 					client_id: config[this.constructor.API_PROVIDER].client_id,
