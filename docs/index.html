@@ -525,7 +525,7 @@
 						Array.from(document.querySelectorAll(`.require_authn`)).map(e=>e.classList.remove(`require_authn`));
 					}
 					try {
-						sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + '.twitch.updateToken.loopCounter',
+						sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + `.twitch.updateToken.loopCounter`,
 							setInterval(()=>{
 								twitchapi_updateToken();
 							}, 10**3*300)
