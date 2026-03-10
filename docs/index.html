@@ -180,6 +180,9 @@
 			_get.code=(_get.code===undefined||_get.code===null||_get.code==='')?'':_get.code;
 			console.debug(_get);
 
+			if (_get.code!==undefined&&_get.code!==null&&_get.code!=='') {
+				Array.from(document.querySelectorAll('.require_code')).map(e=>e.classList.remove('require_code'));
+			// } else 
 			{
 				const form_input_config=[];
 				form_input_config.push(document.createElement('div'));
