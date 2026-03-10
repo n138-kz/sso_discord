@@ -112,10 +112,10 @@
 				d.push(document.createElement('a'));
 				d.push(document.createElement('img'));
 				d[d.length-1].src=`https://www.google.com/s2/favicons?size=64&domain=https://github.com`;
-				d[d.length-2].appendChild(d[d.length-1]);
+				d[d.length-2].appendChild(d[d.length-1]); /* a>img */
 				d.pop();
 				d[d.length-1].href=`https://github.com/n138-kz/sso_discord`;
-				d[d.length-2].appendChild(d[d.length-1]);
+				d[d.length-2].appendChild(d[d.length-1]); /* span>a>img */
 				d.pop();
 
 				if (document.querySelectorAll('footer').length>0) {
