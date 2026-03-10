@@ -97,15 +97,15 @@
 				if (false) { /* 仕様が決まってないので... */
 				let discord_client_secret=localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.discord.client_secret' );
 				if(!(discord_client_secret===null||discord_client_secret===undefined||discord_client_secret==='')){
-					if(document.querySelectorAll('#discordapi_request_token input[type="password"]').length===1){
-						document.querySelector('#discordapi_request_token input[type="password"]').value=discord_client_secret;
+					if(document.querySelectorAll('#discord_request_token input[type="password"]').length===1){
+						document.querySelector('#discord_request_token input[type="password"]').value=discord_client_secret;
 					}
 				}
 				}
 			}
 			{
 				if (false) { /* 仕様が決まってないので... */
-				let d=document.querySelector('#discordapi_request_token>input[type="password"]');
+				let d=document.querySelector('#discord_request_token>input[type="password"]');
 					d.addEventListener('keydown',ev=>{
 						if(ev.key=='Enter'){
 							d.closest('form').querySelector('input[type=button]').click();
@@ -443,7 +443,7 @@
 				console.debug(form_input_config[form_input_config.length-1].innerHTML);
 				console.debug(form_input_config);
 
-				document.getElementById('discordapi_authorize').appendChild(form_input_config[0]);
+				document.getElementById('discord_authorize').appendChild(form_input_config[0]);
 			}
 
 		});
