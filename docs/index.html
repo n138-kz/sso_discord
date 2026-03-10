@@ -490,20 +490,20 @@
 				}
 	
 				try {
-					let xhr=await fetch('https://discordapp.com/api/oauth2/token', {
+					let req=await fetch('https://discordapp.com/api/oauth2/token', {
 						method: 'POST',
 						headers: {'content-type': 'application/x-www-form-urlencoded'},
 						body: new URLSearchParams(req_params),
 					});
-					let r=await xhr.json();
-					console.debug('xhr result', r, await xhr.ok);
-					if (!await xhr.ok) {
-						throw new Error(`${xhr.status}: ${r.message}`);
+					let r=await req.json();
+					console.debug('xhr result', r, await req.ok);
+					if (!await req.ok) {
+						throw new Error(`${req.status}: ${r.message}`);
 					}
 	
 					{
 						let b=document.createElement('span');
-						b.innerText=`${xhr.status}: token has issued`;
+						b.innerText=`${req.status}: token has issued`;
 						b.style.color='#0a0';
 						b.id='errortext';
 						item.appendChild(b);
