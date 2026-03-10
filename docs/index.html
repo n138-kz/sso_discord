@@ -495,10 +495,10 @@
 						headers: {'content-type': 'application/x-www-form-urlencoded'},
 						body: new URLSearchParams(req_params),
 					});
-					let r=await req.json();
-					console.debug('xhr result', r, await req.ok);
+					let res=await req.json();
+					console.debug('xhr result', res, await req.ok);
 					if (!await req.ok) {
-						throw new Error(`${req.status}: ${r.message}`);
+						throw new Error(`${req.status}: ${res.message}`);
 					}
 	
 					{
