@@ -471,8 +471,10 @@
 					item.closest(`form`).querySelector(`input[type=password]`).style.color=`#fff`;
 				}
 				
-				localStorage.setItem( (btoa(location.href)).slice(0, 16) + `.${this.constructor.API_PROVIDER}.client_secret`, item.children.item(1).value );
-				config[this.constructor.API_PROVIDER].client_secret=item.children.item(1).value;
+				if (item!==undefined) {
+					localStorage.setItem( (btoa(location.href)).slice(0, 16) + `.${this.constructor.API_PROVIDER}.client_secret`, item.children.item(1).value );
+					config[this.constructor.API_PROVIDER].client_secret=item.children.item(1).value;
+				}
 	
 				let req_params={
 					client_id: config[this.constructor.API_PROVIDER].client_id,
