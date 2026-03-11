@@ -734,7 +734,10 @@
 
 							stractures.push(document.createElement('td'));
 							stractures[stractures.length-1].style.border='1px solid #333';
-							stractures[stractures.length-1].innerText=`https://cdn.discordapp.com/avatars/${res['id']}/${res['avatar']}.webp`;
+							stractures.push(document.createElement('img'));
+							stractures[stractures.length-1].src=`https://cdn.discordapp.com/avatars/${res['id']}/${res['avatar']}.webp`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* td>img */
+							stractures.pop();
 							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>td */
 							stractures.pop();
 
