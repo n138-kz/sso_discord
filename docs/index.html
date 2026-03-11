@@ -568,6 +568,13 @@
 					item=item.parentNode;
 				} catch (error) { console.warn(error); item=undefined; }
 
+				if (item!==undefined) {
+					item.children.item(0).style.borderColor='#000';
+					item.children.item(0).style.backgroundColor='#fff';
+					item.children.item(0).style.color='#000';
+					Array.from(document.querySelectorAll('#errortext')).map(e=>e.remove());
+				}
+
 			}
 		}
 	</script>
