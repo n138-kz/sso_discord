@@ -594,7 +594,7 @@
 					let res=await req.json();
 					console.debug('xhr result', res, await req.ok);
 					if (!await req.ok) {
-						throw new Error(`${req.status}: ${res.message}`);
+						if(res.message!==undefined) throw new Error(`${req.status}: ${res.message}`);
 					}
 					{
 						/* Refresh token */
