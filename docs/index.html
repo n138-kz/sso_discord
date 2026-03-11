@@ -673,16 +673,97 @@
 						stractures.push(document.createElement('table'));
 						stractures[stractures.length-1].dataset.item=`discord_userme`;
 						stractures.push(document.createElement('tbody'));
+						{
+							stractures.push(document.createElement('tr'));
+							stractures.push(document.createElement('th'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`id`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>th */
+							stractures.pop();
+
+							stractures.push(document.createElement('td'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`${res['id']}`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>td */
+							stractures.pop();
+
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr */
+							stractures.pop();
+						}
+						{
+							stractures.push(document.createElement('tr'));
+							stractures.push(document.createElement('th'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`username`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>th */
+							stractures.pop();
+
+							stractures.push(document.createElement('td'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`${res['username']}`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>td */
+							stractures.pop();
+
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr */
+							stractures.pop();
+						}
+						{
+							stractures.push(document.createElement('tr'));
+							stractures.push(document.createElement('th'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`global_name`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>th */
+							stractures.pop();
+
+							stractures.push(document.createElement('td'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`${res['global_name']}`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>td */
+							stractures.pop();
+
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr */
+							stractures.pop();
+						}
+						{
+							stractures.push(document.createElement('tr'));
+							stractures.push(document.createElement('th'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`avatar`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>th */
+							stractures.pop();
+
+							stractures.push(document.createElement('td'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`https://cdn.discordapp.com/avatars/${res['id']}/${res['avatar']}.webp`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>td */
+							stractures.pop();
+
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr */
+							stractures.pop();
+						}
+						{
+							stractures.push(document.createElement('tr'));
+							stractures.push(document.createElement('th'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`email`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>th */
+							stractures.pop();
+
+							stractures.push(document.createElement('td'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`${res['email']}`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>td */
+							stractures.pop();
+
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr */
+							stractures.pop();
+						}
 						[
-							'id',
-							'username',
-							'avatar',
 							'discriminator',
 							'public_flags',
 							'flags',
 							'banner',
 							'accent_color',
-							'global_name',
 							'avatar_decoration_data',
 							'collectibles',
 							'display_name_styles',
@@ -692,7 +773,6 @@
 							'mfa_enabled',
 							'locale',
 							'premium_type',
-							'email',
 							'verified',
 						].map(e=>{
 							stractures.push(document.createElement('tr'));
@@ -709,8 +789,9 @@
 							stractures.pop();
 
 							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr */
-							stractures.pop(); /* tbody>tr */
+							stractures.pop();
 						});
+
 
 						stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* table>tbody */
 						stractures.pop();
