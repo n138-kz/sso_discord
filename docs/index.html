@@ -631,7 +631,7 @@
 					return b.innerText;
 				}
 			}
-			static async getContent(item=undefined, itemName='user/@me'){
+			static async getContent_userme(item=undefined){
 				const item_wrapper=item;
 				try {
 					item=item.parentNode;
@@ -724,7 +724,7 @@
 			<tr>
 				<td>
 					<form id="discordapi_getUserMe" class="require_authn">
-						<input type="button" value="user/@me" tabindex="12" onclick="discord.getContent(this, 'user/@me');">
+						<input type="button" value="user/@me" tabindex="12" onclick="discord.getContent_userme(this);">
 					</form>
 				</td>
 			</tr>
