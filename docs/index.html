@@ -606,6 +606,12 @@
 						b.id='errortext';
 						item.appendChild(b);
 
+						if (item!==undefined) {
+							item.children.item(0).style.borderColor='#0f0';
+							item.children.item(0).style.backgroundColor='#0a0';
+							item.children.item(0).style.color='#fff';
+						}
+
 						return b.innerText;
 					}
 				} catch (error) {
@@ -616,6 +622,12 @@
 					b.style.color='#f00';
 					b.id='errortext';
 					item.appendChild(b);
+
+					if (item!==undefined) {
+						item.children.item(0).style.borderColor='#f00';
+						item.children.item(0).style.backgroundColor='#a00';
+						item.children.item(0).style.color='#fff';
+					}
 
 					return b.innerText;
 				}
