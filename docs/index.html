@@ -91,10 +91,12 @@
 	<script>
 		window.addEventListener('DOMContentLoaded', ()=>{
 			{
-				let discord_client_secret=localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.discord.client_secret' );
-				if(!(discord_client_secret===null||discord_client_secret===undefined||discord_client_secret==='')){
-					if(document.querySelectorAll('#discordapi_request_token input[type="password"]').length===1){
-						document.querySelector('#discordapi_request_token input[type="password"]').value=discord_client_secret;
+				const provider='discord';
+				let client_secret={};
+				client_secret[provider]=localStorage.getItem( (btoa(location.href)).slice(0, 16) + `.${provider}.client_secret` );
+				if(!(client_secret[provider]===null||client_secret[provider]===undefined||client_secret[provider]==='')){
+					if(document.querySelectorAll(`#${provider}_request_token input[type="password"]`).length===1){
+						document.querySelector(`#${provider}_request_token input[type="password"]`).value=client_secret[provider];
 					}
 				}
 			}
