@@ -613,9 +613,9 @@
 						b.innerText=`${xhr.status}: token has updated`;
 						b.style.color='#0a0';
 						b.id='errortext';
-						item.appendChild(b);
-
 						if (item!==undefined) {
+							item.appendChild(b);
+
 							item.children.item(0).style.borderColor='#0f0';
 							item.children.item(0).style.backgroundColor='#0a0';
 							item.children.item(0).style.color='#fff';
