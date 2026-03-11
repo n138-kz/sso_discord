@@ -663,6 +663,34 @@
 						if(res.error!==undefined) throw new Error(`${req.status}: ${res.error}`);
 					}
 					{
+						let stractures = [];
+						stractures.push(document.createElement('table'));
+						stractures.push(document.createElement('tbody'));
+						[
+							'id', 
+						].map(e=>{
+							stractures.push(document.createElement('tr'));
+							stractures.push(document.createElement('th'));
+							stractures[stractures.length-1].innerText=`${e}`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]);
+							stractures.pop();
+
+							stractures.push(document.createElement('td'));
+							stractures[stractures.length-1].innerText=`${res[e]}`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]);
+							stractures.pop();
+
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]);
+							stractures.pop(); /* tbody>tr */
+						});
+
+						stractures[stractures.length-2].appendChild(stractures[stractures.length-1]);
+						stractures.pop();
+
+						document.body.appendChild(stractures[stractures.length-1]);
+						stractures.pop();
+					}
+					{
 						let b=document.createElement('span');
 						b.innerText=`${req.status} ${JSON.stringify(res)}`;
 						b.style.color='#0a0';
