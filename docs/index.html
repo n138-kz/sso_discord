@@ -137,14 +137,6 @@
 				d.href+=`&scope=${config.discord.scope}`;
 				d.href+=``;
 				d.target='_self';
-
-				if (true) {/* デバッグ用... */
-					let d1=document.createElement('a');
-					d1.href=`${config.discord.redirect_uri}`;
-					d1.innerText=`Unauthorize`;
-					d1.style.paddingLeft='100px';
-					d.after(d1);
-				}
 			}
 			Array.from(document.querySelectorAll('meta[http-equiv="refresh"]')).map(e=>{
 				let countdown=parseInt(`${e.content};`.split(';')[0]);
