@@ -576,6 +576,15 @@
 				}
 
 				try {
+					{
+						let b=document.createElement('span');
+						b.innerText=`${xhr.status}: token has updated`;
+						b.style.color='#0a0';
+						b.id='errortext';
+						item.appendChild(b);
+
+						return b.innerText;
+					}
 				} catch (error) {
 					console.error(error);
 
