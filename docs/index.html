@@ -805,7 +805,7 @@
 
 							stractures.push(document.createElement('td'));
 							stractures[stractures.length-1].style.border='1px solid #333';
-							stractures[stractures.length-1].innerText=`${JSON.stringify(res[e])}`;
+							stractures[stractures.length-1].innerText=`identity_enabled: ${res[e]['identity_enabled']}\nidentity_guild_id: ${res[e]['identity_guild_id']}\ntag: ${res[e]['tag']}\nbadge: ${res[e]['badge']}\n`;
 							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>td */
 							stractures.pop();
 
