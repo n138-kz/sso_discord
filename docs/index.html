@@ -575,6 +575,18 @@
 					Array.from(document.querySelectorAll('#errortext')).map(e=>e.remove());
 				}
 
+				try {
+				} catch (error) {
+					console.error(error);
+
+					let b=document.createElement('span');
+					b.innerText=error;
+					b.style.color='#f00';
+					b.id='errortext';
+					item.appendChild(b);
+
+					return b.innerText;
+				}
 			}
 		}
 	</script>
