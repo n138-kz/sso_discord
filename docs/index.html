@@ -631,6 +631,79 @@
 					return b.innerText;
 				}
 			}
+			static async getContent(item=undefined, itemName='user/@me'){
+				const item_wrapper=item;
+				try {
+					item=item.parentNode;
+				} catch (error) { console.warn(error); item=undefined; }
+
+				let req_params={
+					client_id: config[this.API_PROVIDER].client_id,
+					client_secret: config[this.API_PROVIDER].client_secret,
+					refresh_token: api.token[this.API_PROVIDER].refresh_token,
+					grant_type: 'refresh_token',
+				};
+
+				if (item!==undefined) {
+					item.children.item(0).style.borderColor='#000';
+					item.children.item(0).style.backgroundColor='#fff';
+					item.children.item(0).style.color='#000';
+					Array.from(document.querySelectorAll('#errortext')).map(e=>e.remove());
+				}
+
+				try {
+					let req=await fetch('https://discord.com/api/users/@me', {
+						method: 'GET',
+						headers: {Authorization: `Bearer ${api.token.discord.access_token}`,},
+					});
+					let res=await req.json();
+					console.debug('xhr result', res, await req.ok);
+					if (!await req.ok) {
+						if(res.message!==undefined) throw new Error(`${req.status}: ${res.message}`);
+						if(res.error!==undefined) throw new Error(`${req.status}: ${res.error}`);
+					}
+					{
+						let b=document.createElement('span');
+						b.innerText=`${req.status}: token has updated`;
+						b.style.color='#0a0';
+						b.id='errortext';
+						if (item!==undefined) {
+							item.appendChild(b);
+
+							item.children.item(0).style.borderColor='#0f0';
+							item.children.item(0).style.backgroundColor='#0a0';
+							item.children.item(0).style.color='#fff';
+						}
+
+						return b.innerText;
+					}
+
+				} catch (error) {
+					console.error(error);
+
+					let b=document.createElement('span');
+					b.innerText=error;
+					b.style.color='#f00';
+					b.id='errortext';
+					if (item!==undefined) {
+						item.appendChild(b);
+
+						item.children.item(0).style.borderColor='#f00';
+						item.children.item(0).style.backgroundColor='#a00';
+						item.children.item(0).style.color='#fff';
+					}
+
+					return b.innerText;
+				}
+				let url='';
+				let req=await fetch(url, {
+					method: 'GET',
+					headers: {
+						Authorization: `Bearer ${api.token.discord.access_token}`,
+					},
+				});
+				await req.json();
+			}
 		}
 	</script>
 </head>
@@ -645,6 +718,13 @@
 					<form id="discordapi_request_token" class="require_code">
 						<input type="button" value="トークン取得" tabindex="12" onclick="discord.getToken(this);">
 						<input type="password" value="secret-key" tabindex="11" placeholder="Input the client_secret" onclick="this.select();">
+					</form>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<form id="discordapi_getUserMe" class="require_authn">
+						<input type="button" value="トークン取得" tabindex="12" onclick="discord.getContent(this, 'user/@me');">
 					</form>
 				</td>
 			</tr>
