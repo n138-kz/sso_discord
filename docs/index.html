@@ -690,11 +690,13 @@
 						].map(e=>{
 							stractures.push(document.createElement('tr'));
 							stractures.push(document.createElement('th'));
+							stractures[stractures.length-1].style.border='1px solid #333';
 							stractures[stractures.length-1].innerText=`${e}`;
 							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]);
 							stractures.pop();
 
 							stractures.push(document.createElement('td'));
+							stractures[stractures.length-1].style.border='1px solid #333';
 							stractures[stractures.length-1].innerText=`${res[e]}`;
 							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]);
 							stractures.pop();
