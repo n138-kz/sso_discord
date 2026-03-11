@@ -656,7 +656,7 @@
 						headers: {Authorization: `Bearer ${api.token.discord.access_token}`,},
 					});
 					let res=await req.json();
-					console.debug('xhr result', res, await req);
+					console.debug(`xhr result: ${await req.ok}`, {request: req, response: res});
 					if (!await req.ok) {
 						if(res.message!==undefined) throw new Error(`${req.status}: ${res.message}`);
 						if(res.error!==undefined) throw new Error(`${req.status}: ${res.error}`);
