@@ -101,7 +101,9 @@
 				}
 			}
 			{
-				let d=document.querySelector('#discordapi_request_token>input[type="password"]');
+				const provider='discord';
+				let d=document.querySelector(`#${provider}_request_token>input[type="password"]`);
+
 					d.addEventListener('keydown',ev=>{
 						if(ev.key=='Enter'){
 							d.closest('form').querySelector('input[type=button]').click();
