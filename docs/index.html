@@ -581,6 +581,8 @@
 						headers: {'content-type': 'application/x-www-form-urlencoded'},
 						body: new URLSearchParams(req_params),
 					});
+					let res=await req.json();
+					console.debug('xhr result', res, await req.ok);
 					if (!await req.ok) {
 						throw new Error(`${req.status}: ${res.message}`);
 					}
