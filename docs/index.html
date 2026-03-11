@@ -663,8 +663,10 @@
 						if(res.error!==undefined) throw new Error(`${req.status}: ${res.error}`);
 					}
 					{
+						Array.from(document.querySelectorAll('[data-item="discordapi_userme"]')).map(e=>e.remove());
 						let stractures = [];
 						stractures.push(document.createElement('table'));
+						stractures[stractures.length-1].dataset.item=`discordapi_userme`;
 						stractures.push(document.createElement('tbody'));
 						[
 							'id',
