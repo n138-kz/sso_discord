@@ -587,6 +587,19 @@
 						throw new Error(`${req.status}: ${res.message}`);
 					}
 					{
+						/* Refresh token */
+						api.token[this.API_PROVIDER]=res;
+						api.token[this.API_PROVIDER].issued_at=Date.now()/10**3;
+						api.token[this.API_PROVIDER].issued_at_localized=`${new Date(api.token[this.API_PROVIDER].issued_at*10**3)}`;
+						api.token[this.API_PROVIDER].expires_in=(api.token[this.API_PROVIDER].expires_in>0)?api.token[this.API_PROVIDER].expires_in:0;
+						api.token[this.API_PROVIDER].expires_at=api.token[this.API_PROVIDER].issued_at+api.token[this.API_PROVIDER].expires_in;
+						api.token[this.API_PROVIDER].expires_at_localized=`${new Date(api.token[this.API_PROVIDER].expires_at*10**3)}`;
+
+						api.token[this.API_PROVIDER].refresh_count=
+							(api.token[this.API_PROVIDER].refresh_count===undefined||api.token[this.API_PROVIDER].refresh_count===null||api.token[this.API_PROVIDER].refresh_count==='')?
+							0:api.token[this.API_PROVIDER].refresh_count+1;
+					}
+					{
 						let b=document.createElement('span');
 						b.innerText=`${xhr.status}: token has updated`;
 						b.style.color='#0a0';
