@@ -60,29 +60,30 @@
 		let config={}
 		{
 			const storage_l={};
-			storage_l.discord={};
-			storage_l.discord['client_id']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.discord.client_id' );
-			storage_l.discord['client_secret']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.discord.client_secret' );
-			storage_l.discord['redirect_uri']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.discord.redirect_uri' );
-			storage_l.discord['scope']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + '.discord.scope' );
-			if (storage_l.discord['client_id']===undefined||storage_l.discord['client_id']===null||storage_l.discord['client_id']==='') {
-				storage_l.discord['client_id']='';
-				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.discord.client_id', storage_l.discord['client_id'] );
+			const provider='discord';
+			storage_l[provider]={};
+			storage_l[provider]['client_id']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + `.${provider}.client_id` );
+			storage_l[provider]['client_secret']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + `.${provider}.client_secret` );
+			storage_l[provider]['redirect_uri']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + `.${provider}.redirect_uri` );
+			storage_l[provider]['scope']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + `.${provider}.scope` );
+			if (storage_l[provider]['client_id']===undefined||storage_l[provider]['client_id']===null||storage_l[provider]['client_id']==='') {
+				storage_l[provider]['client_id']='';
+				localStorage.setItem( (btoa(location.href)).slice(0, 16) + `.${provider}.client_id`, storage_l[provider]['client_id'] );
 			}
-			if (storage_l.discord['client_secret']===undefined||storage_l.discord['client_secret']===null||storage_l.discord['client_secret']==='') {
-				storage_l.discord['client_secret']='';
-				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.discord.client_secret', storage_l.discord['client_secret'] );
+			if (storage_l[provider]['client_secret']===undefined||storage_l[provider]['client_secret']===null||storage_l[provider]['client_secret']==='') {
+				storage_l[provider]['client_secret']='';
+				localStorage.setItem( (btoa(location.href)).slice(0, 16) + `.${provider}.client_secret`, storage_l[provider]['client_secret'] );
 			}
-			if (storage_l.discord['redirect_uri']===undefined||storage_l.discord['redirect_uri']===null||storage_l.discord['redirect_uri']==='') {
-				storage_l.discord['redirect_uri']=`${location.origin}${location.pathname}`;
-				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.discord.redirect_uri', storage_l.discord['redirect_uri'] );
+			if (storage_l[provider]['redirect_uri']===undefined||storage_l[provider]['redirect_uri']===null||storage_l[provider]['redirect_uri']==='') {
+				storage_l[provider]['redirect_uri']=`${location.origin}${location.pathname}`;
+				localStorage.setItem( (btoa(location.href)).slice(0, 16) + `.${provider}.redirect_uri`, storage_l[provider]['redirect_uri'] );
 			}
-			if (storage_l.discord['scope']===undefined||storage_l.discord['scope']===null||storage_l.discord['scope']==='') {
-				storage_l.discord['scope']=`identify+email`;
-				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.discord.scope', storage_l.discord['scope'] );
+			if (storage_l[provider]['scope']===undefined||storage_l[provider]['scope']===null||storage_l[provider]['scope']==='') {
+				storage_l[provider]['scope']=`channel:manage:broadcast`;
+				localStorage.setItem( (btoa(location.href)).slice(0, 16) + `.${provider}.scope`, storage_l[provider]['scope'] );
 			}
 			console.debug(storage_l);
-			config.discord=storage_l.discord;
+			config[provider]=storage_l[provider];
 		}
 
 		let api={};
