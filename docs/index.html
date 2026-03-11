@@ -570,6 +570,7 @@
 				} catch (error) { console.warn(error); item=undefined; }
 
 				if(overrideRefreshToken!==undefined&&overrideRefreshToken!==null&&overrideRefreshToken!==''){
+					api.token[this.API_PROVIDER]=(api.token[this.API_PROVIDER]===undefined)?{}:api.token[this.API_PROVIDER];
 					api.token[this.API_PROVIDER].refresh_token=overrideRefreshToken;
 				}
 
