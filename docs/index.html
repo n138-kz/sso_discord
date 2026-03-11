@@ -486,16 +486,18 @@
 						throw new Error(`${req.status}: ${res.message}`);
 					}
 	
-					let b=document.createElement(`span`);
-					b.innerText=`${req.status}: token has issued`;
-					b.style.color=`#0a0`;
-					b.id=`errortext`;
-					if (item!==undefined) {
-						item.appendChild(b);
-	
-						item.children.item(0).style.borderColor=`#0f0`;
-						item.children.item(0).style.backgroundColor=`#0a0`;
-						item.children.item(0).style.color=`#fff`;
+					{
+						let b=document.createElement(`span`);
+						b.innerText=`${req.status}: token has issued`;
+						b.style.color=`#0a0`;
+						b.id=`errortext`;
+						if (item!==undefined) {
+							item.appendChild(b);
+		
+							item.children.item(0).style.borderColor=`#0f0`;
+							item.children.item(0).style.backgroundColor=`#0a0`;
+							item.children.item(0).style.color=`#fff`;
+						}
 					}
 					{
 						api.token[this.API_PROVIDER]=res;
