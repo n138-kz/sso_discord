@@ -525,6 +525,7 @@
 					try {
 						sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + `.${this.API_PROVIDER}.updateToken.loopCounter`,
 							setInterval(()=>{
+								this.updateToken();
 							}, 10**3*300)
 						);
 						console.debug(`${this.API_PROVIDER}_updateToken_loopCounter: ${sessionStorage.getItem( (btoa(location.href)).slice(0, 16) + `.loopCounter.${this.API_PROVIDER}.updateToken` )}`);
@@ -560,6 +561,13 @@
 				if(Array.isArray(callback)){
 					Array.from(callback).map(async (c)=>await c());
 				}
+			}
+			static async updateToken(item=undefined){
+				const item_wrapper=item;
+				try {
+					item=item.parentNode;
+				} catch (error) { console.warn(error); item=undefined; }
+
 			}
 		}
 	</script>
