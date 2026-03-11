@@ -771,8 +771,6 @@
 							'collectibles',
 							'display_name_styles',
 							'banner_color',
-							'clan',
-							'primary_guild',
 							'mfa_enabled',
 							'locale',
 							'premium_type',
@@ -794,7 +792,26 @@
 							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr */
 							stractures.pop();
 						});
+						[
+							'clan',
+							'primary_guild',
+						].map(e=>{
+							stractures.push(document.createElement('tr'));
+							stractures.push(document.createElement('th'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`${e}`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>th */
+							stractures.pop();
 
+							stractures.push(document.createElement('td'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`${JSON.stringify(res[e])}`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>td */
+							stractures.pop();
+
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr */
+							stractures.pop();
+						});
 
 						stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* table>tbody */
 						stractures.pop();
