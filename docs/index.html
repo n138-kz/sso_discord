@@ -104,11 +104,13 @@
 				const provider='discord';
 				let d=document.querySelector(`#${provider}_request_token>input[type="password"]`);
 
+				if (d!==null&&d!==undefined&&d!==false) {
 					d.addEventListener('keydown',ev=>{
 						if(ev.key=='Enter'){
 							d.closest('form').querySelector('input[type=button]').click();
 						}
 					}, {once:true,});
+				}
 			}
 			{
 				let d=[];
