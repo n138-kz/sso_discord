@@ -542,13 +542,13 @@
 				} catch (error) {
 					console.error(error);
 	
+					let b=document.createElement(`a`);
+					b.href=`${location.origin}${location.pathname}`;
+					b.target=`_self`;
+					b.innerText=error;
+					b.style.color=`#f00`;
+					b.id=`errortext`;
 					if (item!==undefined) {
-						let b=document.createElement(`a`);
-						b.href=`${location.origin}${location.pathname}`;
-						b.target=`_self`;
-						b.innerText=error;
-						b.style.color=`#f00`;
-						b.id=`errortext`;
 						item.appendChild(b);
 	
 						item.children.item(0).style.borderColor='#f00';
