@@ -1,27 +1,117 @@
-<!DOCTYPE html>
-<html lang="ja">
+<!DOCTYPE html><html lang="ja">
 <head>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>SSO-Discord</title>
-	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-	<meta name="referrer" content="no-referrer" />
-	<meta http-equiv="refresh" content="300">
-	<link rel="stylesheet" href="https://n138-kz.github.io/lib/master.css?t=0">
-	<style>
-		/* Basic theme */
-		body {
-			margin: 0 auto;
-			width: 90%;
-			padding-bottom: 100px;
-		}
-	</style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-Control" content="no-cache">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="referrer" content="no-referrer">
+	<meta http-equiv="refresh" content="300;./">
+	<base target='_blank'>
+	<title>Authn Discord</title>
+	<link rel="stylesheet" type="text/css" href="https://n138-kz.github.io/lib/master.css?t=0">
 	<script src="https://n138-kz.github.io/lib/master.js"></script>
 	<script>
-		init_setFavicon('https://www.google.com/s2/favicons?size=64&domain='+'https://discord.com');
+		window.addEventListener('DOMContentLoaded', ()=>{
+			console.log(`init.`);
+			console.log(`page-title: ${document.title}`);
+			let item = null;
+			item = document.createElement('h1');
+			item.innerText = document.title;
+			document.body.prepend(item);
+
+			init_setFavicon('https://discord.com/', true);
+		});
+	</script>
+	<style>
+		.require_code {
+			display: none;
+		}
+		.require_authn {
+			display: none;
+		}
+		code.blurOnForcusClear {
+			display: inline-block;
+			padding: 0 5px;
+			overflow: hidden;
+			cursor: pointer;
+		}
+		code.blurOnForcusClear span {
+			display: inline-block;
+			filter: blur(10px);
+			transition: 100ms;
+		}
+		code.blurOnForcusClear:hover span {
+			filter: none;
+			transition: 3s;
+		}
+		textarea.blurOnForcusClear {
+			display: inline-block;
+			filter: blur(10px);
+			transition: 100ms;
+		}
+		textarea.blurOnForcusClear:hover {
+			filter: none;
+			transition: 3s;
+		}
+	</style>
+	<script>
+		let config={}
+		{
+			const storage_l={};
+			const provider='discord';
+			storage_l[provider]={};
+			storage_l[provider]['client_id']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + `.${provider}.client_id` );
+			storage_l[provider]['client_secret']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + `.${provider}.client_secret` );
+			storage_l[provider]['redirect_uri']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + `.${provider}.redirect_uri` );
+			storage_l[provider]['scope']=localStorage.getItem( (btoa(location.href)).slice(0, 16) + `.${provider}.scope` );
+			if (storage_l[provider]['client_id']===undefined||storage_l[provider]['client_id']===null||storage_l[provider]['client_id']==='') {
+				storage_l[provider]['client_id']='';
+				localStorage.setItem( (btoa(location.href)).slice(0, 16) + `.${provider}.client_id`, storage_l[provider]['client_id'] );
+			}
+			if (storage_l[provider]['client_secret']===undefined||storage_l[provider]['client_secret']===null||storage_l[provider]['client_secret']==='') {
+				storage_l[provider]['client_secret']='';
+				localStorage.setItem( (btoa(location.href)).slice(0, 16) + `.${provider}.client_secret`, storage_l[provider]['client_secret'] );
+			}
+			if (storage_l[provider]['redirect_uri']===undefined||storage_l[provider]['redirect_uri']===null||storage_l[provider]['redirect_uri']==='') {
+				storage_l[provider]['redirect_uri']=`${location.origin}${location.pathname}`;
+				localStorage.setItem( (btoa(location.href)).slice(0, 16) + `.${provider}.redirect_uri`, storage_l[provider]['redirect_uri'] );
+			}
+			if (storage_l[provider]['scope']===undefined||storage_l[provider]['scope']===null||storage_l[provider]['scope']==='') {
+				storage_l[provider]['scope']=`channel:manage:broadcast`;
+				localStorage.setItem( (btoa(location.href)).slice(0, 16) + `.${provider}.scope`, storage_l[provider]['scope'] );
+			}
+			console.debug(storage_l);
+			config[provider]=storage_l[provider];
+		}
+
+		let api={};
 	</script>
 	<script>
 		window.addEventListener('DOMContentLoaded', ()=>{
+			{
+				const provider='discord';
+				let client_secret={};
+				client_secret[provider]=localStorage.getItem( (btoa(location.href)).slice(0, 16) + `.${provider}.client_secret` );
+				if(!(client_secret[provider]===null||client_secret[provider]===undefined||client_secret[provider]==='')){
+					if(document.querySelectorAll(`#${provider}_request_token input[type="password"]`).length===1){
+						document.querySelector(`#${provider}_request_token input[type="password"]`).value=client_secret[provider];
+					}
+				}
+			}
+			{
+				const provider='discord';
+				let d=document.querySelector(`#${provider}_request_token>input[type="password"]`);
+
+				if (d!==null&&d!==undefined&&d!==false) {
+					d.addEventListener('keydown',ev=>{
+						if(ev.key=='Enter'){
+							d.closest('form').querySelector('input[type=button]').click();
+						}
+					}, {once:true,});
+				}
+			}
 			{
 				let d=[];
 				d.push(document.createElement('span'));
@@ -31,137 +121,771 @@
 				d.push(document.createElement('a'));
 				d.push(document.createElement('img'));
 				d[d.length-1].src=`https://www.google.com/s2/favicons?size=64&domain=https://github.com`;
-				d[d.length-2].appendChild(d[d.length-1]);
+				d[d.length-2].appendChild(d[d.length-1]); /* a>img */
 				d.pop();
 				d[d.length-1].href=`https://github.com/n138-kz/sso_discord`;
-				d[d.length-2].appendChild(d[d.length-1]);
+				d[d.length-2].appendChild(d[d.length-1]); /* span>a>img */
 				d.pop();
+				d=d[d.length-1];
 
 				if (document.querySelectorAll('footer').length>0) {
-					document.querySelector('footer').appendChild(d[d.length-1]);
+					document.querySelector('footer').appendChild(d);
 				} else {
-					document.body.appendChild(d[d.length-1]);
+					document.body.appendChild(d);
 				}
 			}
-		});
-	</script>
-	<script>
-		if (!!location.protocol.match(/https?:/) && location.origin!='https://n138-kz.github.io') {
-			location.replace('https://n138-kz.github.io/sso_discord/');
-		}
-	</script>
-	<script>
-		window.addEventListener('DOMContentLoaded', ()=>{
-			const d_id_signin=[...document.querySelectorAll('.d_id_signin')];
-			d_id_signin_attr={
-				login_uri:document.querySelector('#d_id_onload').dataset.login_uri,
-				client_id:document.querySelector('#d_id_onload').dataset.client_id,
+			{
+				let d=document.querySelector('#discord_authorize>a');
+				d.href='https://discord.com/developers/applications';
+				d.href='https://discord.com/oauth2/authorize';
+				d.href+=`?client_id=${config.discord.client_id}`;
+				d.href+=`&redirect_uri=${config.discord.redirect_uri}`;
+				d.href+=`&response_type=code`;
+				d.href+=`&scope=${config.discord.scope}`;
+				d.href+=``;
+				d.target='_self';
 			}
-			d_id_signin_elm=document.createElement('a');
-			d_id_signin_elm.style.borderRadius='1em';
-			d_id_signin_elm.style.backgroundColor='var(--color-discord-color-fg)';
-			d_id_signin_elm.style.color='var(--color-discord-color-bg)';
-			d_id_signin_elm.style.backgroundImage='url("discord-icon.webp")';
-			d_id_signin_elm.style.backgroundRepeat='no-repeat';
-			d_id_signin_elm.style.paddingLeft='32px';
-			d_id_signin_elm.style.paddingRight='8px';
-			d_id_signin_elm.style.textDecorationLine='none';
-			d_id_signin.map((e)=>{
-				d_id_signin_elm.innerText=e.dataset.text;
-				d_id_signin_elm.target='_self';
-				d_id_signin_elm.href='https://discord.com/oauth2/authorize?client_id='+d_id_signin_attr.client_id+'&response_type=code&redirect_uri='+d_id_signin_attr.login_uri+'&scope=identify+email';
-				e.appendChild(d_id_signin_elm);
+			Array.from(document.querySelectorAll('meta[http-equiv="refresh"]')).map(e=>{
+				let countdown=parseInt(`${e.content};`.split(';')[0]);
+				timerId=setInterval(()=>{
+					countdown--;
+					if(countdown<=0) clearInterval(timerId);
+					/* 
+					console.debug(`countdown: ${countdown}/${parseInt(`${e.content};`.split(';')[0])} key:${timerId}`);
+					 */
+				}, 1000);
+				sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + '.loopCounter.refreshPage', timerId );
+			});
+			Array.from(document.forms).map(e=>{
+				e.addEventListener('keypress', k=>{
+					if (k.key === 'Enter') {
+						k.preventDefault(); // Enterキーによるデフォルトのsubmit動作をキャンセル
+					}
+				});
 			});
 		});
-		window.addEventListener('DOMContentLoaded', ()=>{
-			let query=get_GETarray((decodeURI(location.search)+'&').replace(/^\?/,''));
-			if(query.code !== undefined){
-				eval(document.querySelector('#d_id_onload').dataset.callback+'("'+query.code+'")');
+	</script>
+	<script>
+		window.addEventListener('DOMContentLoaded', async ()=>{
+			let _get=await get_GETarray((decodeURI(location.search)+'&').replace(/^\?/,''));
+			_get.code=(_get.code===undefined||_get.code===null||_get.code==='')?'':_get.code;
+			console.debug(_get);
+
+			if (_get.code!==undefined&&_get.code!==null&&_get.code!=='') {
+				Array.from(document.querySelectorAll('.require_code')).map(e=>e.classList.remove('require_code'));
+			} else {
+				{
+					const form_input_config=[];
+					form_input_config.push(document.createElement('div'));
+					form_input_config.push(document.createElement('table'));
+					form_input_config[form_input_config.length-1].border=1;
+					form_input_config.push(document.createElement('tbody'));
+	
+					form_input_config.push(document.createElement('tr'));
+					form_input_config.push(document.createElement('th'));
+					form_input_config[form_input_config.length-1].innerText=`discord['client_id']`;
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config.push(document.createElement('td'));
+					form_input_config[form_input_config.length-1].classList.add('form_input');
+					form_input_config.push(document.createElement('input'));
+					form_input_config[form_input_config.length-1].type=`text`;
+					form_input_config[form_input_config.length-1].style.width='stretch';
+					form_input_config[form_input_config.length-1].style.width='-moz-available;';
+					form_input_config[form_input_config.length-1].style.width='-webkit-fill-available';
+					form_input_config[form_input_config.length-1].value=`${config.discord.client_id}`;
+					form_input_config[form_input_config.length-1].setAttribute('ondblclick', 'this.select();');
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config.push(document.createElement('td'));
+					form_input_config[form_input_config.length-1].classList.add('form_control');
+					form_input_config.push(document.createElement('input'));
+					form_input_config[form_input_config.length-1].type=`button`;
+					form_input_config[form_input_config.length-1].value=`保存`;
+					form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.discord.client_id', this.parentNode.parentNode.closest('tr').querySelector('td.form_input').children[0].value );this.parentNode.closest('td').querySelector('span').innerText='保存しました';");
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config.push(document.createElement('input'));
+					form_input_config[form_input_config.length-1].type=`button`;
+					form_input_config[form_input_config.length-1].value=`削除`;
+					form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.removeItem( (btoa(location.href)).slice(0, 16) + '.discord.client_id' );this.parentNode.closest('td').querySelector('span').innerText='削除しました';");
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config.push(document.createElement('span'));
+					form_input_config[form_input_config.length-1].innerText=`読込みました`;
+					form_input_config[form_input_config.length-1].style.color='#0a0';
+					form_input_config[form_input_config.length-1].style.fontSize='small';
+					form_input_config[form_input_config.length-1].style.width='100px';
+					form_input_config[form_input_config.length-1].style.display='inline-block';
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+		
+					form_input_config.push(document.createElement('tr'));
+					form_input_config.push(document.createElement('th'));
+					form_input_config[form_input_config.length-1].innerText=`discord['client_secret']`;
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config.push(document.createElement('td'));
+					form_input_config[form_input_config.length-1].classList.add('form_input');
+					form_input_config.push(document.createElement('input'));
+					form_input_config[form_input_config.length-1].type=`password`;
+					form_input_config[form_input_config.length-1].style.width='stretch';
+					form_input_config[form_input_config.length-1].style.width='-moz-available;';
+					form_input_config[form_input_config.length-1].style.width='-webkit-fill-available';
+					form_input_config[form_input_config.length-1].value=`${config.discord.client_secret}`;
+					form_input_config[form_input_config.length-1].setAttribute('onclick', 'this.select();');
+					form_input_config[form_input_config.length-1].setAttribute('ondblclick', 'this.select();');
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config.push(document.createElement('td'));
+					form_input_config[form_input_config.length-1].classList.add('form_control');
+					form_input_config.push(document.createElement('input'));
+					form_input_config[form_input_config.length-1].type=`button`;
+					form_input_config[form_input_config.length-1].value=`保存`;
+					form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.discord.client_secret', this.parentNode.parentNode.closest('tr').querySelector('td.form_input').children[0].value );this.parentNode.closest('td').querySelector('span').innerText='保存しました';");
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config.push(document.createElement('input'));
+					form_input_config[form_input_config.length-1].type=`button`;
+					form_input_config[form_input_config.length-1].value=`削除`;
+					form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.removeItem( (btoa(location.href)).slice(0, 16) + '.discord.client_secret' ); this.parentNode.closest('td').querySelector('span').innerText='削除しました';");
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config.push(document.createElement('span'));
+					form_input_config[form_input_config.length-1].innerText=`読込みました`;
+					form_input_config[form_input_config.length-1].style.color='#0a0';
+					form_input_config[form_input_config.length-1].style.fontSize='small';
+					form_input_config[form_input_config.length-1].style.width='100px';
+					form_input_config[form_input_config.length-1].style.display='inline-block';
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+		
+					form_input_config.push(document.createElement('tr'));
+					form_input_config.push(document.createElement('th'));
+					form_input_config[form_input_config.length-1].innerText=`discord['redirect_uri']`;
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config.push(document.createElement('td'));
+					form_input_config[form_input_config.length-1].classList.add('form_input');
+					form_input_config.push(document.createElement('input'));
+					form_input_config[form_input_config.length-1].type=`text`;
+					form_input_config[form_input_config.length-1].style.width='stretch';
+					form_input_config[form_input_config.length-1].style.width='-moz-available;';
+					form_input_config[form_input_config.length-1].style.width='-webkit-fill-available';
+					form_input_config[form_input_config.length-1].value=`${config.discord.redirect_uri}`;
+					form_input_config[form_input_config.length-1].setAttribute('ondblclick', 'this.select();');
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config.push(document.createElement('td'));
+					form_input_config[form_input_config.length-1].classList.add('form_control');
+					form_input_config.push(document.createElement('input'));
+					form_input_config[form_input_config.length-1].type=`button`;
+					form_input_config[form_input_config.length-1].value=`保存`;
+					form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.discord.redirect_uri', this.parentNode.parentNode.closest('tr').querySelector('td.form_input').children[0].value );this.parentNode.closest('td').querySelector('span').innerText='保存しました';");
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config.push(document.createElement('input'));
+					form_input_config[form_input_config.length-1].type=`button`;
+					form_input_config[form_input_config.length-1].value=`削除`;
+					form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.removeItem( (btoa(location.href)).slice(0, 16) + '.discord.redirect_uri' ); this.parentNode.closest('td').querySelector('span').innerText='削除しました';");
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config.push(document.createElement('span'));
+					form_input_config[form_input_config.length-1].innerText=`読込みました`;
+					form_input_config[form_input_config.length-1].style.color='#0a0';
+					form_input_config[form_input_config.length-1].style.fontSize='small';
+					form_input_config[form_input_config.length-1].style.width='100px';
+					form_input_config[form_input_config.length-1].style.display='inline-block';
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+		
+					form_input_config.push(document.createElement('tr'));
+					form_input_config[form_input_config.length-1].style.display=`none`;
+					form_input_config.push(document.createElement('th'));
+					form_input_config[form_input_config.length-1].innerText=`discord['scope']`;
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config.push(document.createElement('td'));
+					form_input_config[form_input_config.length-1].classList.add('form_input');
+					form_input_config.push(document.createElement('input'));
+					form_input_config[form_input_config.length-1].type=`text`;
+					form_input_config[form_input_config.length-1].style.width='stretch';
+					form_input_config[form_input_config.length-1].style.width='-moz-available;';
+					form_input_config[form_input_config.length-1].style.width='-webkit-fill-available';
+					form_input_config[form_input_config.length-1].value=`${config.discord.scope}`;
+					form_input_config[form_input_config.length-1].dataset.ref=``;
+					form_input_config[form_input_config.length-1].setAttribute('ondblclick', 'this.select();');
+					form_input_config[form_input_config.length-1].setAttribute('list', `discord_scope_list`);
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config.push(document.createElement('td'));
+					form_input_config[form_input_config.length-1].classList.add('form_control');
+					form_input_config.push(document.createElement('input'));
+					form_input_config[form_input_config.length-1].type=`button`;
+					form_input_config[form_input_config.length-1].value=`保存`;
+					form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.discord.scope', this.parentNode.parentNode.closest('tr').querySelector('td.form_input').children[0].value );this.parentNode.closest('td').querySelector('span').innerText='保存しました';");
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config.push(document.createElement('input'));
+					form_input_config[form_input_config.length-1].type=`button`;
+					form_input_config[form_input_config.length-1].value=`削除`;
+					form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.removeItem( (btoa(location.href)).slice(0, 16) + '.discord.scope' ); this.parentNode.closest('td').querySelector('span').innerText='削除しました';");
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config.push(document.createElement('span'));
+					form_input_config[form_input_config.length-1].innerText=`読込みました`;
+					form_input_config[form_input_config.length-1].style.color='#0a0';
+					form_input_config[form_input_config.length-1].style.fontSize='small';
+					form_input_config[form_input_config.length-1].style.width='100px';
+					form_input_config[form_input_config.length-1].style.display='inline-block';
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+	
+					form_input_config.push(document.createElement('tr'));
+					form_input_config.push(document.createElement('th'));
+					form_input_config[form_input_config.length-1].innerText=`JSONとして読込み`;
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config.push(document.createElement('td'));
+					form_input_config[form_input_config.length-1].classList.add('form_input');
+					form_input_config.push(document.createElement('textarea'));
+					form_input_config[form_input_config.length-1].classList.add('blurOnForcusClear');
+					form_input_config[form_input_config.length-1].value=`${JSON.stringify(config.discord, null, '    ')}`;
+					form_input_config[form_input_config.length-1].style.width='450px';
+					form_input_config[form_input_config.length-1].style.height='10em';
+					form_input_config[form_input_config.length-1].setAttribute('ondblclick', 'this.select();');
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config.push(document.createElement('td'));
+					form_input_config[form_input_config.length-1].classList.add('form_control');
+					form_input_config.push(document.createElement('input'));
+					form_input_config[form_input_config.length-1].type=`button`;
+					form_input_config[form_input_config.length-1].value=`保存`;
+					form_input_config[form_input_config.length-1].setAttribute('onclick', `importconfig(this.parentNode.parentNode.closest('tr').querySelector('td.form_input').children[0].value, 'discord', this);`);
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config.push(document.createElement('input'));
+					form_input_config[form_input_config.length-1].type=`button`;
+					form_input_config[form_input_config.length-1].value=`削除`;
+					form_input_config[form_input_config.length-1].setAttribute('onclick', "localStorage.clear(); this.parentNode.closest('td').querySelector('span').innerText='削除しました';setTimeout(()=>location.replace(`${location.origin}${location.pathname}`), 1000);");
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config.push(document.createElement('span'));
+					form_input_config[form_input_config.length-1].innerText=`読込みました`;
+					form_input_config[form_input_config.length-1].style.color='#0a0';
+					form_input_config[form_input_config.length-1].style.fontSize='small';
+					form_input_config[form_input_config.length-1].style.width='100px';
+					form_input_config[form_input_config.length-1].style.display='inline-block';
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+	
+					for(let i=form_input_config.length-1;i>0;i--){
+						form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+						form_input_config.pop();
+					}
+		
+					form_input_config.push(document.createElement('a'));
+					form_input_config[form_input_config.length-1].innerText=`[Hint💡] Discord Developers Application Console`;
+					form_input_config[form_input_config.length-1].href=`https://discord.com/developers/applications`;
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+	
+					form_input_config.push(document.createElement('datalist'));
+					form_input_config[form_input_config.length-1].id=`discord_scope_list`;
+					[ `identify+email`, `identify`, ].map(e=>{
+						form_input_config.push(document.createElement('option'));
+						form_input_config[form_input_config.length-1].value=`${e}`
+						form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+						form_input_config.pop();
+					});
+					form_input_config[form_input_config.length-2].appendChild(form_input_config[form_input_config.length-1]);
+					form_input_config.pop();
+	
+					document.getElementById('discord_authorize').appendChild(form_input_config[0]);
+				}
 			}
+
+			api={
+				code: _get.code,
+				user: {
+					discord: undefined,
+				},
+				token: {
+					discord: undefined,
+				},
+			};
 		});
+	</script>
+	<script src="./function_importconfig.js"></script>
+	<script src="./function_formatRelativeTime.js"></script>
+	<script>
+		class discord {
+			static API_PROVIDER = `discord`;
+			constructor(params) {}
+			static async getToken(item=undefined, callback=[]){
+				const item_wrapper=item;
+				try {
+					item=item.parentNode;
+				} catch (error) { console.warn(error); item=undefined; }
+
+				if (item!==undefined) {
+					item.closest(`form`).querySelector(`input[type=password]`).setAttribute(`disabled`, `disabled`);
+					item.closest(`form`).querySelector(`input[type=password]`).style.color=`#fff`;
+				}
+				
+				if (item!==undefined) {
+					localStorage.setItem( (btoa(location.href)).slice(0, 16) + `.${this.API_PROVIDER}.client_secret`, item.children.item(1).value );
+					config[this.API_PROVIDER].client_secret=item.children.item(1).value;
+				}
+				
+				let req_params={
+					client_id: config[this.API_PROVIDER].client_id,
+					client_secret: config[this.API_PROVIDER].client_secret,
+					code: api.code,
+					grant_type: `authorization_code`,
+					redirect_uri: config[this.API_PROVIDER].redirect_uri,
+				};
+	
+				if (item!==undefined) {
+					item.children.item(0).style.borderColor=`#000`;
+					item.children.item(0).style.backgroundColor=`#fff`;
+					item.children.item(0).style.color=`#000`;
+					Array.from(document.querySelectorAll('#errortext')).map(e=>e.remove());
+				}
+	
+				try {
+					let req=await fetch(`https://discordapp.com/api/oauth2/token`, {
+						method: `POST`,
+						headers: {'content-type': `application/x-www-form-urlencoded`},
+						body: new URLSearchParams(req_params),
+					});
+					let res=await req.json();
+					console.debug(`xhr result: ${await req.ok}`, {request: req, response: res});
+					if (!await req.ok) {
+						throw new Error(`${req.status}: ${res.message}`);
+					}
+	
+					{
+						let b=document.createElement(`span`);
+						b.innerText=`${req.status}: token has issued`;
+						b.style.color=`#0a0`;
+						b.id=`errortext`;
+						if (item!==undefined) {
+							item.appendChild(b);
+		
+							item.children.item(0).style.borderColor=`#0f0`;
+							item.children.item(0).style.backgroundColor=`#0a0`;
+							item.children.item(0).style.color=`#fff`;
+						}
+					}
+					{
+						api.token[this.API_PROVIDER]=res;
+						api.token[this.API_PROVIDER].issued_at=Date.now()/10**3;
+						api.token[this.API_PROVIDER].issued_at_localized=`${new Date(api.token[this.API_PROVIDER].issued_at*10**3)}`;
+						api.token[this.API_PROVIDER].expires_in=(api.token[this.API_PROVIDER].expires_in>0)?api.token[this.API_PROVIDER].expires_in:0;
+						api.token[this.API_PROVIDER].expires_at=api.token[this.API_PROVIDER].issued_at+api.token[this.API_PROVIDER].expires_in;
+						api.token[this.API_PROVIDER].expires_at_localized=`${new Date(api.token[this.API_PROVIDER].expires_at*10**3)}`;
+					}
+					{
+						item_wrapper.setAttribute(`onclick`, `discord.updateToken(this)`);
+						Array.from(document.querySelectorAll(`.require_authn`)).map(e=>e.classList.remove(`require_authn`));
+					}
+					try {
+						sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + `.${this.API_PROVIDER}.updateToken.loopCounter`,
+							setInterval(()=>{
+								this.updateToken();
+							}, 10**3*300)
+						);
+						console.debug(`${this.API_PROVIDER}_updateToken_loopCounter: ${sessionStorage.getItem( (btoa(location.href)).slice(0, 16) + `.loopCounter.${this.API_PROVIDER}.updateToken` )}`);
+						
+						Array.from(document.querySelectorAll(`meta[http-equiv="refresh"]`)).map(e=>{
+							console.debug(`meta[http-equiv="refresh"]:`, e);
+							e.content=``;
+							e.remove();
+							window.stop();
+						});
+	
+						item.closest(`form`).querySelector(`input[type=password]`).remove();
+					} catch (error) { console.error(error); }
+				} catch (error) {
+					console.error(error);
+	
+					let b=document.createElement(`a`);
+					b.href=`${location.origin}${location.pathname}`;
+					b.target=`_self`;
+					b.innerText=error;
+					b.style.color=`#f00`;
+					b.id=`errortext`;
+					if (item!==undefined) {
+						item.appendChild(b);
+	
+						item.children.item(0).style.borderColor='#f00';
+						item.children.item(0).style.backgroundColor='#a00';
+						item.children.item(0).style.color='#fff';
+					}
+	
+					item.closest(`form`).querySelector(`input[type=password]`).removeAttribute(`disabled`);
+					item.closest(`form`).querySelector(`input[type=password]`).style.removeProperty(`color`);
+	
+				}
+				if(Array.isArray(callback)){
+					Array.from(callback).map(async (c)=>await c());
+				}
+			}
+			static async updateToken(item=undefined, overrideRefreshToken=undefined){
+				const item_wrapper=item;
+				try {
+					item=item.parentNode;
+				} catch (error) { console.warn(error); item=undefined; }
+
+				if(overrideRefreshToken!==undefined&&overrideRefreshToken!==null&&overrideRefreshToken!==''){
+					api.token[this.API_PROVIDER]=(api.token[this.API_PROVIDER]===undefined)?{}:api.token[this.API_PROVIDER];
+					api.token[this.API_PROVIDER].refresh_token=overrideRefreshToken;
+				}
+
+				let req_params={
+					client_id: config[this.API_PROVIDER].client_id,
+					client_secret: config[this.API_PROVIDER].client_secret,
+					refresh_token: api.token[this.API_PROVIDER].refresh_token,
+					grant_type: 'refresh_token',
+				};
+
+				if (item!==undefined) {
+					item.children.item(0).style.borderColor='#000';
+					item.children.item(0).style.backgroundColor='#fff';
+					item.children.item(0).style.color='#000';
+					Array.from(document.querySelectorAll('#errortext')).map(e=>e.remove());
+				}
+
+				try {
+					let req=await fetch('https://discordapp.com/api/oauth2/token', {
+						method: 'POST',
+						headers: {'content-type': 'application/x-www-form-urlencoded'},
+						body: new URLSearchParams(req_params),
+					});
+					let res=await req.json();
+					console.debug(`xhr result: ${await req.ok}`, {request: req, response: res});
+					if (!await req.ok) {
+						if(res.message!==undefined) throw new Error(`${req.status}: ${res.message}`);
+						if(res.error!==undefined) throw new Error(`${req.status}: ${res.error}`);
+					}
+					{
+						/* Refresh token */
+						api.token[this.API_PROVIDER]=res;
+						api.token[this.API_PROVIDER].issued_at=Date.now()/10**3;
+						api.token[this.API_PROVIDER].issued_at_localized=`${new Date(api.token[this.API_PROVIDER].issued_at*10**3)}`;
+						api.token[this.API_PROVIDER].expires_in=(api.token[this.API_PROVIDER].expires_in>0)?api.token[this.API_PROVIDER].expires_in:0;
+						api.token[this.API_PROVIDER].expires_at=api.token[this.API_PROVIDER].issued_at+api.token[this.API_PROVIDER].expires_in;
+						api.token[this.API_PROVIDER].expires_at_localized=`${new Date(api.token[this.API_PROVIDER].expires_at*10**3)}`;
+					}
+					{
+						let b=document.createElement('span');
+						b.innerText=`${req.status}: token has updated`;
+						b.style.color='#0a0';
+						b.id='errortext';
+						if (item!==undefined) {
+							item.appendChild(b);
+
+							item.children.item(0).style.borderColor='#0f0';
+							item.children.item(0).style.backgroundColor='#0a0';
+							item.children.item(0).style.color='#fff';
+						}
+
+						return b.innerText;
+					}
+				} catch (error) {
+					console.error(error);
+
+					let b=document.createElement('span');
+					b.innerText=error;
+					b.style.color='#f00';
+					b.id='errortext';
+					if (item!==undefined) {
+						item.appendChild(b);
+
+						item.children.item(0).style.borderColor='#f00';
+						item.children.item(0).style.backgroundColor='#a00';
+						item.children.item(0).style.color='#fff';
+					}
+
+					return b.innerText;
+				}
+			}
+			static async getContent_userme(item=undefined){
+				const item_wrapper=item;
+				try {
+					item=item.parentNode;
+				} catch (error) { console.warn(error); item=undefined; }
+
+				let req_params={};
+
+				if (item!==undefined) {
+					item.children.item(0).style.borderColor='#000';
+					item.children.item(0).style.backgroundColor='#fff';
+					item.children.item(0).style.color='#000';
+					Array.from(document.querySelectorAll('#errortext')).map(e=>e.remove());
+				}
+
+				try {
+					let req=await fetch('https://discord.com/api/users/@me', {
+						method: 'GET',
+						headers: {Authorization: `Bearer ${api.token.discord.access_token}`,},
+					});
+					let res=await req.json();
+					console.debug(`xhr result: ${await req.ok}`, {request: req, response: res});
+					if (!await req.ok) {
+						if(res.message!==undefined) throw new Error(`${req.status}: ${res.message}`);
+						if(res.error!==undefined) throw new Error(`${req.status}: ${res.error}`);
+					}
+					{
+						Array.from(document.querySelectorAll('[data-item="discord_userme"]')).map(e=>e.remove());
+						let stractures = [];
+						stractures.push(document.createElement('table'));
+						stractures[stractures.length-1].dataset.item=`discord_userme`;
+						stractures.push(document.createElement('tbody'));
+						{
+							stractures.push(document.createElement('tr'));
+							stractures.push(document.createElement('th'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`id`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>th */
+							stractures.pop();
+
+							stractures.push(document.createElement('td'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`${res['id']}`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>td */
+							stractures.pop();
+
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr */
+							stractures.pop();
+						}
+						{
+							stractures.push(document.createElement('tr'));
+							stractures.push(document.createElement('th'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`username`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>th */
+							stractures.pop();
+
+							stractures.push(document.createElement('td'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`${res['username']}`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>td */
+							stractures.pop();
+
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr */
+							stractures.pop();
+						}
+						{
+							stractures.push(document.createElement('tr'));
+							stractures.push(document.createElement('th'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`global_name`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>th */
+							stractures.pop();
+
+							stractures.push(document.createElement('td'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`${res['global_name']}`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>td */
+							stractures.pop();
+
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr */
+							stractures.pop();
+						}
+						{
+							stractures.push(document.createElement('tr'));
+							stractures.push(document.createElement('th'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`avatar`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>th */
+							stractures.pop();
+
+							stractures.push(document.createElement('td'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures.push(document.createElement('img'));
+							stractures[stractures.length-1].src=`https://cdn.discordapp.com/avatars/${res['id']}/${res['avatar']}.webp`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* td>img */
+							stractures.pop();
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>td */
+							stractures.pop();
+
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr */
+							stractures.pop();
+						}
+						{
+							stractures.push(document.createElement('tr'));
+							stractures.push(document.createElement('th'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`email`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>th */
+							stractures.pop();
+
+							stractures.push(document.createElement('td'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`${res['email']}`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>td */
+							stractures.pop();
+
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr */
+							stractures.pop();
+						}
+						[
+							'discriminator',
+							'public_flags',
+							'flags',
+							'banner',
+							'accent_color',
+							'avatar_decoration_data',
+							'collectibles',
+							'display_name_styles',
+							'banner_color',
+							'mfa_enabled',
+							'locale',
+							'premium_type',
+							'verified',
+						].map(e=>{
+							stractures.push(document.createElement('tr'));
+							stractures.push(document.createElement('th'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`${e}`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>th */
+							stractures.pop();
+
+							stractures.push(document.createElement('td'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`${res[e]}`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>td */
+							stractures.pop();
+
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr */
+							stractures.pop();
+						});
+						[
+							'clan',
+							'primary_guild',
+						].map(e=>{
+							stractures.push(document.createElement('tr'));
+							stractures.push(document.createElement('th'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`${e}`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>th */
+							stractures.pop();
+
+							stractures.push(document.createElement('td'));
+							stractures[stractures.length-1].style.border='1px solid #333';
+							stractures[stractures.length-1].innerText=`identity_enabled: ${res[e]['identity_enabled']}\nidentity_guild_id: ${res[e]['identity_guild_id']}\ntag: ${res[e]['tag']}\nbadge: ${res[e]['badge']}\n`;
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr>td */
+							stractures.pop();
+
+							stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* tbody>tr */
+							stractures.pop();
+						});
+
+						stractures[stractures.length-2].appendChild(stractures[stractures.length-1]); /* table>tbody */
+						stractures.pop();
+
+						document.body.appendChild(stractures[stractures.length-1]); /* table */
+						stractures.pop();
+					}
+					{
+						let b=document.createElement('span');
+						b.innerText=`${req.status}`;
+						b.style.color='#0a0';
+						b.id='errortext';
+						if (item!==undefined) {
+							item.appendChild(b);
+
+							item.children.item(0).style.borderColor='#0f0';
+							item.children.item(0).style.backgroundColor='#0a0';
+							item.children.item(0).style.color='#fff';
+						}
+
+						return b.innerText;
+					}
+
+				} catch (error) {
+					console.error(error);
+
+					let b=document.createElement('span');
+					b.innerText=error;
+					b.style.color='#f00';
+					b.id='errortext';
+					if (item!==undefined) {
+						item.appendChild(b);
+
+						item.children.item(0).style.borderColor='#f00';
+						item.children.item(0).style.backgroundColor='#a00';
+						item.children.item(0).style.color='#fff';
+					}
+
+					return b.innerText;
+				}
+				let url='';
+				let req=await fetch(url, {
+					method: 'GET',
+					headers: {
+						Authorization: `Bearer ${api.token.discord.access_token}`,
+					},
+				});
+				await req.json();
+			}
+		}
 	</script>
 </head>
 <body>
-	<div class="d_id_signin" data-theme="dark" data-text="Signin with Discord" data-size="large" data-logo_alignment="left"></div>
-	<div id="d_id_onload" data-callback="d_onlogin"></div>
-	<div>
-		<p>access-code:<input readonly type="text" id="d_accesscode" style="max-width: 500px;width: 95%;" onclick="this.select();copyText(this.value);"></p>
+	<div id="discord_authorize">
+		<a href="" tabindex="1">discord authorize</a>
 	</div>
-	<script>
-		document.querySelector('#d_id_onload').dataset.login_uri = location.origin + location.pathname;
-		document.querySelector('#d_id_onload').dataset.client_id = '1331215597119340585';
-	</script>
-	<script>
-		async function d_onlogin(discodeUser) {
-			const url_apiserver = 'https://api.n138.jp/sso_discord/server/';
-			const myHeaders = new Headers();
-			myHeaders.append('X-TOKEN', discodeUser);
-			myHeaders.append('Access-Control-Allow-Origin', 'X-Token');
-			myHeaders.append('Origin', location.origin);
-			try {
-				const response = await fetch(url_apiserver, {
-					headers: myHeaders,
-					mode: 'cors',
-				});
-				if (!response.ok) {
-					throw new Error(`Error: [${response.status}] ${response.statusText}`);
-				}
-				const json = await response.json();
-				console.debug(json);
-
-				document.querySelector('#d_accesscode').value=json.access_token;
-				document.querySelector('#d_accesscode').classList.add('set-mosaic');
-
-				let storeCredential = JSON.stringify({
-					access_token: json.access_token,
-					id: json.id,
-					issued_at: Math.trunc(new Date().getTime()/10**3),
-					issued_by: 'https://discordapp.com/api/oauth2/token',
-				})
-				localStorage.setItem( '_' + '.'+'discordauthn', storeCredential );
-				localStorage.setItem( '_' + '.'+'authn', storeCredential );
-				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.'+'discordauthn', storeCredential );
-				sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + '.'+'discordauthn', storeCredential );
-
-				const d_userinfo=document.createElement('textarea');
-				d_userinfo.classList.add('set-mosaic');
-				d_userinfo.id='d_userinfo';
-				d_userinfo.style.width='95%';
-				d_userinfo.style.maxWidth='100%';
-				d_userinfo.style.height='5em';
-				d_userinfo.style.maxHeight='20em';
-				d_userinfo.style.display='block';
-				d_userinfo.setAttribute('onclick', 'this.select();navigator.clipboard.writeText(this.value).then((e)=>{console.debug("clipboard successfully set",e);}, (e)=>{console.error("Failed the copy text.",e);});');
-				d_userinfo.setAttribute('oncontextmenu','this.value=JSON.stringify(JSON.parse(this.value),null,"  ");this.style.maxHeight=([...this.value.matchAll("\\n")].length+15)+"em";this.style.height=([...this.value.matchAll("\\n")].length+5)+"em";');
-				d_userinfo.setAttribute('ondblclick','this.classList.toggle("set-mosaic");');
-				d_userinfo.value=JSON.stringify(json);
-				document.querySelector('body').appendChild(d_userinfo);
-				let assets;
-				assets=document.createElement('img');
-				assets.style.height='16px';
-				assets.src=json.avatar_url;
-				assets.alt=`${json.username}(${json.id}/${json.avatar})`;
-				document.querySelector('#d_userinfo').after(assets);
-			} catch (error) {
-				console.error(error.message);
-				console.trace(error);
-				const except=document.createElement('p');
-				except.innerText=error.message;
-				document.querySelector('body').appendChild(except);
-
-				const reloadAt = (new Date().getTime()/10**3)+10;
-				const reloadTimer=document.createElement('span');
-				reloadTimer.innerText='Reload at: 10s';
-				reloadTimer.id='reloadTimer';
-				document.querySelector('body').appendChild(reloadTimer);
-				setInterval(()=>{
-					i=Math.round(reloadAt-(new Date().getTime()/10**3));
-					document.querySelector('#reloadTimer').innerText='Reload at: '+i+'s';
-					if(i<=0){
-						location.replace(location.origin + location.pathname);
-					}
-				}, 1000);
-			}
-		}
-	</script>
+	<div>
+		<table>
+			<tr>
+				<td>
+					<form id="discord_request_token" class="require_code">
+						<input type="button" value="トークン取得" tabindex="12" onclick="discord.getToken(this);">
+						<input type="password" value="secret-key" tabindex="11" placeholder="Input the client_secret" onclick="this.select();">
+					</form>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<form id="discord_getUserMe" class="require_authn">
+						<input type="button" value="user/@me" tabindex="12" onclick="discord.getContent_userme(this);">
+					</form>
+				</td>
+			</tr>
+		</table>
+	</div>
 </body>
+</html>

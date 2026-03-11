@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>SSO-Discord</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="referrer" content="no-referrer" />
+	<meta http-equiv="refresh" content="300">
+	<link rel="stylesheet" href="https://n138-kz.github.io/lib/master.css?t=0">
+	<style>
+		/* Basic theme */
+		body {
+			margin: 0 auto;
+			width: 90%;
+			padding-bottom: 100px;
+		}
+	</style>
+	<script src="https://n138-kz.github.io/lib/master.js"></script>
+	<script>
+		init_setFavicon('https://www.google.com/s2/favicons?size=64&domain='+'https://discord.com');
+	</script>
+	<script>
+		window.addEventListener('DOMContentLoaded', ()=>{
+			{
+				let d=[];
+				d.push(document.createElement('span'));
+				d[d.length-1].style.position='fixed';
+				d[d.length-1].style.bottom='0';
+				d[d.length-1].style.left='0';
+				d.push(document.createElement('a'));
+				d.push(document.createElement('img'));
+				d[d.length-1].src=`https://www.google.com/s2/favicons?size=64&domain=https://github.com`;
+				d[d.length-2].appendChild(d[d.length-1]);
+				d.pop();
+				d[d.length-1].href=`https://github.com/n138-kz/sso_discord`;
+				d[d.length-2].appendChild(d[d.length-1]);
+				d.pop();
+
+				if (document.querySelectorAll('footer').length>0) {
+					document.querySelector('footer').appendChild(d[d.length-1]);
+				} else {
+					document.body.appendChild(d[d.length-1]);
+				}
+			}
+		});
+	</script>
+	<script>
+		if (!!location.protocol.match(/https?:/) && location.origin!='https://n138-kz.github.io') {
+			location.replace('https://n138-kz.github.io/sso_discord/');
+		}
+	</script>
+	<script>
+		window.addEventListener('DOMContentLoaded', ()=>{
+			const d_id_signin=[...document.querySelectorAll('.d_id_signin')];
+			d_id_signin_attr={
+				login_uri:document.querySelector('#d_id_onload').dataset.login_uri,
+				client_id:document.querySelector('#d_id_onload').dataset.client_id,
+			}
+			d_id_signin_elm=document.createElement('a');
+			d_id_signin_elm.style.borderRadius='1em';
+			d_id_signin_elm.style.backgroundColor='var(--color-discord-color-fg)';
+			d_id_signin_elm.style.color='var(--color-discord-color-bg)';
+			d_id_signin_elm.style.backgroundImage='url("discord-icon.webp")';
+			d_id_signin_elm.style.backgroundRepeat='no-repeat';
+			d_id_signin_elm.style.paddingLeft='32px';
+			d_id_signin_elm.style.paddingRight='8px';
+			d_id_signin_elm.style.textDecorationLine='none';
+			d_id_signin.map((e)=>{
+				d_id_signin_elm.innerText=e.dataset.text;
+				d_id_signin_elm.target='_self';
+				d_id_signin_elm.href='https://discord.com/oauth2/authorize?client_id='+d_id_signin_attr.client_id+'&response_type=code&redirect_uri='+d_id_signin_attr.login_uri+'&scope=identify+email';
+				e.appendChild(d_id_signin_elm);
+			});
+		});
+		window.addEventListener('DOMContentLoaded', ()=>{
+			let query=get_GETarray((decodeURI(location.search)+'&').replace(/^\?/,''));
+			if(query.code !== undefined){
+				eval(document.querySelector('#d_id_onload').dataset.callback+'("'+query.code+'")');
+			}
+		});
+	</script>
+</head>
+<body>
+	<div class="d_id_signin" data-theme="dark" data-text="Signin with Discord" data-size="large" data-logo_alignment="left"></div>
+	<div id="d_id_onload" data-callback="d_onlogin"></div>
+	<div>
+		<p>access-code:<input readonly type="text" id="d_accesscode" style="max-width: 500px;width: 95%;" onclick="this.select();copyText(this.value);"></p>
+	</div>
+	<script>
+		document.querySelector('#d_id_onload').dataset.login_uri = location.origin + location.pathname;
+		document.querySelector('#d_id_onload').dataset.client_id = '1331215597119340585';
+	</script>
+	<script>
+		async function d_onlogin(discodeUser) {
+			const url_apiserver = 'https://api.n138.jp/sso_discord/server/';
+			const myHeaders = new Headers();
+			myHeaders.append('X-TOKEN', discodeUser);
+			myHeaders.append('Access-Control-Allow-Origin', 'X-Token');
+			myHeaders.append('Origin', location.origin);
+			try {
+				const response = await fetch(url_apiserver, {
+					headers: myHeaders,
+					mode: 'cors',
+				});
+				if (!response.ok) {
+					throw new Error(`Error: [${response.status}] ${response.statusText}`);
+				}
+				const json = await response.json();
+				console.debug(json);
+
+				document.querySelector('#d_accesscode').value=json.access_token;
+				document.querySelector('#d_accesscode').classList.add('set-mosaic');
+
+				let storeCredential = JSON.stringify({
+					access_token: json.access_token,
+					id: json.id,
+					issued_at: Math.trunc(new Date().getTime()/10**3),
+					issued_by: 'https://discordapp.com/api/oauth2/token',
+				})
+				localStorage.setItem( '_' + '.'+'discordauthn', storeCredential );
+				localStorage.setItem( '_' + '.'+'authn', storeCredential );
+				localStorage.setItem( (btoa(location.href)).slice(0, 16) + '.'+'discordauthn', storeCredential );
+				sessionStorage.setItem( (btoa(location.href)).slice(0, 16) + '.'+'discordauthn', storeCredential );
+
+				const d_userinfo=document.createElement('textarea');
+				d_userinfo.classList.add('set-mosaic');
+				d_userinfo.id='d_userinfo';
+				d_userinfo.style.width='95%';
+				d_userinfo.style.maxWidth='100%';
+				d_userinfo.style.height='5em';
+				d_userinfo.style.maxHeight='20em';
+				d_userinfo.style.display='block';
+				d_userinfo.setAttribute('onclick', 'this.select();navigator.clipboard.writeText(this.value).then((e)=>{console.debug("clipboard successfully set",e);}, (e)=>{console.error("Failed the copy text.",e);});');
+				d_userinfo.setAttribute('oncontextmenu','this.value=JSON.stringify(JSON.parse(this.value),null,"  ");this.style.maxHeight=([...this.value.matchAll("\\n")].length+15)+"em";this.style.height=([...this.value.matchAll("\\n")].length+5)+"em";');
+				d_userinfo.setAttribute('ondblclick','this.classList.toggle("set-mosaic");');
+				d_userinfo.value=JSON.stringify(json);
+				document.querySelector('body').appendChild(d_userinfo);
+				let assets;
+				assets=document.createElement('img');
+				assets.style.height='16px';
+				assets.src=json.avatar_url;
+				assets.alt=`${json.username}(${json.id}/${json.avatar})`;
+				document.querySelector('#d_userinfo').after(assets);
+			} catch (error) {
+				console.error(error.message);
+				console.trace(error);
+				const except=document.createElement('p');
+				except.innerText=error.message;
+				document.querySelector('body').appendChild(except);
+
+				const reloadAt = (new Date().getTime()/10**3)+10;
+				const reloadTimer=document.createElement('span');
+				reloadTimer.innerText='Reload at: 10s';
+				reloadTimer.id='reloadTimer';
+				document.querySelector('body').appendChild(reloadTimer);
+				setInterval(()=>{
+					i=Math.round(reloadAt-(new Date().getTime()/10**3));
+					document.querySelector('#reloadTimer').innerText='Reload at: '+i+'s';
+					if(i<=0){
+						location.replace(location.origin + location.pathname);
+					}
+				}, 1000);
+			}
+		}
+	</script>
+</body>
