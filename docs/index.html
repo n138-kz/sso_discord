@@ -647,12 +647,7 @@
 					item=item.parentNode;
 				} catch (error) { console.warn(error); item=undefined; }
 
-				let req_params={
-					client_id: config[this.API_PROVIDER].client_id,
-					client_secret: config[this.API_PROVIDER].client_secret,
-					refresh_token: api.token[this.API_PROVIDER].refresh_token,
-					grant_type: 'refresh_token',
-				};
+				let req_params={};
 
 				if (item!==undefined) {
 					item.children.item(0).style.borderColor='#000';
