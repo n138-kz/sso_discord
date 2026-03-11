@@ -673,10 +673,10 @@
 						if(res.error!==undefined) throw new Error(`${req.status}: ${res.error}`);
 					}
 					{
-						Array.from(document.querySelectorAll('[data-item="discordapi_userme"]')).map(e=>e.remove());
+						Array.from(document.querySelectorAll('[data-item="discord_userme"]')).map(e=>e.remove());
 						let stractures = [];
 						stractures.push(document.createElement('table'));
-						stractures[stractures.length-1].dataset.item=`discordapi_userme`;
+						stractures[stractures.length-1].dataset.item=`discord_userme`;
 						stractures.push(document.createElement('tbody'));
 						[
 							'id',
@@ -776,7 +776,7 @@
 		<table>
 			<tr>
 				<td>
-					<form id="discordapi_request_token" class="require_code">
+					<form id="discord_request_token" class="require_code">
 						<input type="button" value="トークン取得" tabindex="12" onclick="discord.getToken(this);">
 						<input type="password" value="secret-key" tabindex="11" placeholder="Input the client_secret" onclick="this.select();">
 					</form>
@@ -784,7 +784,7 @@
 			</tr>
 			<tr>
 				<td>
-					<form id="discordapi_getUserMe" class="require_authn">
+					<form id="discord_getUserMe" class="require_authn">
 						<input type="button" value="user/@me" tabindex="12" onclick="discord.getContent_userme(this);">
 					</form>
 				</td>
