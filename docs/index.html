@@ -563,7 +563,7 @@
 					Array.from(callback).map(async (c)=>await c());
 				}
 			}
-			static async updateToken(item=undefined){
+			static async updateToken(item=undefined, overrideRefreshToken=undefined){
 				const item_wrapper=item;
 				try {
 					item=item.parentNode;
@@ -575,6 +575,8 @@
 					refresh_token: api.token[this.API_PROVIDER].refresh_token,
 					grant_type: 'refresh_token',
 				};
+				req_params=(overrideRefreshToken!==undefined&&overrideRefreshToken!==null&&overrideRefreshToken!=='')?
+					overrideRefreshToken:req_params.refresh_token;
 
 				if (item!==undefined) {
 					item.children.item(0).style.borderColor='#000';
